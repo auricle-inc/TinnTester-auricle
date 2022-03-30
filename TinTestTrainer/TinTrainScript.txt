@@ -1,0 +1,18 @@
+This program will introduce you to the computerized testing procedure for tinnitus.  By following instructions and working slowly through this introduction, you will learn how to respond to automated cues from the computer.                                                                                                                                                                                  When you are ready to begin, please press the knob.
+By turning the knob, you can select a different button below.  Turn the knob and move the selection.  Gentle movements are all you need because the dial is very sensitive.                                                                                                                                                             When you are comfotable with the dial, press the top of it to move to the next step.
+You can select these buttons in the same way as before, by turning the dial.  The sounds you hear vary in LOUDNESS.  The bottom button corresponds to the sound of lowest loudness and the top button corresponds to the sound of highest loudness.                                                                                                                                       When you have listened to each sound a few times, press the top of the dial to move to the next step.
+You can select these buttons in the same way as before, by turning the dial.  The sounds you hear vary in PITCH.  The leftmost button corresponds to the sound of lowest pitch, and the rightmost button corresponds to the sound of highest pitch.                                                                                                                                               When you have listened to each sound a few times, press the top of the dial to move to the next step.
+Turning the knob will adjust the loudness of a sound.  Turn the knob clockwise (like turning up the volume control on your home stereo) until you hear a sound, then try turning the sound up and down to get a feel for changing the sound's loudness with the knob.
+By turning the knob, you can control the slider below.  Move the slider all the way back and forth a few times to get a feel for it and then press the knob to move on to the next step.
+By turning the knob, you can move the slider up and down.  Move the slider to the top and then to the bottom, and press the knob to continue.
+Thank you.  You have completed the computer interface training program.
+Welcome
+Button 1
+Button 2
+Button 3
+HIGH Loudness
+MEDIUM Loudness
+LOW Loudness
+LOW Pitch
+MEDIUM Pitch
+HIGH Pitch

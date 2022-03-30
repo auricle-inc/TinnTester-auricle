@@ -1,0 +1,532 @@
+Device ID (fixed): TS01994F
+Current timestamp: 2016-03-07T22:41:22
+subject_id:T11_1
+device_pass:1234
+sham:8
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:1.50
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+#### Start Log File ####
+TS01994F
+2015-10-08T00:03:03,system powered on
+2015-10-08T00:03:20,treatement started
+2015-10-08T00:04:03,electrode open
+2015-10-08T00:18:14,system powered on
+2015-10-08T00:21:42,system powered on
+2015-10-08T00:21:48,treatement started
+2015-10-08T00:22:30,electrode open
+2015-10-08T00:25:25,treatement started
+2015-10-08T00:25:40,electrode open
+2015-10-08T00:26:13,treatement started
+2015-10-08T00:56:14,treatement ended
+2015-10-09T06:55:46,system powered on
+2015-10-09T06:55:52,treatement started
+2015-10-09T07:25:52,treatement ended
+2015-10-10T06:53:03,system powered on
+2015-10-10T06:53:06,treatement started
+2015-10-10T07:23:07,treatement ended
+2015-10-11T07:10:26,system powered on
+2015-10-11T07:10:28,treatement started
+2015-10-11T07:40:29,treatement ended
+2015-10-12T05:40:53,system powered on
+2015-10-12T05:40:55,treatement started
+2015-10-12T06:10:55,treatement ended
+2015-10-13T06:41:07,system powered on
+2015-10-13T07:05:31,system powered on
+2015-10-13T07:05:55,system powered on
+2015-10-13T07:05:57,treatement started
+2015-10-13T07:35:57,treatement ended
+2015-10-14T06:18:55,system powered on
+2015-10-14T06:19:05,treatement started
+2015-10-14T06:49:05,treatement ended
+2015-10-15T06:46:52,system powered on
+2015-10-15T06:46:58,treatement started
+2015-10-15T07:16:58,treatement ended
+2015-10-15T07:18:12,system powered on
+2015-10-15T07:18:14,treatement started
+2015-10-15T07:18:14,electrode open
+2015-10-16T07:27:59,system powered on
+2015-10-16T07:28:07,treatement started
+2015-10-16T07:58:08,treatement ended
+2015-10-16T23:34:32,system powered on
+2015-10-16T23:35:17,treatement started
+2015-10-16T23:35:30,electrode open
+2015-10-16T23:36:16,system powered on
+2015-10-17T07:06:35,system powered on
+2015-10-17T07:06:39,treatement started
+2015-10-17T07:36:39,treatement ended
+2015-10-18T09:03:58,system powered on
+2015-10-18T09:03:59,treatement started
+2015-10-18T09:34:00,treatement ended
+2015-10-19T07:15:06,system powered on
+2015-10-19T07:15:07,treatement started
+2015-10-19T07:45:08,treatement ended
+2015-10-20T07:08:24,system powered on
+2015-10-20T07:08:27,treatement started
+2015-10-20T07:38:28,treatement ended
+2015-10-21T06:54:31,system powered on
+2015-10-21T06:54:33,treatement started
+2015-10-21T07:24:33,treatement ended
+2015-10-22T07:03:38,system powered on
+2015-10-22T07:03:40,treatement started
+2015-10-22T07:33:41,treatement ended
+2015-10-23T07:09:23,system powered on
+2015-10-23T07:09:25,treatement started
+2015-10-23T07:39:25,treatement ended
+2015-10-23T23:27:19,system powered on
+2015-10-23T23:27:21,treatement started
+2015-10-23T23:28:41,system powered on
+2015-10-23T23:29:40,system powered on
+2015-10-24T03:53:19,system powered on
+2015-10-24T03:55:09,system powered on
+2015-10-24T07:35:02,system powered on
+2015-10-24T07:35:05,treatement started
+2015-10-24T08:05:05,treatement ended
+2015-10-25T09:35:32,system powered on
+2015-10-25T09:35:36,treatement started
+2015-10-25T10:05:37,treatement ended
+2015-10-26T05:25:49,system powered on
+2015-10-26T05:25:50,treatement started
+2015-10-26T05:55:51,treatement ended
+2015-10-27T06:24:04,system powered on
+2015-10-27T06:24:14,treatement started
+2015-10-27T06:54:14,treatement ended
+2015-10-28T06:41:47,system powered on
+2015-10-28T06:41:56,treatement started
+2015-10-28T07:11:56,treatement ended
+2015-10-29T07:00:41,system powered on
+2015-10-29T07:00:42,treatement started
+2015-10-29T07:30:43,treatement ended
+2015-10-30T07:32:18,system powered on
+2015-10-30T07:32:20,treatement started
+2015-10-30T08:02:20,treatement ended
+2015-10-30T23:24:54,system powered on
+2015-10-30T23:24:56,treatement started
+2015-10-30T23:24:57,electrode open
+2015-10-30T23:25:10,treatement started
+2015-10-30T23:27:17,system powered on
+2015-10-31T07:11:23,system powered on
+2015-10-31T07:11:29,treatement started
+2015-10-31T07:41:29,treatement ended
+2015-11-01T08:45:10,system powered on
+2015-11-01T08:45:12,treatement started
+2015-11-01T09:15:13,treatement ended
+2015-11-02T06:12:30,system powered on
+2015-11-02T06:12:32,treatement started
+2015-11-02T06:42:33,treatement ended
+2015-11-03T07:53:54,system powered on
+2015-11-03T07:53:56,treatement started
+2015-11-03T08:23:57,treatement ended
+2015-11-04T07:17:59,system powered on
+2015-11-04T07:18:00,treatement started
+2015-11-04T07:48:01,treatement ended
+2015-11-05T06:48:53,system powered on
+2015-11-05T06:48:54,treatement started
+2015-11-05T07:18:55,treatement ended
+2015-11-06T07:36:43,system powered on
+2015-11-06T07:36:44,treatement started
+2015-11-06T08:06:45,treatement ended
+2015-11-10T23:47:20,system powered on
+2015-11-12T23:13:41,system powered on
+2015-12-01T22:58:18,system powered on
+2015-12-01T00:02:16,treatement started
+2015-12-04T01:40:39,system powered on
+2015-12-04T01:44:12,system powered on
+2015-12-04T01:44:24,treatement started
+2015-12-04T07:48:56,system powered on
+2015-12-04T07:48:57,treatement started
+2015-12-04T08:18:58,treatement ended
+2015-12-05T10:43:16,system powered on
+2015-12-05T10:43:19,treatement started
+2015-12-05T11:13:20,treatement ended
+2015-12-06T07:45:58,system powered on
+2015-12-06T07:45:59,treatement started
+2015-12-06T08:16:00,treatement ended
+2015-12-07T08:11:49,system powered on
+2015-12-07T08:11:50,treatement started
+2015-12-07T08:41:50,treatement ended
+2015-12-08T09:39:09,system powered on
+2015-12-08T09:39:10,treatement started
+2015-12-08T10:09:11,treatement ended
+2015-12-09T10:24:34,system powered on
+2015-12-09T10:24:35,treatement started
+2015-12-09T10:26:27,electrode short
+2015-12-09T10:26:44,treatement started
+2015-12-09T10:26:52,electrode short
+2015-12-10T01:38:16,system powered on
+2015-12-10T01:38:49,treatement started
+2015-12-10T01:43:50,system powered on
+2015-12-10T01:45:38,treatement started
+2015-12-10T09:35:30,system powered on
+2015-12-10T09:35:31,treatement started
+2015-12-10T10:05:32,treatement ended
+2015-12-11T09:09:58,system powered on
+2015-12-11T09:09:59,treatement started
+2015-12-11T09:39:59,treatement ended
+2015-12-12T07:22:29,system powered on
+2015-12-12T07:22:30,treatement started
+2015-12-12T07:52:31,treatement ended
+2015-12-13T10:17:43,system powered on
+2015-12-13T10:17:48,treatement started
+2015-12-13T10:18:17,system powered on
+2015-12-13T10:18:18,treatement started
+2015-12-13T10:48:18,treatement ended
+2015-12-14T09:25:28,system powered on
+2015-12-14T09:25:29,treatement started
+2015-12-14T09:55:30,treatement ended
+2015-12-15T08:41:08,system powered on
+2015-12-15T08:41:09,treatement started
+2015-12-15T09:11:09,treatement ended
+2015-12-16T08:10:49,system powered on
+2015-12-16T08:10:51,treatement started
+2015-12-16T08:40:52,treatement ended
+2015-12-17T07:25:54,system powered on
+2015-12-17T07:25:55,treatement started
+2015-12-17T07:55:56,treatement ended
+2015-12-18T09:17:44,system powered on
+2015-12-18T09:17:45,treatement started
+2015-12-18T09:47:46,treatement ended
+2015-12-19T08:41:11,system powered on
+2015-12-19T08:41:12,treatement started
+2015-12-19T09:11:13,treatement ended
+2015-12-20T10:32:02,system powered on
+2015-12-20T10:32:03,treatement started
+2015-12-20T11:02:03,treatement ended
+2015-12-21T08:40:29,system powered on
+2015-12-21T08:40:31,treatement started
+2015-12-21T09:10:31,treatement ended
+2015-12-22T08:20:02,system powered on
+2015-12-22T08:20:03,treatement started
+2015-12-22T08:50:03,treatement ended
+2015-12-23T09:33:01,system powered on
+2015-12-23T09:33:03,treatement started
+2015-12-23T10:03:04,treatement ended
+2015-12-24T10:10:32,system powered on
+2015-12-24T10:10:33,treatement started
+2015-12-24T10:17:30,electrode open
+2015-12-24T10:20:38,system powered on
+2015-12-24T10:20:39,treatement started
+2015-12-24T10:20:39,electrode open
+2015-12-24T10:21:16,system powered on
+2015-12-24T10:21:18,treatement started
+2015-12-24T10:21:18,electrode open
+2015-12-24T10:21:22,treatement started
+2015-12-24T10:21:30,electrode open
+2015-12-24T10:34:51,system powered on
+2015-12-24T10:34:52,treatement started
+2015-12-24T11:04:53,treatement ended
+2015-12-25T10:15:45,system powered on
+2015-12-25T10:15:46,treatement started
+2015-12-25T10:45:47,treatement ended
+2015-12-26T06:15:27,system powered on
+2015-12-26T06:15:28,treatement started
+2015-12-26T06:45:29,treatement ended
+2015-12-27T09:32:38,system powered on
+2015-12-27T09:32:39,treatement started
+2015-12-27T10:02:40,treatement ended
+2015-12-28T08:33:01,system powered on
+2015-12-28T08:33:02,treatement started
+2015-12-28T09:03:03,treatement ended
+2015-12-29T08:58:14,system powered on
+2015-12-29T08:58:16,treatement started
+2015-12-29T09:28:17,treatement ended
+2015-12-30T10:47:11,system powered on
+2015-12-30T10:47:13,treatement started
+2015-12-30T11:17:14,treatement ended
+2015-12-31T06:05:40,system powered on
+2015-12-31T06:05:42,treatement started
+2015-12-31T06:35:42,treatement ended
+2016-01-01T09:23:36,system powered on
+2016-01-01T09:23:37,treatement started
+2016-01-01T09:53:38,treatement ended
+2016-01-02T07:36:17,system powered on
+2016-01-02T07:36:19,treatement started
+2016-01-02T08:06:19,treatement ended
+2016-01-03T07:07:04,system powered on
+2016-01-03T07:07:07,treatement started
+2016-01-03T07:37:08,treatement ended
+2016-01-04T08:23:36,system powered on
+2016-01-04T08:23:37,treatement started
+2016-01-04T08:53:38,treatement ended
+2016-01-08T06:02:32,system powered on
+2016-02-26T02:50:28,system powered on
+2016-03-03T00:20:55,system powered on
+2016-03-07T22:37:05,system powered on
+#### End Log File ####
+Device ID (fixed): TS01994F
+Current timestamp: 2016-03-08T00:00:18
+subject_id:T22
+device_pass:1234
+sham:3
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:0.80
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:1
+lf_enable:0
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+#### Start Log File ####
+TS01994F
+2015-10-08T00:03:03,system powered on
+2015-10-08T00:03:20,treatement started
+2015-10-08T00:04:03,electrode open
+2015-10-08T00:18:14,system powered on
+2015-10-08T00:21:42,system powered on
+2015-10-08T00:21:48,treatement started
+2015-10-08T00:22:30,electrode open
+2015-10-08T00:25:25,treatement started
+2015-10-08T00:25:40,electrode open
+2015-10-08T00:26:13,treatement started
+2015-10-08T00:56:14,treatement ended
+2015-10-09T06:55:46,system powered on
+2015-10-09T06:55:52,treatement started
+2015-10-09T07:25:52,treatement ended
+2015-10-10T06:53:03,system powered on
+2015-10-10T06:53:06,treatement started
+2015-10-10T07:23:07,treatement ended
+2015-10-11T07:10:26,system powered on
+2015-10-11T07:10:28,treatement started
+2015-10-11T07:40:29,treatement ended
+2015-10-12T05:40:53,system powered on
+2015-10-12T05:40:55,treatement started
+2015-10-12T06:10:55,treatement ended
+2015-10-13T06:41:07,system powered on
+2015-10-13T07:05:31,system powered on
+2015-10-13T07:05:55,system powered on
+2015-10-13T07:05:57,treatement started
+2015-10-13T07:35:57,treatement ended
+2015-10-14T06:18:55,system powered on
+2015-10-14T06:19:05,treatement started
+2015-10-14T06:49:05,treatement ended
+2015-10-15T06:46:52,system powered on
+2015-10-15T06:46:58,treatement started
+2015-10-15T07:16:58,treatement ended
+2015-10-15T07:18:12,system powered on
+2015-10-15T07:18:14,treatement started
+2015-10-15T07:18:14,electrode open
+2015-10-16T07:27:59,system powered on
+2015-10-16T07:28:07,treatement started
+2015-10-16T07:58:08,treatement ended
+2015-10-16T23:34:32,system powered on
+2015-10-16T23:35:17,treatement started
+2015-10-16T23:35:30,electrode open
+2015-10-16T23:36:16,system powered on
+2015-10-17T07:06:35,system powered on
+2015-10-17T07:06:39,treatement started
+2015-10-17T07:36:39,treatement ended
+2015-10-18T09:03:58,system powered on
+2015-10-18T09:03:59,treatement started
+2015-10-18T09:34:00,treatement ended
+2015-10-19T07:15:06,system powered on
+2015-10-19T07:15:07,treatement started
+2015-10-19T07:45:08,treatement ended
+2015-10-20T07:08:24,system powered on
+2015-10-20T07:08:27,treatement started
+2015-10-20T07:38:28,treatement ended
+2015-10-21T06:54:31,system powered on
+2015-10-21T06:54:33,treatement started
+2015-10-21T07:24:33,treatement ended
+2015-10-22T07:03:38,system powered on
+2015-10-22T07:03:40,treatement started
+2015-10-22T07:33:41,treatement ended
+2015-10-23T07:09:23,system powered on
+2015-10-23T07:09:25,treatement started
+2015-10-23T07:39:25,treatement ended
+2015-10-23T23:27:19,system powered on
+2015-10-23T23:27:21,treatement started
+2015-10-23T23:28:41,system powered on
+2015-10-23T23:29:40,system powered on
+2015-10-24T03:53:19,system powered on
+2015-10-24T03:55:09,system powered on
+2015-10-24T07:35:02,system powered on
+2015-10-24T07:35:05,treatement started
+2015-10-24T08:05:05,treatement ended
+2015-10-25T09:35:32,system powered on
+2015-10-25T09:35:36,treatement started
+2015-10-25T10:05:37,treatement ended
+2015-10-26T05:25:49,system powered on
+2015-10-26T05:25:50,treatement started
+2015-10-26T05:55:51,treatement ended
+2015-10-27T06:24:04,system powered on
+2015-10-27T06:24:14,treatement started
+2015-10-27T06:54:14,treatement ended
+2015-10-28T06:41:47,system powered on
+2015-10-28T06:41:56,treatement started
+2015-10-28T07:11:56,treatement ended
+2015-10-29T07:00:41,system powered on
+2015-10-29T07:00:42,treatement started
+2015-10-29T07:30:43,treatement ended
+2015-10-30T07:32:18,system powered on
+2015-10-30T07:32:20,treatement started
+2015-10-30T08:02:20,treatement ended
+2015-10-30T23:24:54,system powered on
+2015-10-30T23:24:56,treatement started
+2015-10-30T23:24:57,electrode open
+2015-10-30T23:25:10,treatement started
+2015-10-30T23:27:17,system powered on
+2015-10-31T07:11:23,system powered on
+2015-10-31T07:11:29,treatement started
+2015-10-31T07:41:29,treatement ended
+2015-11-01T08:45:10,system powered on
+2015-11-01T08:45:12,treatement started
+2015-11-01T09:15:13,treatement ended
+2015-11-02T06:12:30,system powered on
+2015-11-02T06:12:32,treatement started
+2015-11-02T06:42:33,treatement ended
+2015-11-03T07:53:54,system powered on
+2015-11-03T07:53:56,treatement started
+2015-11-03T08:23:57,treatement ended
+2015-11-04T07:17:59,system powered on
+2015-11-04T07:18:00,treatement started
+2015-11-04T07:48:01,treatement ended
+2015-11-05T06:48:53,system powered on
+2015-11-05T06:48:54,treatement started
+2015-11-05T07:18:55,treatement ended
+2015-11-06T07:36:43,system powered on
+2015-11-06T07:36:44,treatement started
+2015-11-06T08:06:45,treatement ended
+2015-11-10T23:47:20,system powered on
+2015-11-12T23:13:41,system powered on
+2015-12-01T22:58:18,system powered on
+2015-12-01T00:02:16,treatement started
+2015-12-04T01:40:39,system powered on
+2015-12-04T01:44:12,system powered on
+2015-12-04T01:44:24,treatement started
+2015-12-04T07:48:56,system powered on
+2015-12-04T07:48:57,treatement started
+2015-12-04T08:18:58,treatement ended
+2015-12-05T10:43:16,system powered on
+2015-12-05T10:43:19,treatement started
+2015-12-05T11:13:20,treatement ended
+2015-12-06T07:45:58,system powered on
+2015-12-06T07:45:59,treatement started
+2015-12-06T08:16:00,treatement ended
+2015-12-07T08:11:49,system powered on
+2015-12-07T08:11:50,treatement started
+2015-12-07T08:41:50,treatement ended
+2015-12-08T09:39:09,system powered on
+2015-12-08T09:39:10,treatement started
+2015-12-08T10:09:11,treatement ended
+2015-12-09T10:24:34,system powered on
+2015-12-09T10:24:35,treatement started
+2015-12-09T10:26:27,electrode short
+2015-12-09T10:26:44,treatement started
+2015-12-09T10:26:52,electrode short
+2015-12-10T01:38:16,system powered on
+2015-12-10T01:38:49,treatement started
+2015-12-10T01:43:50,system powered on
+2015-12-10T01:45:38,treatement started
+2015-12-10T09:35:30,system powered on
+2015-12-10T09:35:31,treatement started
+2015-12-10T10:05:32,treatement ended
+2015-12-11T09:09:58,system powered on
+2015-12-11T09:09:59,treatement started
+2015-12-11T09:39:59,treatement ended
+2015-12-12T07:22:29,system powered on
+2015-12-12T07:22:30,treatement started
+2015-12-12T07:52:31,treatement ended
+2015-12-13T10:17:43,system powered on
+2015-12-13T10:17:48,treatement started
+2015-12-13T10:18:17,system powered on
+2015-12-13T10:18:18,treatement started
+2015-12-13T10:48:18,treatement ended
+2015-12-14T09:25:28,system powered on
+2015-12-14T09:25:29,treatement started
+2015-12-14T09:55:30,treatement ended
+2015-12-15T08:41:08,system powered on
+2015-12-15T08:41:09,treatement started
+2015-12-15T09:11:09,treatement ended
+2015-12-16T08:10:49,system powered on
+2015-12-16T08:10:51,treatement started
+2015-12-16T08:40:52,treatement ended
+2015-12-17T07:25:54,system powered on
+2015-12-17T07:25:55,treatement started
+2015-12-17T07:55:56,treatement ended
+2015-12-18T09:17:44,system powered on
+2015-12-18T09:17:45,treatement started
+2015-12-18T09:47:46,treatement ended
+2015-12-19T08:41:11,system powered on
+2015-12-19T08:41:12,treatement started
+2015-12-19T09:11:13,treatement ended
+2015-12-20T10:32:02,system powered on
+2015-12-20T10:32:03,treatement started
+2015-12-20T11:02:03,treatement ended
+2015-12-21T08:40:29,system powered on
+2015-12-21T08:40:31,treatement started
+2015-12-21T09:10:31,treatement ended
+2015-12-22T08:20:02,system powered on
+2015-12-22T08:20:03,treatement started
+2015-12-22T08:50:03,treatement ended
+2015-12-23T09:33:01,system powered on
+2015-12-23T09:33:03,treatement started
+2015-12-23T10:03:04,treatement ended
+2015-12-24T10:10:32,system powered on
+2015-12-24T10:10:33,treatement started
+2015-12-24T10:17:30,electrode open
+2015-12-24T10:20:38,system powered on
+2015-12-24T10:20:39,treatement started
+2015-12-24T10:20:39,electrode open
+2015-12-24T10:21:16,system powered on
+2015-12-24T10:21:18,treatement started
+2015-12-24T10:21:18,electrode open
+2015-12-24T10:21:22,treatement started
+2015-12-24T10:21:30,electrode open
+2015-12-24T10:34:51,system powered on
+2015-12-24T10:34:52,treatement started
+2015-12-24T11:04:53,treatement ended
+2015-12-25T10:15:45,system powered on
+2015-12-25T10:15:46,treatement started
+2015-12-25T10:45:47,treatement ended
+2015-12-26T06:15:27,system powered on
+2015-12-26T06:15:28,treatement started
+2015-12-26T06:45:29,treatement ended
+2015-12-27T09:32:38,system powered on
+2015-12-27T09:32:39,treatement started
+2015-12-27T10:02:40,treatement ended
+2015-12-28T08:33:01,system powered on
+2015-12-28T08:33:02,treatement started
+2015-12-28T09:03:03,treatement ended
+2015-12-29T08:58:14,system powered on
+2015-12-29T08:58:16,treatement started
+2015-12-29T09:28:17,treatement ended
+2015-12-30T10:47:11,system powered on
+2015-12-30T10:47:13,treatement started
+2015-12-30T11:17:14,treatement ended
+2015-12-31T06:05:40,system powered on
+2015-12-31T06:05:42,treatement started
+2015-12-31T06:35:42,treatement ended
+2016-01-01T09:23:36,system powered on
+2016-01-01T09:23:37,treatement started
+2016-01-01T09:53:38,treatement ended
+2016-01-02T07:36:17,system powered on
+2016-01-02T07:36:19,treatement started
+2016-01-02T08:06:19,treatement ended
+2016-01-03T07:07:04,system powered on
+2016-01-03T07:07:07,treatement started
+2016-01-03T07:37:08,treatement ended
+2016-01-04T08:23:36,system powered on
+2016-01-04T08:23:37,treatement started
+2016-01-04T08:53:38,treatement ended
+2016-01-08T06:02:32,system powered on
+2016-02-26T02:50:28,system powered on
+2016-03-03T00:20:55,system powered on
+2016-03-07T22:37:05,system powered on
+#### End Log File ####

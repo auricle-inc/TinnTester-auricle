@@ -1,0 +1,82 @@
+Device ID (fixed): TS019916
+Current timestamp: 2016-01-26T02:55:12
+subject_id:15_1
+device_pass:1234
+sham:5
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:0.50
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:1
+lf_enable:0
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+Device ID (fixed): TS019916
+Current timestamp: 2016-01-27T00:00:28
+subject_id:21_1
+device_pass:1234
+sham:5
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:1.00
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+Device ID (fixed): TS019916
+Current timestamp: 2016-01-27T00:04:53
+subject_id:21_1
+device_pass:1234
+sham:5
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:1.00
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+#### Start Log File ####
+TS019916
+2015-11-16T20:18:59,system powered on
+2015-11-16T20:21:25,system powered on
+2015-11-16T20:21:54,system powered on
+2015-11-16T00:00:15,system powered on
+2015-11-16T00:03:44,system powered on
+2015-11-16T00:04:05,system powered on
+2015-11-16T00:04:12,system powered on
+2015-11-16T00:00:14,system powered on
+2015-11-16T00:00:11,system powered on
+2015-11-16T00:04:45,system powered on
+2015-11-16T00:05:10,system powered on
+2015-11-16T00:00:42,system powered on
+2015-11-16T00:09:02,system powered on
+2015-12-01T02:08:03,system powered on
+2016-01-13T23:29:36,system powered on
+2016-01-18T00:00:12,system powered on
+2016-01-26T02:41:04,system powered on
+2016-01-26T02:51:37,system powered on
+2016-01-27T00:00:43,system powered on
+2016-01-27T00:00:52,treatement started
+2016-01-27T00:01:40,system powered on
+2016-01-27T00:03:07,system powered on
+#### End Log File ####

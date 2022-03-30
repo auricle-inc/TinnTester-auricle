@@ -1,0 +1,18 @@
+1. Before patients, open notepad and test space bar keys on dial
+2. Open tintest
+3. USB, 1024, 1 PA5, ENglish , yes, hit ok
+4. Fill in information, in tinnitus report
+5. Run through test, "please ask experimenter" hit C to advance
+6. Step through application and follow instructions
+
+
+Sub applications that can be used:
+
+Only use tinnitus tester, other prog's don't have calibrated files
+
+all used files are in tintest_wav
+all back ups are in TinTestCal
+COpy over all files for effects to take place
+
+"CalibrationData.csv" = calibration file
+init = options selected

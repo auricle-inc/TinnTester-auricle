@@ -1,0 +1,38 @@
+Device ID (fixed): TS0199A6
+Current timestamp: 2016-01-09T03:08:47
+subject_id:T3_1
+device_pass:1234
+sham:3
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:0.89
+pulse_count:3
+pulse_delay:-5
+pulse_ma:2.20
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+Device ID (fixed): TS0199A6
+Current timestamp: 2016-01-09T00:08:50
+subject_id:T21_1
+device_pass:1234
+sham:8
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:1
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:0.50
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:1
+lf_enable:0
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW

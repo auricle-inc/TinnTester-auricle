@@ -1,0 +1,18 @@
+Device ID (fixed): TS019903
+Current timestamp: 2015-09-02T14:03:54
+subject_id:T1_1
+device_pass:1234
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:10
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:2.00
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW

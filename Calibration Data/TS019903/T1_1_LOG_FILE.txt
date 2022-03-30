@@ -1,0 +1,202 @@
+Device ID (fixed): TS019903
+Current timestamp: 2015-09-02T14:00:52
+subject_id:1
+device_pass:1234
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:10
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:2.00
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+Device ID (fixed): TS019903
+Current timestamp: 2015-09-02T14:04:22
+subject_id:1
+device_pass:1234
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:10
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:1.50
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+#### Start Log File ####
+TS019903
+2015-08-06T20:52:11,system powered on
+2015-08-06T20:53:47,system powered on
+2015-08-06T20:53:49,treatement started
+2015-08-11T14:20:12,system powered on
+2015-08-25T23:28:16,system powered on
+2015-08-25T23:28:39,treatement started
+2015-08-25T23:28:39,electrode open
+2015-08-25T23:28:46,system powered on
+2015-08-25T23:28:47,treatement started
+2015-08-25T23:28:47,electrode open
+2015-08-25T23:28:54,treatement started
+2015-08-25T23:28:54,electrode open
+2015-08-25T23:28:58,system powered on
+2015-08-25T23:29:00,treatement started
+2015-08-25T23:29:01,electrode open
+2015-08-25T23:29:08,treatement started
+2015-08-25T23:29:08,electrode open
+2015-08-25T23:29:19,treatement started
+2015-08-25T23:29:19,electrode open
+2015-09-02T13:13:34,system powered on
+2015-09-02T13:17:03,system powered on
+2015-09-02T13:17:31,system powered on
+2015-09-02T13:17:49,system powered on
+2015-09-02T13:18:54,system powered on
+2015-09-02T13:19:07,system powered on
+2015-09-02T13:19:22,system powered on
+2015-09-02T13:25:14,treatement started
+2015-09-02T13:25:14,electrode open
+2015-09-02T13:27:32,treatement started
+2015-09-02T13:28:06,electrode open
+2015-09-02T13:29:55,treatement started
+2015-09-02T13:53:05,system powered on
+#### End Log File ####
+Device ID (fixed): TS019903
+Current timestamp: 2015-09-03T13:28:59
+subject_id:T1_1
+device_pass:1234
+sham:0
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:10
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:1.00
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
+#### Start Log File ####
+TS019903
+2015-08-06T20:52:11,system powered on
+2015-08-06T20:53:47,system powered on
+2015-08-06T20:53:49,treatement started
+2015-08-11T14:20:12,system powered on
+2015-08-25T23:28:16,system powered on
+2015-08-25T23:28:39,treatement started
+2015-08-25T23:28:39,electrode open
+2015-08-25T23:28:46,system powered on
+2015-08-25T23:28:47,treatement started
+2015-08-25T23:28:47,electrode open
+2015-08-25T23:28:54,treatement started
+2015-08-25T23:28:54,electrode open
+2015-08-25T23:28:58,system powered on
+2015-08-25T23:29:00,treatement started
+2015-08-25T23:29:01,electrode open
+2015-08-25T23:29:08,treatement started
+2015-08-25T23:29:08,electrode open
+2015-08-25T23:29:19,treatement started
+2015-08-25T23:29:19,electrode open
+2015-09-02T13:13:34,system powered on
+2015-09-02T13:17:03,system powered on
+2015-09-02T13:17:31,system powered on
+2015-09-02T13:17:49,system powered on
+2015-09-02T13:18:54,system powered on
+2015-09-02T13:19:07,system powered on
+2015-09-02T13:19:22,system powered on
+2015-09-02T13:25:14,treatement started
+2015-09-02T13:25:14,electrode open
+2015-09-02T13:27:32,treatement started
+2015-09-02T13:28:06,electrode open
+2015-09-02T13:29:55,treatement started
+2015-09-02T13:53:05,system powered on
+2015-09-02T14:04:57,treatement started
+2015-09-02T14:04:57,electrode open
+2015-09-02T14:12:32,system powered on
+2015-09-02T14:20:17,system powered on
+2015-09-02T14:20:30,treatement started
+2015-09-02T14:34:43,electrode open
+2015-09-02T14:36:45,system powered on
+2015-09-02T14:44:16,system powered on
+2015-09-02T14:44:21,treatement started
+2015-09-02T14:44:21,electrode open
+2015-09-02T14:45:46,treatement started
+2015-09-02T14:51:29,system powered on
+2015-09-02T14:56:35,system powered on
+2015-09-02T15:05:12,treatement started
+2015-09-02T15:35:13,treatement ended
+2015-09-02T16:00:24,system powered on
+2015-09-02T16:13:54,system powered on
+2015-09-02T16:20:01,system powered on
+2015-09-02T16:22:51,system powered on
+2015-09-02T16:27:38,system powered on
+2015-09-02T16:27:40,treatement started
+2015-09-02T16:29:07,system powered on
+2015-09-02T16:29:10,treatement started
+2015-09-02T16:29:31,electrode open
+2015-09-02T16:29:46,system powered on
+2015-09-02T16:29:52,treatement started
+2015-09-02T16:30:05,system powered on
+2015-09-02T16:34:46,treatement started
+2015-09-02T16:34:46,electrode open
+2015-09-02T16:35:51,treatement started
+2015-09-02T16:35:51,electrode open
+2015-09-02T16:36:02,treatement started
+2015-09-02T16:36:46,system powered on
+2015-09-02T16:39:06,system powered on
+2015-09-02T16:45:53,treatement started
+2015-09-02T16:46:55,system powered on
+2015-09-02T18:04:28,system powered on
+2015-09-02T18:06:13,treatement started
+2015-09-02T18:15:55,system powered on
+2015-09-02T18:54:06,system powered on
+2015-09-02T18:54:38,system powered on
+2015-09-02T18:57:19,treatement started
+2015-09-02T18:57:26,electrode open
+2015-09-02T19:04:19,treatement started
+2015-09-02T19:29:29,electrode open
+2015-09-02T19:29:34,treatement started
+2015-09-02T20:27:56,system powered on
+2015-09-02T20:28:38,treatement started
+2015-09-02T20:32:41,system powered on
+2015-09-02T20:33:35,treatement started
+2015-09-02T20:34:48,electrode open
+2015-09-03T12:38:51,system powered on
+2015-09-03T12:42:15,system powered on
+2015-09-03T12:42:48,system powered on
+2015-09-03T12:43:00,system powered on
+2015-09-03T13:00:47,system powered on
+2015-09-03T13:13:47,system powered on
+2015-09-03T13:25:33,system powered on
+#### End Log File ####
+Device ID (fixed): TS019903
+Current timestamp: 2015-09-03T13:40:09
+subject_id:T1_1
+device_pass:1234
+sham:0
+trial_duration:160
+num_trials:11250
+audio_onset:50
+audio_duration:10
+audio_volume:1.00
+pulse_count:3
+pulse_delay:-5
+pulse_ma:1.00
+pduration_usec:100
+pdelay_usec:1000
+rt_enable:0
+lf_enable:1
+rt_audio:R_AUDIO.RAW
+lf_audio:L_AUDIO.RAW
