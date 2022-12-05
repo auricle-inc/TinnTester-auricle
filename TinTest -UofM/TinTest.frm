@@ -3086,7 +3086,7 @@ End If
     If English Then
         lblMainInstructions.Caption = "Thank you.  The program is now complete.  Please wait for the experimenter to enter."
     Else
-        lblMainInstructions.Caption = "Merci. Le programme est maintenant terminé. Veuillez avertir l'évaluateur."
+        lblMainInstructions.Caption = "Merci. Le programme est maintenant terminï¿½. Veuillez avertir l'ï¿½valuateur."
     End If
     Call WriteReportSPL
     lblMainInstructions.visible = True
@@ -3560,9 +3560,9 @@ Private Sub cmdTinTrain_Click()
         lblInstruct3.Top = 420  '376
     Else
         lblTitle.Caption = "Bienvenue"
-        lblMainInstructions.Caption = "Ce programme va vous présenter un programme informatisé qui teste les acouphènes."
-        lblInstruct2.Caption = "En suivant les instructions indiquées, vous passerez à travers les différents étapes."
-        lblInstruct3.Caption = "Quand vous êtes prêt à commencer, veuillez presser le cadran s'il vous plait."
+        lblMainInstructions.Caption = "Ce programme va vous prï¿½senter un programme informatisï¿½ qui teste les acouphï¿½nes."
+        lblInstruct2.Caption = "En suivant les instructions indiquï¿½es, vous passerez ï¿½ travers les diffï¿½rents ï¿½tapes."
+        lblInstruct3.Caption = "Quand vous ï¿½tes prï¿½t ï¿½ commencer, veuillez presser le cadran s'il vous plait."
         lblInstruct2.Top = 280 'these need to be bumped down a bit due to two lines in maininstruct
         lblInstruct2.Height = 120 '113
         lblInstruct3.Top = 420  '376
@@ -3640,9 +3640,9 @@ If English Then
     lblInstruct3.Caption = "When you are comfortable with this, press the dial down to move to the next step."
 Else
 
-    lblMainInstructions.Caption = "En tournant la commande rotative, vous pouvez choisir une option différente en-dessous."
-    lblInstruct2.Caption = "Essayez de tourner la commande rotative et de changer d'option. Faites des mouvements doux car la commande rotative est très sensible."
-    lblInstruct3.Caption = "Lorsque vous vous sentez à l'aise avec ceci, appuyez sur la commande rotative vers le bas pour passer à l'étape suivante."
+    lblMainInstructions.Caption = "En tournant la commande rotative, vous pouvez choisir une option diffï¿½rente en-dessous."
+    lblInstruct2.Caption = "Essayez de tourner la commande rotative et de changer d'option. Faites des mouvements doux car la commande rotative est trï¿½s sensible."
+    lblInstruct3.Caption = "Lorsque vous vous sentez ï¿½ l'aise avec ceci, appuyez sur la commande rotative vers le bas pour passer ï¿½ l'ï¿½tape suivante."
 End If
     lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
     lblInstruct2.Height = 150 '113
@@ -3673,8 +3673,8 @@ If English Then
     lblInstruct3.Caption = "When you are comfortable with this, press the dial to move to the next step."
 Else
     lblMainInstructions.Caption = "En tournant la commande rotative vous pouvez ajuster le volume du son."
-    lblInstruct2.Caption = "Tournez la commande rotative jusqu'à ce que vous entendez un son. Tournez la pour avoir une idée du changement de volume."
-    lblInstruct3.Caption = "Lorsque vous vous sentez à l'aise avec ceci, appuyez sur la commande rotative pour passer à l'étape suivante."
+    lblInstruct2.Caption = "Tournez la commande rotative jusqu'ï¿½ ce que vous entendez un son. Tournez la pour avoir une idï¿½e du changement de volume."
+    lblInstruct3.Caption = "Lorsque vous vous sentez ï¿½ l'aise avec ceci, appuyez sur la commande rotative pour passer ï¿½ l'ï¿½tape suivante."
 End If
     lblInstruct2.Top = 215 'these need to be bumped down a bit due to two lines in maininstruct
     lblInstruct2.Height = 150 '113
@@ -3735,9 +3735,9 @@ If English Then
     lblInstruct3.Caption = "When you have listened to each sound a few times, press the dial to move to the next step."
     lblInstruct3.Top = 380
 Else
-    lblMainInstructions.Caption = "Les sons que vous allez entendre varient en tonalité (aigu-grave)."
-    lblInstruct2.Caption = "Tourner la commande rotative pour écouter les différentes tonalités."
-    lblInstruct3.Caption = "Lorsque vous aurez écouté chaque son plusieurs fois, appuyez sur la commande rotative pour passer à l'etape suivante. "
+    lblMainInstructions.Caption = "Les sons que vous allez entendre varient en tonalitï¿½ (aigu-grave)."
+    lblInstruct2.Caption = "Tourner la commande rotative pour ï¿½couter les diffï¿½rentes tonalitï¿½s."
+    lblInstruct3.Caption = "Lorsque vous aurez ï¿½coutï¿½ chaque son plusieurs fois, appuyez sur la commande rotative pour passer ï¿½ l'etape suivante. "
     lblInstruct3.Top = 290
 End If
     lblInstruct2.Top = 215 'these need to be bumped down a bit due to two lines in maininstruct
@@ -3799,9 +3799,9 @@ If English Then
     lblInstruct3.Caption = "When you're comfortable, press the dial to move on."
     framLoudness.Caption = "Horizontal Slider"
 Else
-    lblMainInstructions.Caption = "En tournant la commande rotative, vous pouvez contrôler le curseur."
-    lblInstruct2.Caption = "Déplacez le curseur d'avant en arrière, à quelques reprises, afin d'obtenir une idée de son fonctionnement."
-    lblInstruct3.Caption = "Lorsque vous vous sentez à l'aise, appuyez sur la commande rotative pour passer à l'étape suivante."
+    lblMainInstructions.Caption = "En tournant la commande rotative, vous pouvez contrï¿½ler le curseur."
+    lblInstruct2.Caption = "Dï¿½placez le curseur d'avant en arriï¿½re, ï¿½ quelques reprises, afin d'obtenir une idï¿½e de son fonctionnement."
+    lblInstruct3.Caption = "Lorsque vous vous sentez ï¿½ l'aise, appuyez sur la commande rotative pour passer ï¿½ l'ï¿½tape suivante."
     framLoudness.Caption = "Curseur Horizontal"
 End If
 
@@ -3854,7 +3854,7 @@ End If
     If English Then
         framLoudness.Caption = "Loudness Rating"
     Else
-        framLoudness.Caption = "Intensité"
+        framLoudness.Caption = "Intensitï¿½"
     End If
     lbl5.visible = True
     lbl30.visible = True
@@ -3869,9 +3869,9 @@ If English Then
     lblInstruct2.Caption = "Turn the dial to move the slider up and down a few times to get a feel for it."
     lblInstruct3.Caption = "When you're comfortable, press the dial to move on."
 Else
-    lblMainInstructions.Caption = "On peut également déplacer le curseur de haut en bas."
-    lblInstruct2.Caption = "Tournez la commande rotative pour déplacez le curseur de haut en bas quelques fois afin d'obtenir une idée de son fonctionnement."
-    lblInstruct3.Caption = "Lorsque vous vous sentez à l'aise, appuyez sur la commande rotative pour continuer."
+    lblMainInstructions.Caption = "On peut ï¿½galement dï¿½placer le curseur de haut en bas."
+    lblInstruct2.Caption = "Tournez la commande rotative pour dï¿½placez le curseur de haut en bas quelques fois afin d'obtenir une idï¿½e de son fonctionnement."
+    lblInstruct3.Caption = "Lorsque vous vous sentez ï¿½ l'aise, appuyez sur la commande rotative pour continuer."
 End If
     lblSofter(0).visible = False 'hide labels
     lblGone(0).visible = False
@@ -3965,8 +3965,8 @@ If English Then
     lblMainInstructions.Caption = "Congratulations, the training program is now complete!"
     lblInstruct2.Caption = "If you have any questions about the program you've just finished, please ask the experimenter."
 Else
-    lblMainInstructions.Caption = "Félicitation, l'entrainement est maintenant terminé."
-    lblInstruct2.Caption = "Si vous avez des questions au sujet du test que vous venez de faire, veuillez demander à l'expérimentateur."
+    lblMainInstructions.Caption = "Fï¿½licitation, l'entrainement est maintenant terminï¿½."
+    lblInstruct2.Caption = "Si vous avez des questions au sujet du test que vous venez de faire, veuillez demander ï¿½ l'expï¿½rimentateur."
 End If
     
     lblMainInstructions.visible = True
@@ -3998,10 +3998,10 @@ Public Sub Step1_Localize()
         lblInstruct3.Caption = "When you are ready to begin, please press the dial."
     Else
         lblTitle.Caption = "Bienvenue"
-        lblMainInstructions.Caption = "Ce programme va examiner vos sensations d'acouphène."
+        lblMainInstructions.Caption = "Ce programme va examiner vos sensations d'acouphï¿½ne."
         lblMainInstructions.Alignment = 0 'right justify
-        lblInstruct2.Caption = "Des instructions vont apparaitrent sur l'écran pour vous guider. Demandez à l'évaluateur si vous avez besoin d'aide."
-        lblInstruct3.Caption = "Quand vous êtes prêt à commencer, pressez la commande rotative."
+        lblInstruct2.Caption = "Des instructions vont apparaitrent sur l'ï¿½cran pour vous guider. Demandez ï¿½ l'ï¿½valuateur si vous avez besoin d'aide."
+        lblInstruct3.Caption = "Quand vous ï¿½tes prï¿½t ï¿½ commencer, pressez la commande rotative."
     End If
     
     If Form2.opt1024 Then '1024 mode.  Move text around.
@@ -4025,7 +4025,7 @@ Public Sub Step1_Localize()
         lblMainInstructions.Caption = "Which ear is your tinnitus coming from? "
         lblInstruct2.Caption = "Turn the dial to select one of the options, then press when you've made your selection."
     Else
-        lblMainInstructions.Caption = "De quelle oreille votre acouphène vient-il?"
+        lblMainInstructions.Caption = "De quelle oreille votre acouphï¿½ne vient-il?"
         lblInstruct2.Caption = "Tournez la commande rotative pour choisir une des options, puis pressez la quand vous avez fait votre choix."
     End If
     lblInstruct2.visible = True
@@ -4115,7 +4115,7 @@ Private Sub Step2_SoundIntensity()
         lblLoud.Caption = "Louder"
     Else
         lblMainInstructions.Caption = "En tournant la commande rotative vous pouvez ajuster le volume du"
-        lblInstruct2.Caption = "son. Veuillez tourner la commande rotative jusqu'à ce que le son soit à un niveau confortable, puis pressez la pour continuer."
+        lblInstruct2.Caption = "son. Veuillez tourner la commande rotative jusqu'ï¿½ ce que le son soit ï¿½ un niveau confortable, puis pressez la pour continuer."
         lblSoft.Caption = "Faible"
         lblLoud.Caption = "Fort"
 
@@ -4181,8 +4181,8 @@ Private Sub Step2_SoundIntensity()
         lblMainInstructions.Caption = "We will now present a second sound."
         lblInstruct2.Caption = "Please turn the dial until this sound is also at a comfortable level, then press to continue."
     Else
-        lblMainInstructions.Caption = "Nous allons vous présenter un deuxième son."
-        lblInstruct2.Caption = "Veuillez tourner la commande rotative jusqu'à ce que ce son soit aussi à un niveau confortable, puis pressez la pour continuer."
+        lblMainInstructions.Caption = "Nous allons vous prï¿½senter un deuxiï¿½me son."
+        lblInstruct2.Caption = "Veuillez tourner la commande rotative jusqu'ï¿½ ce que ce son soit aussi ï¿½ un niveau confortable, puis pressez la pour continuer."
     End If
     VolAdj = True
     intMaxVolume = 0
@@ -4233,8 +4233,8 @@ Private Sub Step3_Bandwidth()
         lblMainInstructions.Caption = "Which of the sounds below does your tinnitus sensation sound more like? "
         lblInstruct2.Caption = "Turn the dial to select and hear. Once you've decided, press the dial to move on."
     Else
-        lblMainInstructions.Caption = "Lequel de ces sons se rapproche le plus de votre sensation d'acouphène?"
-        lblInstruct2.Caption = "Tournez la commande rotative pour sélectionner et écouter. Une fois que vous avez décidé, pressez la commande rotative pour continuer."
+        lblMainInstructions.Caption = "Lequel de ces sons se rapproche le plus de votre sensation d'acouphï¿½ne?"
+        lblInstruct2.Caption = "Tournez la commande rotative pour sï¿½lectionner et ï¿½couter. Une fois que vous avez dï¿½cidï¿½, pressez la commande rotative pour continuer."
     End If
     lblInstruct2.Top = 256 'need to move this down a bit as mainstructions span 2 lines.
     lblInstruct2.visible = True
@@ -4324,8 +4324,8 @@ Private Sub Step4_Temporal()
         lblMainInstructions.Caption = "Turn the dial to hear these sounds.  "
         lblInstruct2.Caption = "Which sound is most like your tinnitus? Once you've decided, press the dial to move on."
     Else
-        lblMainInstructions.Caption = "Tournez la commande rotative pour écouter les sons."
-        lblInstruct2.Caption = "Quel son ressemble le plus à votre acouphène? Une fois que vous avez décidé, pressez la commande rotative pour continuer."
+        lblMainInstructions.Caption = "Tournez la commande rotative pour ï¿½couter les sons."
+        lblInstruct2.Caption = "Quel son ressemble le plus ï¿½ votre acouphï¿½ne? Une fois que vous avez dï¿½cidï¿½, pressez la commande rotative pour continuer."
     End If
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
@@ -4418,16 +4418,16 @@ Private Sub Step5_LoudnessRating()
         lbl70 = "Very Strong"
         lbl95 = "Extremely Strong"
     Else
-        lblTitle.Caption = "L'Intensité de Votre Acouphène"
-        lblMainInstructions.Caption = "Cette étape est une évaluation subjective de l'intensité de votre acouphène."
-        lblInstruct2.Caption = "Aucun son ne sera présenté."
-        lblInstruct3.Caption = "Évaluez son volume sur l'échelle ci-dessous en tournant la commande rotative, puis presser la pour enregistrer votre estimation."
-        framLoudness.Caption = "volume sur l'échelle"
-        lbl5 = "Extrêmement faible"
-        lbl30 = "Modérée"
+        lblTitle.Caption = "L'Intensitï¿½ de Votre Acouphï¿½ne"
+        lblMainInstructions.Caption = "Cette ï¿½tape est une ï¿½valuation subjective de l'intensitï¿½ de votre acouphï¿½ne."
+        lblInstruct2.Caption = "Aucun son ne sera prï¿½sentï¿½."
+        lblInstruct3.Caption = "ï¿½valuez son volume sur l'ï¿½chelle ci-dessous en tournant la commande rotative, puis presser la pour enregistrer votre estimation."
+        framLoudness.Caption = "volume sur l'ï¿½chelle"
+        lbl5 = "Extrï¿½mement faible"
+        lbl30 = "Modï¿½rï¿½e"
         lbl50 = "Forte"
-        lbl70 = "Très Forte"
-        lbl95 = "Extrêmement fort"
+        lbl70 = "Trï¿½s Forte"
+        lbl95 = "Extrï¿½mement fort"
     End If
     lblInstruct2.Left = lblMainInstructions.Left
     lblInstruct3.Left = lblMainInstructions.Left
@@ -4516,10 +4516,10 @@ Private Sub Step6_LoudnessMatching()
         'lblTitle.FontSize = 36
         'lblTitle.FontBold = True
         
-        'lblMainInstructions.Caption = "Nous allons mesurer le niveau de votre acouphène en utilisant plusieurs sons."
-        lblMainInstructions.Caption = "Nous allons mesurer le niveau de votre acouphène. Une sèrie de sons diffèrents vont vous être présentés."
-        lblInstruct2.Caption = "En utilisant la commande rotative vous pouvez augmenter le volume de chaque son pour qu'il corresponde à votre acouphène."
-        lblInstruct3.Caption = "Lorsque vous êtes prêt, appuyez sur la commande rotative pour entendre le premier son."
+        'lblMainInstructions.Caption = "Nous allons mesurer le niveau de votre acouphï¿½ne en utilisant plusieurs sons."
+        lblMainInstructions.Caption = "Nous allons mesurer le niveau de votre acouphï¿½ne. Une sï¿½rie de sons diffï¿½rents vont vous ï¿½tre prï¿½sentï¿½s."
+        lblInstruct2.Caption = "En utilisant la commande rotative vous pouvez augmenter le volume de chaque son pour qu'il corresponde ï¿½ votre acouphï¿½ne."
+        lblInstruct3.Caption = "Lorsque vous ï¿½tes prï¿½t, appuyez sur la commande rotative pour entendre le premier son."
         'lblTitle.Height = 182
         lblMainInstructions.Top = 215
         lblSon.Top = lblTitle.Top + 100
@@ -4554,8 +4554,8 @@ Private Sub Step6_LoudnessMatching()
         lblMainInstructions.Caption = "Using the dial, increase the LOUDNESS of this sound until it is the same LOUDNESS as your tinnitus (not softer or louder, but the same loudness as your tinnitus).  "
         lblInstruct3.Caption = "When it matches the LOUDNESS of your tinnitus, push the dial to move on."
     Else
-        lblMainInstructions.Caption = "Utiliser la commande rotative afin d'augmenter le volume de ce son jusqu'à ce qu'il soit au même volume que votre acouphène (ni plus faible ni plus fort, mais le même volume que votre acouphène). "
-        lblInstruct3.Caption = "Lorsque le volume correspond à celui de votre acouphène, pressez la commande rotative pour continuer."
+        lblMainInstructions.Caption = "Utiliser la commande rotative afin d'augmenter le volume de ce son jusqu'ï¿½ ce qu'il soit au mï¿½me volume que votre acouphï¿½ne (ni plus faible ni plus fort, mais le mï¿½me volume que votre acouphï¿½ne). "
+        lblInstruct3.Caption = "Lorsque le volume correspond ï¿½ celui de votre acouphï¿½ne, pressez la commande rotative pour continuer."
         lblNextSound.Top = 490
     End If
     lblMainInstructions.visible = True
@@ -4599,7 +4599,7 @@ Private Sub Step6_LoudnessMatching()
     If English Then
         lblNextSound.Caption = "Starting first sound - begin turning dial"
     Else
-        lblNextSound.Caption = "Premier son - commencez à tourner la commande rotative"
+        lblNextSound.Caption = "Premier son - commencez ï¿½ tourner la commande rotative"
     End If
     c1 = 1
     dialcontrol1.Show_Arrows
@@ -4679,8 +4679,8 @@ Private Sub Step6_LoudnessMatching()
                                 lblMainInstructions.Caption = "Using the dial, increase the loudness of this sound until it is the same LOUDNESS as your tinnitus (not softer or louder, but the same loudness as your tinnitus).  "
                                 lblInstruct3.Caption = "When it matches the loudness of your tinnitus, push the dial to move on."
                             Else
-                                lblMainInstructions.Caption = "Utiliser la commande rotative permet d'augmenter le volume de ce son jusqu'à ce qu'il soit au même volume que votre acouphène (pas plus doux ou plus fort, mais le même volume que votre acouphène). "
-                                lblInstruct3.Caption = "Lorsque le volume correspond assez bien à celui de votre acouphène, pressez la commande rotative pour passer."
+                                lblMainInstructions.Caption = "Utiliser la commande rotative permet d'augmenter le volume de ce son jusqu'ï¿½ ce qu'il soit au mï¿½me volume que votre acouphï¿½ne (pas plus doux ou plus fort, mais le mï¿½me volume que votre acouphï¿½ne). "
+                                lblInstruct3.Caption = "Lorsque le volume correspond assez bien ï¿½ celui de votre acouphï¿½ne, pressez la commande rotative pour passer."
                             End If
                             lblMainInstructions.visible = True
                             lblInstruct3.visible = True
@@ -4743,7 +4743,7 @@ Private Sub Step6_LoudnessMatching()
         If English Then
             lblNextSound.Caption = "Starting next sound - begin turning dial"
         Else
-            lblNextSound.Caption = "À partir de son prochain - Commencez à tourner"
+            lblNextSound.Caption = "ï¿½ partir de son prochain - Commencez ï¿½ tourner"
         End If
     Loop
     Timer1.Enabled = False
@@ -4781,14 +4781,14 @@ Private Sub Step7_PitchMatching()
         lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
         lblInstruct3.Top = 376
     Else
-        lblTitle.Caption = "Correspondance de Tonalité"
+        lblTitle.Caption = "Correspondance de Tonalitï¿½"
         lblSon.Caption = "(son aigu-son grave)"
         'lblTitle.FontSize = 34
         'lblTitle.FontBold = True
-        'lblMainInstructions.Caption = "Nous allons maintenant vous présenter plusieurs sons de différentes hauteurs."
-        lblMainInstructions.Caption = "Une série de sons différents vont vous être présentés."
-        lblInstruct2.Caption = "En utilisant la commande rotative, évaluez la similitude de chaque hauteur avec celle de votre acouphène et ajuster le curseur."
-        lblInstruct3.Caption = "Lorsque vous êtes prêt, appuyez sur la commande rotative pour entendre le premier son."
+        'lblMainInstructions.Caption = "Nous allons maintenant vous prï¿½senter plusieurs sons de diffï¿½rentes hauteurs."
+        lblMainInstructions.Caption = "Une sï¿½rie de sons diffï¿½rents vont vous ï¿½tre prï¿½sentï¿½s."
+        lblInstruct2.Caption = "En utilisant la commande rotative, ï¿½valuez la similitude de chaque hauteur avec celle de votre acouphï¿½ne et ajuster le curseur."
+        lblInstruct3.Caption = "Lorsque vous ï¿½tes prï¿½t, appuyez sur la commande rotative pour entendre le premier son."
         'lblTitle.Height = 182
         lblMainInstructions.Top = 215
         lblSon.Top = lblTitle.Top + 100
@@ -4821,7 +4821,7 @@ Private Sub Step7_PitchMatching()
     If English Then
         lblMainInstructions.Caption = "You should now hear a sound playing. How similar is the PITCH of the sound to your tinnitus? Rate PITCH similarity by turning the dial, then press to record your rating."
     Else
-       lblMainInstructions.Caption = "Vous devriez maintenant entendre un son. La hauteur du son est-elle similaire à celle de votre acouphène ? Évaluez la similitude de hauteur en tournant la commande rotative, puis pressez la pour enregistrer votre estimation."
+       lblMainInstructions.Caption = "Vous devriez maintenant entendre un son. La hauteur du son est-elle similaire ï¿½ celle de votre acouphï¿½ne ? ï¿½valuez la similitude de hauteur en tournant la commande rotative, puis pressez la pour enregistrer votre estimation."
     End If
     lblMainInstructions.visible = True
     PA5x1.SetAtten (CInt(txtIntensity.Text))
@@ -4875,11 +4875,11 @@ Private Sub Step7_PitchMatching()
         framLoudness.Caption = "Pitch Rating"
     Else
         lbl5.Caption = "Pas de Tout"
-        lbl30.Caption = "Pas très similaires"
+        lbl30.Caption = "Pas trï¿½s similaires"
         lbl50.Caption = "similaires"
-        lbl70.Caption = "très similaires"
+        lbl70.Caption = "trï¿½s similaires"
         lbl95.Caption = "Identiques"
-        lblNextSound.Caption = "À partir de son premier..."
+        lblNextSound.Caption = "ï¿½ partir de son premier..."
         framLoudness.Caption = "Correspondance de hauteur"
     End If
     txtValue.Text = 0
@@ -4985,7 +4985,7 @@ Private Sub Step7_PitchMatching()
             If English Then
                 lblNextSound.Caption = "Starting Next Sound"
             Else
-                lblNextSound.Caption = "À partir de son prochain"
+                lblNextSound.Caption = "ï¿½ partir de son prochain"
             End If
             If c1 <= 11 Then  'store the results in an array
                 SliderResults(WavNum, 1) = CInt(txtValue.Text)
@@ -5122,9 +5122,9 @@ Private Sub Step8_Threshold()
 
     Else
         lblTitle.Caption = "Mesure du Seuil"
-        lblMainInstructions.Caption = "Le test de correspondance de hauteur est maintenent terminé."
-        lblInstruct2.Caption = "Dans la prochaine étape, nous allons mesurer comment votre acouphène est affecté par l'utilisation de sons masquants."
-        lblInstruct3.Caption = "Lorsque vous êtes prêt, appuyez sur la commande rotative pour commencer."
+        lblMainInstructions.Caption = "Le test de correspondance de hauteur est maintenent terminï¿½."
+        lblInstruct2.Caption = "Dans la prochaine ï¿½tape, nous allons mesurer comment votre acouphï¿½ne est affectï¿½ par l'utilisation de sons masquants."
+        lblInstruct3.Caption = "Lorsque vous ï¿½tes prï¿½t, appuyez sur la commande rotative pour commencer."
         lblSoft.Caption = "Faible"
         lblLoud.Caption = "Fort"
 
@@ -5149,7 +5149,7 @@ Private Sub Step8_Threshold()
             If English Then
                 lblMainInstructions.Caption = "Turn the dial clockwise until you can hear a sound and stop turning it as soon as you hear it.  Then press to move on to the next step."
             Else
-                lblMainInstructions.Caption = "Tournez la commande rotative dans le sens des aiguilles d'une montre jusqu'à ce que vous puissiez entendre un son, et arrêtez de tourner dès que vous l'entendez. Puis pressez la commande rotative pour passer à l'étape suivante"
+                lblMainInstructions.Caption = "Tournez la commande rotative dans le sens des aiguilles d'une montre jusqu'ï¿½ ce que vous puissiez entendre un son, et arrï¿½tez de tourner dï¿½s que vous l'entendez. Puis pressez la commande rotative pour passer ï¿½ l'ï¿½tape suivante"
             End If
             txtValue.Text = 0 ' set PA5 to 120
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
@@ -5161,7 +5161,7 @@ Private Sub Step8_Threshold()
             If English Then
                 lblMainInstructions.Caption = "You should now hear the sound playing softly.  Turn the dial counter-clockwise until the sound just disappears, then click to move on."
             Else
-                lblMainInstructions.Caption = "Vous devriez maintenant entendre le son joué doucement. Tournez la commande rotative dans le sens contraire des aiguilles d'une montre jusqu'à ce que le son disparaisse tout juste, puis cliquez pour passer."
+                lblMainInstructions.Caption = "Vous devriez maintenant entendre le son jouï¿½ doucement. Tournez la commande rotative dans le sens contraire des aiguilles d'une montre jusqu'ï¿½ ce que le son disparaisse tout juste, puis cliquez pour passer."
             End If
             txtValue.Text = 120 - (CInt(txtSoundThreshold(0)) - 10) 'set PA5 to last threshold, plus 10dB
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
@@ -5173,7 +5173,7 @@ Private Sub Step8_Threshold()
             If English Then
                 lblMainInstructions.Caption = "Once again, please turn the dial clockwise until you can just barely hear a sound.  Then press to move on to the next step."
             Else
-                lblMainInstructions.Caption = "De nouveau, tournez svp la commande rotative dans le sens des aiguilles d'une montre jusqu'à ce que vous puissiez à peine entendre un son. Puis pressez pour passer à la prochaine étape."
+                lblMainInstructions.Caption = "De nouveau, tournez svp la commande rotative dans le sens des aiguilles d'une montre jusqu'ï¿½ ce que vous puissiez ï¿½ peine entendre un son. Puis pressez pour passer ï¿½ la prochaine ï¿½tape."
             End If
             
             txtValue.Text = 0
@@ -5186,7 +5186,7 @@ Private Sub Step8_Threshold()
             If English Then
                 lblMainInstructions.Caption = "Now turn the dial counter-clockwise until the sound just disappears.  Press to move on."
             Else
-                lblMainInstructions.Caption = "Tournez la commande rotative dans le sens contraire des aiguilles d'une montre jusqu'à ce que le son disparaisse tout juste, puis cliquez pour passer."
+                lblMainInstructions.Caption = "Tournez la commande rotative dans le sens contraire des aiguilles d'une montre jusqu'ï¿½ ce que le son disparaisse tout juste, puis cliquez pour passer."
             End If
             txtValue.Text = 120 - (CInt(txtSoundThreshold(2)) - 10) 'set PA5 to last threshold, plus 10dB
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
@@ -5232,8 +5232,8 @@ Private Sub Step8_Threshold()
     Else
         lblTitle.Caption = "Correspondance de Volume"
         lblTitle.FontSize = 48
-        lblMainInstructions.Caption = "Tournez la commande rotative doucement jusqu'à ce que le deuxième son soit au même volume que le premier. Quand vous êtes satisfait: ils ont le MÊME VOLUME, pressez la commande rotative pour passer."
-        lblNextSound.Caption = "Présentation des deux premiers sons"
+        lblMainInstructions.Caption = "Tournez la commande rotative doucement jusqu'ï¿½ ce que le deuxiï¿½me son soit au mï¿½me volume que le premier. Quand vous ï¿½tes satisfait: ils ont le Mï¿½ME VOLUME, pressez la commande rotative pour passer."
+        lblNextSound.Caption = "Prï¿½sentation des deux premiers sons"
     End If
     lblNextSound.visible = True
     If CInt(txtPA5ThreshValue.Text) > 65 Then
@@ -5333,7 +5333,7 @@ Private Sub Step8_Threshold()
         If English Then
             lblNextSound.Caption = "Presenting two more sounds"
         Else
-            lblNextSound.Caption = "Présentation de deux bruits supplémentaires"
+            lblNextSound.Caption = "Prï¿½sentation de deux bruits supplï¿½mentaires"
         End If
         If CInt(txtValue.Text) <> 999 Then
             'txtSoundLevelMatch(SoundOrder(c1) - 1) = 120 - CInt(txtValue.Text)
@@ -5409,8 +5409,8 @@ Private Sub Step9_ResidualInhibition()
         lblNoChange(1).Caption = "PAS DE CHANGEMENT"
         lblSofter(0).Caption = "PLUS DOUCE"
         lblSofter(1).Caption = "PLUS DOUCE"
-        lblGone(0).Caption = "ABSENCE D' ACOUPHÈNES"
-        lblGone(1).Caption = "ABSENCE D' ACOUPHÈNES"
+        lblGone(0).Caption = "ABSENCE D' ACOUPHï¿½NES"
+        lblGone(1).Caption = "ABSENCE D' ACOUPHï¿½NES"
     End If
     
     'fixed order.  Only 1 sound:
@@ -5473,7 +5473,7 @@ Private Sub Step9_ResidualInhibition()
     If English Then
         lblMainInstructions.Caption = "Please sit back and relax. An instruction will appear on the screen in 90 seconds and you will then proceed to the last part of the test."
     Else
-        lblMainInstructions.Caption = "S'il vous plait, reposez-vous et détendez-vous. Une instruction va apparaître sur l'écran dans 90 secondes et vous pourrez effectuer la dernière partie du test."
+        lblMainInstructions.Caption = "S'il vous plait, reposez-vous et dï¿½tendez-vous. Une instruction va apparaï¿½tre sur l'ï¿½cran dans 90 secondes et vous pourrez effectuer la derniï¿½re partie du test."
     End If
     lblMainInstructions.visible = True
     txtTimer.Text = 0
@@ -5489,7 +5489,7 @@ Private Sub Step9_ResidualInhibition()
     If English Then
         lblMainInstructions.Caption = "Please press the dial to proceed to the last part of the test."
     Else
-        lblMainInstructions.Caption = "Appuyez sur la commande rotative pour passer à la dernière partie de l'essai."
+        lblMainInstructions.Caption = "Appuyez sur la commande rotative pour passer ï¿½ la derniï¿½re partie de l'essai."
     End If
     lblMainInstructions.visible = True
     chkClick.Value = 0
@@ -5503,7 +5503,7 @@ Private Sub Step9_ResidualInhibition()
         If English Then
             lblMainInstructions.Caption = "Please listen to your tinnitus now.  We will soon present a sound.  When the sound ends, we will ask you to rate how your tinnitus has changed."
         Else
-            lblMainInstructions.Caption = "Maintenant, veuillez écouter attentivement votre acouphène. Nous allons bientôt vous présenter un son. Quand le son sera fini, vous devrez évaluer de combien votre acouphène à changé."
+            lblMainInstructions.Caption = "Maintenant, veuillez ï¿½couter attentivement votre acouphï¿½ne. Nous allons bientï¿½t vous prï¿½senter un son. Quand le son sera fini, vous devrez ï¿½valuer de combien votre acouphï¿½ne ï¿½ changï¿½."
         End If
         txtTimer.Text = 0
         ProgressBar1.Value = 0
@@ -5519,7 +5519,7 @@ Private Sub Step9_ResidualInhibition()
         If English Then
             lblMainInstructions.Caption = "Listen carefully to this sound"
         Else
-            lblMainInstructions.Caption = "Écoutez attentivement ce son."
+            lblMainInstructions.Caption = "ï¿½coutez attentivement ce son."
         End If
         'set PA5 to txtSoundLevelMatch(#)
 '        If c1 <= 4 Then
@@ -5547,7 +5547,7 @@ Private Sub Step9_ResidualInhibition()
             If English Then
                 lblMainInstructions.Caption = "Adjust the dial to rate how your tinnitus has changed, and press to move on."
             Else
-                lblMainInstructions.Caption = "Ajustez la commande rotative pour évaluer de combien votre acouphène à changé, puis pressez la pour passer."
+                lblMainInstructions.Caption = "Ajustez la commande rotative pour ï¿½valuer de combien votre acouphï¿½ne ï¿½ changï¿½, puis pressez la pour passer."
             End If
             If (CInt(txtLocalize.Text) = 1) Then 'tinnitus is in left ear, change caption on frame
                 If English Then
@@ -5620,7 +5620,7 @@ Private Sub Step9_ResidualInhibition()
                 frmMono(0).Caption = "Left Ear"
                 frmMono(1).Caption = "Right Ear"
             Else
-                lblMainInstructions.Caption = "Ajustez la commande rotative pour évaluer de combien votre acouphène à changé, puis pressez la pour passer."
+                lblMainInstructions.Caption = "Ajustez la commande rotative pour ï¿½valuer de combien votre acouphï¿½ne ï¿½ changï¿½, puis pressez la pour passer."
                 frmMono(0).Caption = "Oreille gauche"
                 frmMono(1).Caption = "Oreille droite"
             End If
@@ -6774,7 +6774,7 @@ Sub OutputReport1(TL As Integer, LM1 As Integer, RI5 As Single)
     
     '---SECTION 3------
     '---paragraph 1----
-    text1(29) = "Some tinnitus patients report that sounds in the environment can “mask’ their tinnitus.  This means "
+    text1(29) = "Some tinnitus patients report that sounds in the environment can ï¿½maskï¿½ their tinnitus.  This means "
     text1(30) = "that when the sound is present they cannot hear their tinnitus.   Examples of sounds that can mask "
     text1(31) = "tinnitus are a noisy mistuned radio, the sound of running water, or nature sounds such as crickets or "
     text1(32) = "birds.   "
@@ -6782,7 +6782,7 @@ Sub OutputReport1(TL As Integer, LM1 As Integer, RI5 As Single)
     
     '---paragraph 2----
     text1(33) = "When masking sounds are presented in the laboratory and then switched off, tinnitus may be reduced"
-    text1(34) = "or even eliminated for a brief period of time.  This phenomenon is called “Residual Inhibition” or RI.  "
+    text1(34) = "or even eliminated for a brief period of time.  This phenomenon is called ï¿½Residual Inhibitionï¿½ or RI.  "
     text1(35) = "RI typically lasts about 30 seconds to a minute, but it can last longer."
     '---paragraph 2----
     
@@ -7317,7 +7317,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     '---paragraph 2----
     text1(44) = "When masking sounds are presented in the laboratory and then switched off, tinnitus may "
     text1(45) = "be reduced or even eliminated for a brief period of time.  This phenomenon is called "
-    text1(46) = "“Residual Inhibition” or RI.  RI typically lasts about 30 seconds to a minute, but it can last "
+    text1(46) = "ï¿½Residual Inhibitionï¿½ or RI.  RI typically lasts about 30 seconds to a minute, but it can last "
     text1(47) = "longer."
     '---paragraph 2----
     
@@ -7353,7 +7353,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     text1(66) = "sounds should be avoided because they can damage your ears.  The tinnitus sound however "
     text1(67) = "will not harm your ears.  Over time most individuals with tinnitus find that their tinnitus "
     text1(68) = "becomes less distrurbing and intrusive."
-    text1(69) = "© L. Roberts and D. Bosnyak, 2011"
+    text1(69) = "ï¿½ L. Roberts and D. Bosnyak, 2011"
     '---paragraph 2----
     
     Set oExcel = New Excel.Application
@@ -8011,136 +8011,136 @@ Sub OutputReport_F(TL As Integer, LM1 As Integer, RI5 As Single)
     
     '---SECTION 0------
     '---paragraph 1----
-    text1(1) = "Ce rapport décrit votre acouphène en se basant sur une évaluation conduite dans la Clinique de "
-    text1(2) = "l'Acouphène de Montréal.  Vos résultats sont également comparés avec ceux d'un large échantillon"
-    text1(3) = "de patients acouphéniques évalués par le laboratoire de Plasticité Neurale Humaine de "
-    text1(4) = "l'Université McMaster à Hamilton, Ontario, Canada."
+    text1(1) = "Ce rapport dï¿½crit votre acouphï¿½ne en se basant sur une ï¿½valuation conduite dans la Clinique de "
+    text1(2) = "l'Acouphï¿½ne de Montrï¿½al.  Vos rï¿½sultats sont ï¿½galement comparï¿½s avec ceux d'un large ï¿½chantillon"
+    text1(3) = "de patients acouphï¿½niques ï¿½valuï¿½s par le laboratoire de Plasticitï¿½ Neurale Humaine de "
+    text1(4) = "l'Universitï¿½ McMaster ï¿½ Hamilton, Ontario, Canada."
 
 
     '---paragraph 1----
     
     '---paragraph 2----
-    text1(5) = "Deux caractéristiques importantes de tous les sons (y compris les sons des acouphènes) sont "
-    text1(6) = "(1) L'intensité, et (2) la fréquence ou la hauteur du son. Nous avons mesuré ces deux "
-    text1(7) = "caractéristiques de votre acouphène."
+    text1(5) = "Deux caractï¿½ristiques importantes de tous les sons (y compris les sons des acouphï¿½nes) sont "
+    text1(6) = "(1) L'intensitï¿½, et (2) la frï¿½quence ou la hauteur du son. Nous avons mesurï¿½ ces deux "
+    text1(7) = "caractï¿½ristiques de votre acouphï¿½ne."
     '---paragraph 2----
     
     '---paragraph 3----
-    text1(8) = "L'intensité est mesuré dans une unité appelée décibel (dB), et la hauteur ou la fréquence par "
-    text1(9) = "une unité appelée Hertz (Hz). Un son de 60 dB correspond approximativement au volume "
-    text1(10) = "de la parole normale. Le Do ou  'C' moyen sur un piano correspond à une hauteur ou une fréquence "
-    text1(11) = "de 256 Hz.  Les fréquences contenues dans le discours et dans l'environnement normal varient "
-    text1(12) = "généralement entre 100 et 3000 Hz. L'oreille humaine peut entendre des fréquences allant jusqu'à "
-    text1(13) = "20.000 Hz, mais tout le monde ne peux pas entendre des fréquences aussi aiguës."
+    text1(8) = "L'intensitï¿½ est mesurï¿½ dans une unitï¿½ appelï¿½e dï¿½cibel (dB), et la hauteur ou la frï¿½quence par "
+    text1(9) = "une unitï¿½ appelï¿½e Hertz (Hz). Un son de 60 dB correspond approximativement au volume "
+    text1(10) = "de la parole normale. Le Do ou  'C' moyen sur un piano correspond ï¿½ une hauteur ou une frï¿½quence "
+    text1(11) = "de 256 Hz.  Les frï¿½quences contenues dans le discours et dans l'environnement normal varient "
+    text1(12) = "gï¿½nï¿½ralement entre 100 et 3000 Hz. L'oreille humaine peut entendre des frï¿½quences allant jusqu'ï¿½ "
+    text1(13) = "20.000 Hz, mais tout le monde ne peux pas entendre des frï¿½quences aussi aiguï¿½s."
     '---paragraph 3----
     
     '---paragraph 4----
-    text1(14) = "Nous avons également mesuré un attribut de votre acouphène appelé Inhibition Résiduelle ou IR."
-    text1(15) = "L'IR est une suppression temporaire de l'acouphène qui peut parfois être ressentie après avoir "
-    text1(16) = "entendu un son de masquage. Ces trois attributs de votre acouphène (le volume, la hauteur,"
-    text1(17) = "et l' IR l'acouphène) sont indiqués ci-dessous."
+    text1(14) = "Nous avons ï¿½galement mesurï¿½ un attribut de votre acouphï¿½ne appelï¿½ Inhibition Rï¿½siduelle ou IR."
+    text1(15) = "L'IR est une suppression temporaire de l'acouphï¿½ne qui peut parfois ï¿½tre ressentie aprï¿½s avoir "
+    text1(16) = "entendu un son de masquage. Ces trois attributs de votre acouphï¿½ne (le volume, la hauteur,"
+    text1(17) = "et l' IR l'acouphï¿½ne) sont indiquï¿½s ci-dessous."
     
     '---paragraph 4----
     '---SECTION 1------
     '---paragraph 1----
-    text1(18) = "Nous avons mesuré l'intensité de votre acouphène avec deux méthodes indépendantes. Les "
-    text1(19) = "graphiques ci-dessous montrent vos résultats avec les deux méthodes en comparaison"
-    text1(20) = " à 74 patients atteints d'acouphènes chroniques stables mesurés à l'Université McMaster. "
-    text1(21) = "Nous appelons cet échantillon de 74 patients notre groupe de référence."
+    text1(18) = "Nous avons mesurï¿½ l'intensitï¿½ de votre acouphï¿½ne avec deux mï¿½thodes indï¿½pendantes. Les "
+    text1(19) = "graphiques ci-dessous montrent vos rï¿½sultats avec les deux mï¿½thodes en comparaison"
+    text1(20) = " ï¿½ 74 patients atteints d'acouphï¿½nes chroniques stables mesurï¿½s ï¿½ l'Universitï¿½ McMaster. "
+    text1(21) = "Nous appelons cet ï¿½chantillon de 74 patients notre groupe de rï¿½fï¿½rence."
     '---paragraph 1----
     
     '---paragraph 2----
-    text1(22) = "Avec la première méthode, vous avez évalué le volume de votre acouphène sur une échelle de"
-    text1(23) = "Borg CR100 qui est utilisée dans les recherches sur l'audition. Les scores sur cette échelle de "
-    text1(24) = "mesure vont de 0 (volume de l'acouphène évalué extrêmement faible) à 100 (volume de "
-    text1(25) = "acouphène évalué extrêmement fort). L'échantillon de référence fait état d'une note moyenne "
-    text1(26) = "de 43.9, ce qui est à mi-chemin entre un acouphène modéré à fort sur l'échelle de Borg CR100."
+    text1(22) = "Avec la premiï¿½re mï¿½thode, vous avez ï¿½valuï¿½ le volume de votre acouphï¿½ne sur une ï¿½chelle de"
+    text1(23) = "Borg CR100 qui est utilisï¿½e dans les recherches sur l'audition. Les scores sur cette ï¿½chelle de "
+    text1(24) = "mesure vont de 0 (volume de l'acouphï¿½ne ï¿½valuï¿½ extrï¿½mement faible) ï¿½ 100 (volume de "
+    text1(25) = "acouphï¿½ne ï¿½valuï¿½ extrï¿½mement fort). L'ï¿½chantillon de rï¿½fï¿½rence fait ï¿½tat d'une note moyenne "
+    text1(26) = "de 43.9, ce qui est ï¿½ mi-chemin entre un acouphï¿½ne modï¿½rï¿½ ï¿½ fort sur l'ï¿½chelle de Borg CR100."
     
     '---paragraph 2----
     '---paragraph 3----
 
-    text1(27) = "Le volume de votre acouphène, évalué sur l' échelle de Borg CR100, était de _" & TL & "_ sur un maximum"
-    text1(28) = "de 100.  La Figure 1, ci-dessous, compare votre score de volume de Borg CR100 à celle de "
-    text1(29) = "l'échantillon de référence."
+    text1(27) = "Le volume de votre acouphï¿½ne, ï¿½valuï¿½ sur l' ï¿½chelle de Borg CR100, ï¿½tait de _" & TL & "_ sur un maximum"
+    text1(28) = "de 100.  La Figure 1, ci-dessous, compare votre score de volume de Borg CR100 ï¿½ celle de "
+    text1(29) = "l'ï¿½chantillon de rï¿½fï¿½rence."
 
     '---paragraph 3----
     '---paragraph 4----
-    text1(30) = "Avec la deuxième méthode, vous avez ajusté les volumes de plusieurs sons, mesurés en dB, "
-    text1(31) = "pour qu'ils équivalent  à l'intensité de vos acouphènes. Le  'volume sonore équivalent' que vous "
-    text1(32) = "avez indiqué pour un son de 1000 Hz (d'un son aigu) était de _" & LM1 & "_ dB. La Figure 2 ci-dessous montre"
-    text1(33) = " comment ce 'volume sonore équivalent'  en dB se situe par rapport à l'échantillon de référence. "
-    text1(34) = "N'oubliez pas qu'un son de 60 dB correspond  approximativement à l'intensité de la parole normale."
+    text1(30) = "Avec la deuxiï¿½me mï¿½thode, vous avez ajustï¿½ les volumes de plusieurs sons, mesurï¿½s en dB, "
+    text1(31) = "pour qu'ils ï¿½quivalent  ï¿½ l'intensitï¿½ de vos acouphï¿½nes. Le  'volume sonore ï¿½quivalent' que vous "
+    text1(32) = "avez indiquï¿½ pour un son de 1000 Hz (d'un son aigu) ï¿½tait de _" & LM1 & "_ dB. La Figure 2 ci-dessous montre"
+    text1(33) = " comment ce 'volume sonore ï¿½quivalent'  en dB se situe par rapport ï¿½ l'ï¿½chantillon de rï¿½fï¿½rence. "
+    text1(34) = "N'oubliez pas qu'un son de 60 dB correspond  approximativement ï¿½ l'intensitï¿½ de la parole normale."
     '---paragraph 4----
     
     '---SECTION 2------
     '---paragraph 1----
-    text1(35) = "Une autre étape dans notre mesure des acouphènes nous a permis d'évaluer la similarité entre "
-    text1(36) = "des sons  de différentes hauteurs et la hauteur de votre propre acouphène.  Basé sur nos "
-    text1(37) = "recherches, nous considérons que toute les notes supérieures de cette valeur correspondent au "
-    text1(38) = "'spectre de votre acouphène'. Pour la plupart des patients, le spectre de  l'acouphène contient des"
-    text1(39) = "fréquences qui couvrent une gamme 3000 à 10.000 Hz."
+    text1(35) = "Une autre ï¿½tape dans notre mesure des acouphï¿½nes nous a permis d'ï¿½valuer la similaritï¿½ entre "
+    text1(36) = "des sons  de diffï¿½rentes hauteurs et la hauteur de votre propre acouphï¿½ne.  Basï¿½ sur nos "
+    text1(37) = "recherches, nous considï¿½rons que toute les notes supï¿½rieures de cette valeur correspondent au "
+    text1(38) = "'spectre de votre acouphï¿½ne'. Pour la plupart des patients, le spectre de  l'acouphï¿½ne contient des"
+    text1(39) = "frï¿½quences qui couvrent une gamme 3000 ï¿½ 10.000 Hz."
     text1(40) = ""
     '---paragraph 1----
     '---paragraph 2----
-    text1(41) = "Vos résultats sont indiqués ci-dessous dans la figure 3 et sont comparés à un groupe de référence "
-    text1(42) = "qui contient des sujets acouphéniques mesurés à l'Université McMaster."
+    text1(41) = "Vos rï¿½sultats sont indiquï¿½s ci-dessous dans la figure 3 et sont comparï¿½s ï¿½ un groupe de rï¿½fï¿½rence "
+    text1(42) = "qui contient des sujets acouphï¿½niques mesurï¿½s ï¿½ l'Universitï¿½ McMaster."
     '---paragraph 2----
     
     '---SECTION 3------
     '---paragraph 1----
-    text1(43) = "Certains patients rapportent que des sons de l'environnement peuvent parfois  «masquer» leur "
-    text1(44) = "acouphène. Cela signifie que lorsque ce son est présent, ils n'entendent plus leur acouphène."
-    text1(45) = "Des exemples de sons pouvant masquer un acouphène sont: une radio mal réglée et bruyante , "
+    text1(43) = "Certains patients rapportent que des sons de l'environnement peuvent parfois  ï¿½masquerï¿½ leur "
+    text1(44) = "acouphï¿½ne. Cela signifie que lorsque ce son est prï¿½sent, ils n'entendent plus leur acouphï¿½ne."
+    text1(45) = "Des exemples de sons pouvant masquer un acouphï¿½ne sont: une radio mal rï¿½glï¿½e et bruyante , "
     text1(46) = " le bruit de l'eau qui coule, ou des sons de la nature tels que des grillons ou des oiseaux."
 
 
     '---paragraph 1----
     
     '---paragraph 2----
-    text1(47) = "Lorsque les sons de masquage sont présentés dans le laboratoire puis soudainement interrompus,"
-    text1(48) = "l'acouphène peut être réduit ou même éliminé pendant une courte période de temps. Ce "
-    text1(49) = "phénomène est appelé inhibition résiduelle ou IR. L'IR dure généralement entre 30 secondes et"
+    text1(47) = "Lorsque les sons de masquage sont prï¿½sentï¿½s dans le laboratoire puis soudainement interrompus,"
+    text1(48) = "l'acouphï¿½ne peut ï¿½tre rï¿½duit ou mï¿½me ï¿½liminï¿½ pendant une courte pï¿½riode de temps. Ce "
+    text1(49) = "phï¿½nomï¿½ne est appelï¿½ inhibition rï¿½siduelle ou IR. L'IR dure gï¿½nï¿½ralement entre 30 secondes et"
     text1(50) = "1 minute, mais elle peut parfois durer plus longtemps."
     '---paragraph 2----
     
     '---paragraph 3----
-text1(51) = "Nous avons mesuré votre IR en vous présentant un son semblable à un bruit de masquage avec une "
-text1(52) = "fréquence centrale de 5000 Hz. Lorsque le masque a été interrompu, nous vous avons demandé "
-text1(53) = "d'évaluer la façon dont votre acouphène avait changé. Le son masquant que nous utilisons contient"
-text1(54) = "les fréquences qui sont habituellement reportées comme étant dans le spectre des l'acouphènes,"
-text1(55) = "il est donc plus efficace que la plupart des autres masques pour induire une IR. L'IR a été mesurée "
-text1(56) = "sur une échelle allant de 0 (signifiant que l'acouphène n'a pas changé après avoir écouté le "
-text1(57) = "masque) à moins 5 (signifiant que l'acouphène a disparu lorsque le son a été interrompu). Dans"
-text1(58) = "certains cas, les acouphènes peuvent devenir plus fort (un score de 5 signifie beaucoup plus fort)"
-text1(59) = "ce qui signifie qu'aucune IR a été ressentie. Notez que l'IR  (suppression acouphènique) ne pourra"
-text1(60) = "pas être ressentie par tout le monde avec le masque que nous avons utilisé, mais beaucoup de "
+text1(51) = "Nous avons mesurï¿½ votre IR en vous prï¿½sentant un son semblable ï¿½ un bruit de masquage avec une "
+text1(52) = "frï¿½quence centrale de 5000 Hz. Lorsque le masque a ï¿½tï¿½ interrompu, nous vous avons demandï¿½ "
+text1(53) = "d'ï¿½valuer la faï¿½on dont votre acouphï¿½ne avait changï¿½. Le son masquant que nous utilisons contient"
+text1(54) = "les frï¿½quences qui sont habituellement reportï¿½es comme ï¿½tant dans le spectre des l'acouphï¿½nes,"
+text1(55) = "il est donc plus efficace que la plupart des autres masques pour induire une IR. L'IR a ï¿½tï¿½ mesurï¿½e "
+text1(56) = "sur une ï¿½chelle allant de 0 (signifiant que l'acouphï¿½ne n'a pas changï¿½ aprï¿½s avoir ï¿½coutï¿½ le "
+text1(57) = "masque) ï¿½ moins 5 (signifiant que l'acouphï¿½ne a disparu lorsque le son a ï¿½tï¿½ interrompu). Dans"
+text1(58) = "certains cas, les acouphï¿½nes peuvent devenir plus fort (un score de 5 signifie beaucoup plus fort)"
+text1(59) = "ce qui signifie qu'aucune IR a ï¿½tï¿½ ressentie. Notez que l'IR  (suppression acouphï¿½nique) ne pourra"
+text1(60) = "pas ï¿½tre ressentie par tout le monde avec le masque que nous avons utilisï¿½, mais beaucoup de "
 text1(61) = "personnes le ressentent."
     '---paragraph 3----
     
     '---paragraph 4----
-    text1(62) = "Votre score IR mesuré avec ce masque a été _" & RI5 & "_. Le graphique ci-dessous montre comment "
-    text1(63) = "votre score se situe par rapport à celui des 47 personnes avec acouphènes mesurées à l'Université "
+    text1(62) = "Votre score IR mesurï¿½ avec ce masque a ï¿½tï¿½ _" & RI5 & "_. Le graphique ci-dessous montre comment "
+    text1(63) = "votre score se situe par rapport ï¿½ celui des 47 personnes avec acouphï¿½nes mesurï¿½es ï¿½ l'Universitï¿½ "
     text1(64) = "McMaster."
     '---paragraph 4----
     
     '---SECTION 4------
     '---paragraph 1----
-    text1(65) = "Les mesures indiquées ci-dessus sont destinées à vous aider à mieux comprendre votre acouphène"
-    text1(66) = "et à le comparer aux acouphènes vécus par d'autres personnes. Souvent, il peut être rassurant de "
-    text1(67) = "voir que, même s'il est irritant, le son des acouphènes n'est pas un mystère."
+    text1(65) = "Les mesures indiquï¿½es ci-dessus sont destinï¿½es ï¿½ vous aider ï¿½ mieux comprendre votre acouphï¿½ne"
+    text1(66) = "et ï¿½ le comparer aux acouphï¿½nes vï¿½cus par d'autres personnes. Souvent, il peut ï¿½tre rassurant de "
+    text1(67) = "voir que, mï¿½me s'il est irritant, le son des acouphï¿½nes n'est pas un mystï¿½re."
     
     '---paragraph 1----
     
     '---paragraph 2----
-    text1(68) = "Dans la dernière décennie, nous avons beaucoup appris sur la façon dont les acouphènes sont"
-    text1(69) = "générés par le cerveau. La plupart des cas sont associés à une perte auditive des fréquences"
-    text1(70) = "aigues au cours du vieillissement normal. Notez que la perte auditive peut être induite ou accélérée "
-    text1(71) = "par l'exposition à des sons de volume très forts (par exemple des concerts de rock, des moteurs"
-    text1(72) = "de moto, ou des pétards) ainsi ce type de sons devraient être évités car ils peuvent endommager vos "
-    text1(73) = "oreilles. En revanche, le son acouphènique en lui-même ne nuit pas à vos oreilles. Au fil du temps, la "
-    text1(74) = "plupart des personnes qui ont un acouphène trouvent que leur acouphène devient moins perturbant"
+    text1(68) = "Dans la derniï¿½re dï¿½cennie, nous avons beaucoup appris sur la faï¿½on dont les acouphï¿½nes sont"
+    text1(69) = "gï¿½nï¿½rï¿½s par le cerveau. La plupart des cas sont associï¿½s ï¿½ une perte auditive des frï¿½quences"
+    text1(70) = "aigues au cours du vieillissement normal. Notez que la perte auditive peut ï¿½tre induite ou accï¿½lï¿½rï¿½e "
+    text1(71) = "par l'exposition ï¿½ des sons de volume trï¿½s forts (par exemple des concerts de rock, des moteurs"
+    text1(72) = "de moto, ou des pï¿½tards) ainsi ce type de sons devraient ï¿½tre ï¿½vitï¿½s car ils peuvent endommager vos "
+    text1(73) = "oreilles. En revanche, le son acouphï¿½nique en lui-mï¿½me ne nuit pas ï¿½ vos oreilles. Au fil du temps, la "
+    text1(74) = "plupart des personnes qui ont un acouphï¿½ne trouvent que leur acouphï¿½ne devient moins perturbant"
     text1(75) = "ou intrusif."
-    text1(76) = "© L. Roberts and D. Bosnyak, 2011"
+    text1(76) = "ï¿½ L. Roberts and D. Bosnyak, 2011"
     '---paragraph 2----
     
     Set oExcel = New Excel.Application
@@ -8153,7 +8153,7 @@ text1(61) = "personnes le ressentent."
     oExcel.visible = False ' <-- *** Optional *** 'true = show actions. False = don't show actions
     'Set up header info:
     '-----------------------------------------'
-    oWS.Range("A1").Value = "Rapport d'évaluation de l'Acouphène"
+    oWS.Range("A1").Value = "Rapport d'ï¿½valuation de l'Acouphï¿½ne"
     oWS.Range("A1:I1").Select
     With Selection
         .HorizontalAlignment = xlCenter
@@ -8203,19 +8203,19 @@ text1(61) = "personnes le ressentent."
     oWS.Range("F5").Value = "Pays:"
     oWS.Range("G5").Value = UserCountry
     
-    oWS.Range("A7").Value = "Information auto-déclarée:"
-    oWS.Range("A8").Value = "Acouphènes Lieu:"
+    oWS.Range("A7").Value = "Information auto-dï¿½clarï¿½e:"
+    oWS.Range("A8").Value = "Acouphï¿½nes Lieu:"
     oWS.Range("C8").Value = UserTL
     oWS.Range("A9").Value = "Continu or Pulsatif:"
     oWS.Range("C9").Value = UserSorP
     oWS.Range("A10").Value = "Type de son:"
     oWS.Range("C10").Value = UserBW
     
-    oWS.Range("F8").Value = "Âge:"
+    oWS.Range("F8").Value = "ï¿½ge:"
     oWS.Range("G8").Value = UserAge
     oWS.Range("F9").Value = "Sexe:"
     oWS.Range("G9").Value = UserSex
-    oWS.Range("F10").Value = "Début:"
+    oWS.Range("F10").Value = "Dï¿½but:"
     oWS.Range("G10").Value = UserOnset
     '-----------------------------------------'
     'format user data:
@@ -8254,7 +8254,7 @@ text1(61) = "personnes le ressentent."
     oWS.Range("A30").Value = text1(16)
     oWS.Range("A31").Value = text1(17)
     
-    oWS.Range("A33").Value = "(1) L'INTENSITÉ DE VOTRE ACOUPHÈNE"
+    oWS.Range("A33").Value = "(1) L'INTENSITï¿½ DE VOTRE ACOUPHï¿½NE"
     oWS.Range("A33").Select
     Selection.Font.Bold = True
     Selection.Font.SIZE = 12
@@ -8280,8 +8280,8 @@ text1(61) = "personnes le ressentent."
     ActiveChart.Location Where:=xlLocationAsObject, Name:="Sheet1"
     ActiveChart.ChartType = xlColumnClustered
     ActiveChart.HasTitle = True
-    ActiveChart.ChartTitle.Text = "Intensité de l'Acouphènes"
-    ActiveChart.SeriesCollection(1).Name = "=""Groupe de Référence"""
+    ActiveChart.ChartTitle.Text = "Intensitï¿½ de l'Acouphï¿½nes"
+    ActiveChart.SeriesCollection(1).Name = "=""Groupe de Rï¿½fï¿½rence"""
     ActiveChart.SeriesCollection(1).XValues = "={5,15,25,35,45,55,65,75,85,95}"
     'ActiveChart.SeriesCollection(1).XValues = "={""Extremely Weak"","""","""",""Moderate"","""",""Strong"","""",""Very Strong"","""",""Extremely Strong""}"
     'ActiveChart.SeriesCollection(1).XValues = "= {""Extremely Weak"","""",""Moderate"","""",""Strong"","""",""Very Strong"","""","""",""Extremely Strong""}"
@@ -8289,8 +8289,8 @@ text1(61) = "personnes le ressentent."
     ActiveChart.Axes(xlCategory).Select
     Selection.TickLabelPosition = xlNone
     ActiveChart.SeriesCollection.NewSeries
-    'ActiveChart.SeriesCollection(2).Name = "=""Votre Acouphène Intensité"""
-    ActiveChart.SeriesCollection(2).Name = "=""L'Intensité de Votre Acouphène"""
+    'ActiveChart.SeriesCollection(2).Name = "=""Votre Acouphï¿½ne Intensitï¿½"""
+    ActiveChart.SeriesCollection(2).Name = "=""L'Intensitï¿½ de Votre Acouphï¿½ne"""
     'ActiveChart.SeriesCollection(2).FontSize = 9
     ActiveChart.SeriesCollection(2).Values = "={0.225}"
     ActiveChart.SeriesCollection(2).ChartType = xlXYScatter
@@ -8406,7 +8406,7 @@ text1(61) = "personnes le ressentent."
     
     'add "Extremely weak" text box
     Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 25, 185, 50, 25) 'msoTextOrientationHorizontal = 1
-    ThisLine.DrawingObject.Text = "Extrêmement Faible"
+    ThisLine.DrawingObject.Text = "Extrï¿½mement Faible"
     ThisLine.Select
     With Selection
         .Font.SIZE = 8
@@ -8415,7 +8415,7 @@ text1(61) = "personnes le ressentent."
     End With
     'add "moderate" text box
     Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 72, 185, 50, 25) 'msoTextOrientationHorizontal = 1
-    ThisLine.DrawingObject.Text = "Modérée"
+    ThisLine.DrawingObject.Text = "Modï¿½rï¿½e"
     ThisLine.Select
     With Selection
         .Font.SIZE = 8
@@ -8433,7 +8433,7 @@ text1(61) = "personnes le ressentent."
     End With
     'add "Verystrong" text box
     Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 147, 185, 50, 25) 'msoTextOrientationHorizontal = 1
-    ThisLine.DrawingObject.Text = "Très Forte"
+    ThisLine.DrawingObject.Text = "Trï¿½s Forte"
     ThisLine.Select
     With Selection
         .Font.SIZE = 8
@@ -8442,7 +8442,7 @@ text1(61) = "personnes le ressentent."
     End With
     'add "Verystrong" text box
     Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 195, 185, 50, 25) 'msoTextOrientationHorizontal = 1
-    ThisLine.DrawingObject.Text = "Extrêmement forte"
+    ThisLine.DrawingObject.Text = "Extrï¿½mement forte"
     ThisLine.Select
     With Selection
         .Font.SIZE = 8
@@ -8547,11 +8547,11 @@ text1(61) = "personnes le ressentent."
     'ActiveSheet.ChartObjects("Chart 3").Activate
     
     ActiveChart.SeriesCollection(1).Values = "={0.152777778,0.236111111,0.236111111,0.180555556,0.111111111,0.041666667,0.041666667}"
-    ActiveChart.SeriesCollection(1).Name = "=""Groupe de Référence"""
+    ActiveChart.SeriesCollection(1).Name = "=""Groupe de Rï¿½fï¿½rence"""
     'ActiveChart.SeriesCollection(1).XValues = "={1,2,3,4,5,6,7,8,9,10}"
     ActiveChart.SeriesCollection(1).XValues = "={""<10"",""11-20"",""21-30"",""31-40"",""41-50"",""51-60"","">60""}"
     ActiveChart.HasTitle = True
-    ActiveChart.ChartTitle.Text = "Le Volume correspondant à Votre Acouphène"
+    ActiveChart.ChartTitle.Text = "Le Volume correspondant ï¿½ Votre Acouphï¿½ne"
     ActiveChart.ChartTitle.Font.SIZE = 14
     
     ActiveChart.SeriesCollection.NewSeries
@@ -8586,7 +8586,7 @@ text1(61) = "personnes le ressentent."
 
 
     'SECTION 2
-    oWS.Range("A94").Value = "(2) LE SPECTRE DE VOTRE ACOUPHÈNE"
+    oWS.Range("A94").Value = "(2) LE SPECTRE DE VOTRE ACOUPHï¿½NE"
     oWS.Range("A94").Select
     Selection.Font.Bold = True
     Selection.Font.SIZE = 12
@@ -8612,15 +8612,15 @@ text1(61) = "personnes le ressentent."
     ActiveChart.ChartType = xlColumnClustered
     ActiveChart.SeriesCollection(1).Values = "={15,21.8,31.9,42.5,45.7,56.5,58.4,54.5,54,54.3,29.8}"
     ActiveChart.SeriesCollection(1).XValues = "={.5,1,2,3,4,5,6,7,8,10,12}"
-    ActiveChart.SeriesCollection(1).Name = "=""Grp de Référence"""
+    ActiveChart.SeriesCollection(1).Name = "=""Grp de Rï¿½fï¿½rence"""
     ActiveChart.SeriesCollection(1).ChartType = xlXYScatterLines
     ActiveChart.HasTitle = True
-    ActiveChart.ChartTitle.Text = "Le Spectre de l'Acouphène"
+    ActiveChart.ChartTitle.Text = "Le Spectre de l'Acouphï¿½ne"
     With ActiveChart
         .Axes(xlCategory, xlPrimary).HasTitle = True
-        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Fréquence (kHz)"
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Frï¿½quence (kHz)"
         .Axes(xlValue, xlPrimary).HasTitle = True
-        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Ressemblance acouphènes"
+        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Ressemblance acouphï¿½nes"
     End With
     ActiveChart.SeriesCollection.NewSeries
     ActiveChart.SeriesCollection(2).Name = "=""Votre Spectre"""
@@ -8643,7 +8643,7 @@ text1(61) = "personnes le ressentent."
     
     
 'RI data
-    oWS.Range("A124").Value = "(3) L'INHIBITION RÉSIDUELLE"
+    oWS.Range("A124").Value = "(3) L'INHIBITION Rï¿½SIDUELLE"
     oWS.Range("A124").Select
     Selection.Font.Bold = True
     Selection.Font.SIZE = 12
@@ -8684,13 +8684,13 @@ text1(61) = "personnes le ressentent."
     ActiveChart.SeriesCollection(1).Values = "={0, 0.021276596, 0,0.063829787,0.085106383,0.085106383,0.276595745,0.14893617,0.063829787,0.170212766,0.085106383}"
     'ActiveChart.SeriesCollection(1).XValues = "={1,2,3,4,5,6,7,8,9,10,11}"
     ActiveChart.SeriesCollection(1).XValues = "={""5"",""4"",""3"",""2"",""1"",""0"",""-1"",""-2"",""-3"",""-4"",""-5""}"
-    ActiveChart.SeriesCollection(1).Name = "=""Grp de Réf."""
+    ActiveChart.SeriesCollection(1).Name = "=""Grp de Rï¿½f."""
     ActiveChart.SeriesCollection(1).ChartType = xlColumnClustered
     ActiveChart.HasTitle = True
-    ActiveChart.ChartTitle.Text = "L'Inhibition Résiduelle"
+    ActiveChart.ChartTitle.Text = "L'Inhibition Rï¿½siduelle"
     With ActiveChart
         .Axes(xlCategory, xlPrimary).HasTitle = True
-        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "L'Inhibition Résiduelle"
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "L'Inhibition Rï¿½siduelle"
         .Axes(xlValue, xlPrimary).HasTitle = True
         .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Pourcentage de patients"
     End With
@@ -8732,19 +8732,19 @@ text1(61) = "personnes le ressentent."
 
     With ActiveChart
         .Axes(xlCategory, xlPrimary).HasTitle = True
-        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Changement dans les acouphènes"
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Changement dans les acouphï¿½nes"
         .Axes(xlValue, xlPrimary).HasTitle = True
         .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Pourcentage de patients"
     End With
     'add textbox with caption "Louder"
     Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 78, 20, 100, 10) 'msoTextOrientationHorizontal = 1
-    ThisLine.DrawingObject.Text = "Acouphènes Plus Fort"
+    ThisLine.DrawingObject.Text = "Acouphï¿½nes Plus Fort"
     ThisLine.Select
         With Selection
             .Font.SIZE = 8
         End With
     Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 165, 20, 100, 10) 'msoTextOrientationHorizontal = 1
-    ThisLine.DrawingObject.Text = "Acouphènes Plus Doux"
+    ThisLine.DrawingObject.Text = "Acouphï¿½nes Plus Doux"
     ThisLine.Select
         With Selection
             .Font.SIZE = 8
