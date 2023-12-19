@@ -2873,236 +2873,214 @@ End Sub
 
 
 
+' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+'---------------------------------------------------------------------------
+' Procedure: cmdNext_Click
+' Description: This procedure is the event handler for the "Next" button click event. It is responsible for executing the steps of the tinnitus tester based on the user's selection. It also handles the resume functionality, where the user can choose to resume the test from a specific step. The procedure performs various file operations, data manipulation, and calls other subroutines for each step of the tinnitus test.
+'---------------------------------------------------------------------------
 Private Sub cmdNext_Click()
-Dim intfilenumber, t1, intResponse, ReadCounter, ReadCounter2, ReadCounter3, ReadCounter4 As Integer
-Dim TempString, tempstring2, InputArray(200) As String
-Dim ResumeCounter As Integer
-Dim lmdata As Single 'tinnitus loudness in dbspl- to be passed into tinnitus report call
-PA5x1.SetAtten (50)
-If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-    PA5x2.SetAtten (50)
-End If
-DialOffset = 100 'center dial for tintester
-dialcontrol1.Top = (Form1.ScaleHeight / 2) - (dialcontrol1.Height / 2) + DialOffset
-If optNew.Value = True Then 'start tinnitus tester from scratch
-    If txtInitials.Text = "" Then
-        MsgBox "Please Enter Users Intials Before Continuing"
-        Exit Sub
+    ' Variable Declarations
+    Dim intfilenumber, t1, intResponse, ReadCounter, ReadCounter2, ReadCounter3, ReadCounter4 As Integer
+    Dim TempString, tempstring2, InputArray(200) As String
+    Dim ResumeCounter As Integer
+    Dim lmdata As Single ' tinnitus loudness in dbspl- to be passed into tinnitus report call
+    
+    ' Set attenuation level for PA5x1
+    PA5x1.SetAtten (50)
+    
+    ' Check if user is using 2 PA5s and set level for PA5x2
+    If usePA52 Then
+        PA5x2.SetAtten (50)
     End If
-    WorkingDir = "c:\TinData\" & Year(Now) & "_" & Month(Now) & "_" & Day(Now) & "_" & txtInitials
-    WorkingFile = "\MainData00.csv"
-    If dir(WorkingDir & WorkingFile) <> "" Then
-        MsgBox "File already exists.  Please enter a new filename."
-        Exit Sub
-    End If
-    lblMainInstructions.Alignment = 0
-    MkDir (WorkingDir)
-    intfilenumber = FreeFile ' This is safer than assigning a number
-    'Open TempString For Append As #intFileNumber
-    Open (WorkingDir & WorkingFile) For Output As #intfilenumber
-        Write #intfilenumber, "Recorded On:", Now
-    Close #intfilenumber
-    Call hide_all
-    Form1.SetFocus
-    '*****CALL STEP 1*************************************************************
-    Call Step1_Localize  'call the function
     
-    Call hide_all
-    '*****CALL STEP 2*************************************************************
-    Call Step2_SoundIntensity
+    ' Set dial offset for tintester
+    DialOffset = 100
+    dialcontrol1.Top = (Form1.ScaleHeight / 2) - (dialcontrol1.Height / 2) + DialOffset
     
-    Call hide_all
-    '*****CALL STEP 3*************************************************************
-    Call Step3_Bandwidth
-    
-    Call hide_all
-    '*****CALL STEP 4*************************************************************
-    Call Step4_Temporal
-    
-    Call hide_all
-    '*****CALL STEP 5*************************************************************
-    Call Step5_LoudnessRating
-    
-    Call hide_all
-    '*****CALL STEP 6*************************************************************
-    Call Step6_LoudnessMatching
-    
-    Call hide_all
-    '*****CALL STEP 7*************************************************************
-    Call Step7_PitchMatching
-    
-    Call hide_all
-    '*****CALL STEP 8*************************************************************
-    Call Step8_Threshold
-    
-    Call hide_all
-    '*****CALL STEP 9*************************************************************
-    Call Step9_ResidualInhibition
-    
-    Call hide_all
-Else
-    'warn the user that all of there data past the selected step will be erased:
-    intResponse = MsgBox("WARNING!  All data from and including " & cboResume.Text & " will be overwritten!  Press OK to continue, or Cancel to abort.", vbOKCancel)
-
-    If intResponse = 1 Then 'user pressed ok
-        'do nothing...continue with experiment
-    Else 'user hit cancel:  intresponse = 2
-        Exit Sub
-    End If
-    'first we must determine where to start our file name:
-    lblMainInstructions.Alignment = 0
-    c1 = 0
-    ResumeCounter = 0
-    TempString = dirResume.Path & "\MainData0" & c1 & ".csv"
-    Do While dir(TempString) = ("MainData0" & c1 & ".csv")
-        c1 = c1 + 1
-        TempString = dirResume.Path & "\MainData0" & c1 & ".csv"
-    Loop
-    
+    ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+    ' This code block starts the tinnitus tester from scratch. It performs the following steps:
+    ' 1. Checks if the user has entered initials. If not, displays a message and exits.
+    ' 2. Creates a working directory and checks if the file already exists. If it does, displays a message and exits.
+    ' 3. Creates the working directory and writes the "Recorded On" timestamp to a file.
+    ' 4. Calls each step of the tinnitus test, hiding the previous step before calling the next one.
+    ' Start tinnitus tester from scratch
+    If optNew.Value = True Then
+        ' Check if user has entered initials
+        If txtInitials.Text = "" Then
+            MsgBox "Please Enter Users Intials Before Continuing"
+            Exit Sub
+        End If
         
-    WorkingDir = dirResume.Path
-    WorkingFile = "\MainData00.csv"
-    'MsgBox "Next File is: " & tempstring
-    Call hide_all
-    Select Case cboResume.Text
-        Case Is = "Step1_Localize"
-            ResumeCounter = 1
-            ReadCounter = 2
-            ReadCounter2 = 0
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step2_SoundIntensity"
-            ResumeCounter = 2
-            ReadCounter = 4
-            ReadCounter2 = 0
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step3_Bandwidth"
-            ResumeCounter = 3
-            ReadCounter = 8
-            ReadCounter2 = 0
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step4_Temporal"
-            ResumeCounter = 4
-            ReadCounter = 10
-            ReadCounter2 = 0
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step5_LoudnessRating"
-            ResumeCounter = 5
-            ReadCounter = 12
-            ReadCounter2 = 0
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step6_LoudnessMatching"
-            ResumeCounter = 6
-            ReadCounter = 14
-            ReadCounter2 = 0
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step7_PitchMatching"
-            ResumeCounter = 7
-            ReadCounter = 14
-            ReadCounter2 = 62
-            ReadCounter3 = 0
-            ReadCounter4 = 0
-        Case Is = "Step8_Threshold"
-            ResumeCounter = 8
-            ReadCounter = 14
-            ReadCounter2 = 62
-            ReadCounter3 = 122
-            ReadCounter4 = 0
-        Case Is = "Step9_ResidualInhibition"
-            ResumeCounter = 9
-            ReadCounter = 14
-            ReadCounter2 = 62
-            ReadCounter3 = 122
-            ReadCounter4 = 140
-    End Select
-    
-    'now we will read in existing records, and re-write a new file erasing previous records
-    c1 = 1
-    intfilenumber = FreeFile
-    Open (dirResume.Path & "\MainData00.csv") For Input As #intfilenumber
-    Do While Not EOF(intfilenumber)
-        Input #intfilenumber, InputArray(c1)
-        c1 = c1 + 1
-    Loop
-    Close #intfilenumber
-    intfilenumber = FreeFile
-    Open (dirResume.Path & "\MainData00.csv") For Output As #intfilenumber
-    c1 = 1
-    Do While c1 <= ReadCounter
-        Write #intfilenumber, InputArray(c1), InputArray(c1 + 1)
-        c1 = c1 + 2
-    Loop
-    Do While c1 <= ReadCounter2 'had to use a 2nd counter because of format change from 2 columns to 4
-        Write #intfilenumber, InputArray(c1), InputArray(c1 + 1), InputArray(c1 + 2), InputArray(c1 + 3)
-        c1 = c1 + 4
-    Loop
-    Do While c1 <= ReadCounter3 'had to use a 3rd counter because format changes again from 4 columns to 5
-        Write #intfilenumber, InputArray(c1), InputArray(c1 + 1), InputArray(c1 + 2), InputArray(c1 + 3), InputArray(c1 + 4)
-        c1 = c1 + 5
-    Loop
-    Do While c1 <= ReadCounter4 'had to use 4th counter becaus format changes from 5 columns to 2 again
-        Write #intfilenumber, InputArray(c1), InputArray(c1 + 1)
-        c1 = c1 + 2
-    Loop
-    Close #intfilenumber
-    Do While ResumeCounter <= 9
-        Select Case ResumeCounter
-            Case Is = 1
-                Call Step1_Localize
-                Call hide_all
-            Case Is = 2
-                Call Step2_SoundIntensity
-                Call hide_all
-            Case Is = 3
-                Call Step3_Bandwidth
-                Call hide_all
-            Case Is = 4
-                Call Step4_Temporal
-                Call hide_all
-            Case Is = 5
-                Call Step5_LoudnessRating
-                Call hide_all
-            Case Is = 6
-                Call Step6_LoudnessMatching
-                Call hide_all
-            Case Is = 7
-                Call Step7_PitchMatching
-                Call hide_all
-            Case Is = 8
-                Call Step8_Threshold
-                Call hide_all
-            Case Is = 9
-                Call Step9_ResidualInhibition
-                Call hide_all
-        End Select
-        ResumeCounter = ResumeCounter + 1
-    Loop
-End If
-    If English Then
-        lblMainInstructions.Caption = "Thank you.  The program is now complete.  Please wait for the experimenter to enter."
+        ' Create working directory and check if file already exists
+        WorkingDir = "c:\TinData\" & Year(Now) & "_" & Month(Now) & "_" & Day(Now) & "_" & txtInitials
+        WorkingFile = "\MainData00.csv"
+        If Dir(WorkingDir & WorkingFile) <> "" Then
+            MsgBox "File already exists. Please enter a new filename."
+            Exit Sub
+        End If
+        
+        ' Create working directory and write recorded on timestamp to file
+        MkDir (WorkingDir)
+        intfilenumber = FreeFile
+        Open (WorkingDir & WorkingFile) For Output As #intfilenumber
+        Write #intfilenumber, "Recorded On:", Now
+        Close #intfilenumber
+        
+        ' Call each step of the tinnitus test
+        Call hide_all
+        Call Step1_Localize
+        Call hide_all
+        Call Step2_SoundIntensity
+        Call hide_all
+        Call Step3_Bandwidth
+        Call hide_all
+        Call Step4_Temporal
+        Call hide_all
+        Call Step5_LoudnessRating
+        Call hide_all
+        Call Step6_LoudnessMatching
+        Call hide_all
+        Call Step7_PitchMatching
+        Call hide_all
+        Call Step8_Threshold
+        Call hide_all
+        Call Step9_ResidualInhibition
+        
+    ' Resume functionality
     Else
-        lblMainInstructions.Caption = "Merci. Le programme est maintenant termin�. Veuillez avertir l'�valuateur."
+        ' Warn the user that data will be overwritten
+        intResponse = MsgBox("WARNING! All data from and including " & cboResume.Text & " will be overwritten! Press OK to continue, or Cancel to abort.", vbOKCancel)
+        
+        If intResponse = 1 Then ' User pressed OK
+            ' Do nothing, continue with experiment
+        Else ' User hit cancel
+            Exit Sub
+        End If
+        
+        ' Determine where to start the file name
+        lblMainInstructions.Alignment = 0
+        c1 = 0
+        ResumeCounter = 0
+        TempString = dirResume.Path & "\MainData0" & c1 & ".csv"
+        Do While dir(TempString) = ("MainData0" & c1 & ".csv")
+            c1 = c1 + 1
+            TempString = dirResume.Path & "\MainData0" & c1 & ".csv"
+        Loop
+        
+        ' Set working directory and file
+        WorkingDir = dirResume.Path
+        WorkingFile = "\MainData00.csv"
+        
+        ' Read existing records and rewrite a new file erasing previous records
+        c1 = 1
+        intfilenumber = FreeFile
+        Open (dirResume.Path & "\MainData00.csv") For Input As #intfilenumber
+        Do While Not EOF(intfilenumber)
+            Input #intfilenumber, InputArray(c1)
+            c1 = c1 + 1
+        Loop
+        Close #intfilenumber
+        intfilenumber = FreeFile
+        Open (dirResume.Path & "\MainData00.csv") For Output As #intfilenumber
+        c1 = 1
+        Do While c1 <= ReadCounter
+            Write #intfilenumber, InputArray(c1), InputArray(c1 + 1)
+            c1 = c1 + 2
+        Loop
+        Do While c1 <= ReadCounter2
+            Write #intfilenumber, InputArray(c1), InputArray(c1 + 1), InputArray(c1 + 2), InputArray(c1 + 3)
+            c1 = c1 + 4
+        Loop
+        Do While c1 <= ReadCounter3
+            Write #intfilenumber, InputArray(c1), InputArray(c1 + 1), InputArray(c1 + 2), InputArray(c1 + 3), InputArray(c1 + 4)
+            c1 = c1 + 5
+        Loop
+        Do While c1 <= ReadCounter4
+            Write #intfilenumber, InputArray(c1), InputArray(c1 + 1)
+            c1 = c1 + 2
+        Loop
+        Close #intfilenumber
+        
+        ' Call each step of the tinnitus test based on the resume counter
+        Do While ResumeCounter <= 9
+            Select Case ResumeCounter
+                Case Is = 1
+                    Call Step1_Localize
+                    Call hide_all
+                Case Is = 2
+                    Call Step2_SoundIntensity
+                    Call hide_all
+                Case Is = 3
+                    Call Step3_Bandwidth
+                    Call hide_all
+                Case Is = 4
+                    Call Step4_Temporal
+                    Call hide_all
+                Case Is = 5
+                    Call Step5_LoudnessRating
+                    Call hide_all
+                Case Is = 6
+                    Call Step6_LoudnessMatching
+                    Call hide_all
+                Case Is = 7
+                    Call Step7_PitchMatching
+                    Call hide_all
+                Case Is = 8
+                    Call Step8_Threshold
+                    Call hide_all
+                Case Is = 9
+                    Call Step9_ResidualInhibition
+                    Call hide_all
+            End Select
+            ResumeCounter = ResumeCounter + 1
+        Loop
+    End If
+    
+    ' Display completion message and write tinnitus report
+    If English Then
+        lblMainInstructions.Caption = "Thank you. The program is now complete. Please wait for the experimenter to enter."
+    Else
+        lblMainInstructions.Caption = "Merci. Le programme est maintenant terminé. Veuillez avertir l'évaluateur."
     End If
     Call WriteReportSPL
-    lblMainInstructions.visible = True
-    If PReport Then 'output tinnitus report
-        'Call WriteReport
-        'calculate likeness match data.  For a 1khz tone we take the avg PA5 value loudness test, and
-        ' subtract the PA5 value from the threshold test.
+    lblMainInstructions.Visible = True
+    
+    ' Output tinnitus report
+    If PReport Then
         lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
         If English Then
             Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
         Else
             Call OutputReport_F(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
         End If
-        
     End If
 End Sub
+
+' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+'*************************************************************************************
+'** Subroutine Name: WriteReportSPL
+'**
+'** Purpose: This subroutine is responsible for writing a report in CSV format with various SPL (Sound Pressure Level) measurements.
+'**
+'** Parameters:
+'**    - None
+'**
+'** Returns:
+'**    - None
+'**
+'** Notes:
+'**    - This subroutine reads calibration data from a file and uses it to calculate SPL values for different frequencies and tinnitus properties.
+'**    - The calculated SPL values are written to a CSV file along with other information such as tinnitus location, temporal property, and loudness rating.
+'**    - The file path for the output file is determined by the variable WorkingDir and the file name is "MainDataSPL.csv".
+'**    - If the calibration data file does not exist, a message box is displayed indicating that the SPL values will be incorrect.
+'**    - The output file is opened in write mode and various information is written to it using the Write statement.
+'**    - The calculated SPL values are obtained by subtracting the corresponding values from the calibration data.
+'**    - The output file is closed after all the information is written.
+'**
+'** Example Usage:
+'**    WriteReportSPL
+'**
+'*************************************************************************************
 Private Sub WriteReportSPL()
 Dim intfilenumber As Integer
 Dim TempString1 As String
@@ -3133,6 +3111,13 @@ Else
     MsgBox "ERROR DETERMINING CMF"
 End If
 
+        ' This code reads in calibration values from a CSV file.
+        ' If the file exists, it reads the values into the CalibData array.
+        ' If the file does not exist, it sets all values in the CalibData array to 0 and displays a message.
+        ' The CalibData array stores calibration values for pure tone, ringing, hissing, and white noise.
+        ' The values are used to calculate sound pressure level (SPL) values.
+        ' Note: If the calibration data file is missing, the recorded PA5 values will be correct, but the SPL values will be incorrect.
+        ' The file path for the calibration data file is "C:\TinData\CalibrationData.csv".
         'first,we must read in calibration values
         If (dir("C:\TinData\CalibrationData.csv")) = "CalibrationData.csv" Then 'the datafile exists, read it in
             'row 1 = pure tone, row 2 = ringing row 3 = hissing
@@ -3160,6 +3145,13 @@ End If
         '    MsgBox "File already exists.  Please enter a new filename."
         '    Exit Sub
         'End If
+
+        ' This code writes data to a file specified by the WorkingDir and WorkingFile variables.
+        ' The data includes information about the recorded date, tinnitus location, temporal property, tinnitus bandwidth,
+        ' comfortable listening levels, loudness rating, tinnitus loudness match, tinnitus likeness match, RI results,
+        ' and RI sound levels for left and right ears.
+        ' The data is written in a specific format to the file using the Write statement.
+        ' The file is then closed using the Close statement.
         intfilenumber = FreeFile ' This is safer than assigning a number
         Open (WorkingDir & WorkingFile) For Output As #intfilenumber
             'first, write the date file was recorded on
@@ -3447,41 +3439,71 @@ Private Sub cmdPrintReport_Click()
         Loop
         'MsgBox "Found Data File. " & c1 & " records exist"
         Close #intfilenumber
-        '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        'calculate loudness match data at 1khz
-        lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
-        'calculate ri data @ 5khz
-        'MsgBox (CInt(txtLoudnessT1(1)) & " " & CInt(txtLoudnessT2(1)))
-        If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
-            RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRIRightT1(1)) + CInt(txtRILeftT2(1)) + CInt(txtRIRightT2(1))) / 4
-        ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
-            RI5k = (CInt(txtRIRightT1(1)) + CInt(txtRIRightT2(1))) / 2
-        Else 'tinnitus is in left ear only, txtLocalize.Text = 1
-            RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRILeftT2(1))) / 2
-        End If
-        ' fill in user values for report
-        Select Case CInt(txtBandwidth.Text)
-            Case Is = 1
-                If English Then
-                    UserBW = "Hissing"
-                Else
-                    UserBW = "Stifflement"
+        
+        '******************************************************************************************************
+        '** Description: This code calculates various values based on user input and fills in the user values for a report.
+        '**
+        '** Inputs:
+        '**   - txtPA5ThreshValue: The threshold value for loudness match at 1kHz.
+        '**   - txtLoudnessT1: Array of loudness values for condition T1.
+        '**   - txtLoudnessT2: Array of loudness values for condition T2.
+        '**   - txtLocalize: The localization value for tinnitus (1 = left ear, 2 = both ears, 3 = right ear).
+        '**   - txtRILeftT1: Array of RI values for left ear in condition T1.
+        '**   - txtRIRightT1: Array of RI values for right ear in condition T1.
+        '**   - txtRILeftT2: Array of RI values for left ear in condition T2.
+        '**   - txtRIRightT2: Array of RI values for right ear in condition T2.
+        '**   - txtBandwidth: The bandwidth value (1 = hissing, 2 = ringing, >=3 = tonal).
+        '**   - English: Boolean value indicating whether the report should be in English or another language.
+        '**
+        '** Outputs:
+        '**   - lmdata: Loudness match data at 1kHz.
+        '**   - RI5k: RI data at 5kHz.
+        '**   - UserBW: User-defined bandwidth value for the report.
+        '**
+        '** Notes:
+        '**   - The code calculates the loudness match data at 1kHz based on the threshold value and the average of loudness values.
+        '**   - The code calculates the RI data at 5kHz based on the localization value and the average of RI values.
+        '**   - The code fills in the user-defined bandwidth value for the report based on the bandwidth input.
+        '******************************************************************************************************
+                '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                'calculate loudness match data at 1khz
+                lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
+                'calculate ri data @ 5khz
+                'MsgBox (CInt(txtLoudnessT1(1)) & " " & CInt(txtLoudnessT2(1)))
+                If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
+                    RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRIRightT1(1)) + CInt(txtRILeftT2(1)) + CInt(txtRIRightT2(1))) / 4
+                ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
+                    RI5k = (CInt(txtRIRightT1(1)) + CInt(txtRIRightT2(1))) / 2
+                Else 'tinnitus is in left ear only, txtLocalize.Text = 1
+                    RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRILeftT2(1))) / 2
                 End If
-            Case Is = 2
-                If English Then
-                    UserBW = "Ringing"
-                Else
-                    UserBW = "Sonnerie"
-                End If
-            Case Is >= 3
-                If English Then
-                    UserBW = "Tonal"
-                Else
-                    UserBW = "Tonal"
-                End If
-          End Select
+                ' fill in user values for report
+                Select Case CInt(txtBandwidth.Text)
+                    Case Is = 1
+                        If English Then
+                            UserBW = "Hissing"
+                        Else
+                            UserBW = "Stifflement"
+                        End If
+                    Case Is = 2
+                        If English Then
+                            UserBW = "Ringing"
+                        Else
+                            UserBW = "Sonnerie"
+                        End If
+                    Case Is >= 3
+                        If English Then
+                            UserBW = "Tonal"
+                        Else
+                            UserBW = "Tonal"
+                        End If
+                  End Select
 
 
+        ' This Select Case statement assigns a value to the variable UserTL based on the value of txtLocalize.Text.
+        ' If txtLocalize.Text is 1, UserTL is assigned "Left Ear" if English is True, otherwise "Oreille Gauche".
+        ' If txtLocalize.Text is 2, UserTL is assigned "Both Ears" if English is True, otherwise "Deux Oreilles".
+        ' If txtLocalize.Text is greater than or equal to 3, UserTL is assigned "Right Ear" if English is True, otherwise "Oreille Droite".
         Select Case CInt(txtLocalize.Text)
             Case Is = 1
                 If English Then
@@ -3503,6 +3525,9 @@ Private Sub cmdPrintReport_Click()
                 End If
         End Select
     
+                ' This Select Case statement determines the value of the variable txtTemporal.Text and assigns a corresponding value to the variable UserSorP.
+                ' If the value of txtTemporal.Text is 1, the variable UserSorP is assigned the value "Steady" (or "Continu" if the language is not English).
+                ' If the value of txtTemporal.Text is greater than or equal to 2, the variable UserSorP is assigned the value "Pulsing" (or "Pulsatif" if the language is not English).
                 Select Case CInt(txtTemporal.Text)
                     Case Is = 1 'Steady Sound
                         If English Then
@@ -3516,8 +3541,9 @@ Private Sub cmdPrintReport_Click()
                         Else
                             UserSorP = "Pulsatif"
                         End If
-            End Select
+                End Select
                 
+
         'tell output report where to put file:
         WorkingDir = Left(comFile.FileName, (Len(comFile.FileName) - Len(comFile.FileTitle) - 1)) 'removes filename from path and \
         'output report:
