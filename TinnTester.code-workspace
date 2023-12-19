@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "TinTest -UofM"
+		},
+		{
+			"path": "TinTestCal"
+		},
+		{
+			"path": "User Manuals"
+		},
+		{
+			"path": "Media"
+		},
+		{
+			"path": "bin"
+		},
+		{
+			"path": "Calibration Data"
+		},
+		{
+			"path": "TDT Drivers"
+		},
+		{
+			"path": "RITest1"
+		},
+		{
+			"path": "Bimodal RI"
+		},
+		{
+			"path": "TinTest2_LDL"
+		}
+	],
+	"settings": {}
+}
