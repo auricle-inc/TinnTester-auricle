@@ -5214,7 +5214,7 @@ Private Sub Step7_PitchMatching()
         framLoudness.Caption = "Correspondance de hauteur"
     End If
     txtValue.Text = 0
-    
+
     ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
 
     ' This code block represents a subroutine that cycles through 33 sounds and performs various operations for each sound.
@@ -5376,6 +5376,7 @@ Private Sub Step7_PitchMatching()
     Close #intfilenumber
 
 End Sub
+
 Private Sub Step8_Threshold()
     Dim c1 As Integer
     Dim SoundOrderFile(1 To 4) As String
@@ -5486,6 +5487,13 @@ Private Sub Step8_Threshold()
     Do While chkClick.Value = 0  'wait until the user clicks the knob
         DoEvents
     Loop
+
+    ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+    ' This code block sets the visibility of various labels and captions based on user instructions.
+    ' It also determines the user's threshold by adjusting the dial and playing sounds.
+    ' The code then sorts the threshold values and calculates the median value.
+    ' Finally, it sets the visibility and captions for the next step of the process.
+    ' Note: The code references external objects such as lblInstruct2, lblInstruct3, lblTitle, lblSoft, lblLoud, lblMainInstructions, txtValue, PA5x1, PA5x2, dialcontrol1, chkClick, chkChange, sndPlaySound, TimerStep8, txtSoundThreshold, vLevels, BubbleSortArray, txtPA5ThreshValue, lblNextSound, PA5ValuePure.
     lblInstruct2.visible = False
     lblInstruct3.visible = False
     lblTitle.visible = True
@@ -5495,6 +5503,10 @@ Private Sub Step8_Threshold()
     '      determine users threshold          *
     '******************************************
     For c1 = 0 To 3 Step 1
+        ' This code block sets the instructions and values for a dial control in a form.
+        ' If c1 is equal to 0, it sets the instructions for the dial control based on the language preference.
+        ' It also sets the initial value of txtValue to 0 and adjusts the attenuation level of PA5x1 and PA5x2 accordingly.
+        ' Finally, it sets the volume of dialcontrol1 to 0.
         If c1 = 0 Then
             If English Then
                 lblMainInstructions.Caption = "Turn the dial clockwise until you can hear a sound and stop turning it as soon as you hear it.  Then press to move on to the next step."
@@ -5507,6 +5519,11 @@ Private Sub Step8_Threshold()
                 PA5x2.SetAtten (120 - CInt(txtValue.Text))
             End If
             dialcontrol1.setvolume (0)
+        ' This code block is part of a conditional statement that executes when the value of c1 is equal to 1.
+        ' It sets the caption of the lblMainInstructions label based on the value of the English variable.
+        ' It also sets the text of the txtValue textbox based on the calculation using the txtSoundThreshold value.
+        ' Additionally, it sets the attenuation level of the PA5x1 and PA5x2 objects based on the txtValue.
+        ' Finally, it sets the volume of the dialcontrol1 object based on the txtValue.
         ElseIf c1 = 1 Then
             If English Then
                 lblMainInstructions.Caption = "You should now hear the sound playing softly.  Turn the dial counter-clockwise until the sound just disappears, then click to move on."
@@ -5551,6 +5568,17 @@ Private Sub Step8_Threshold()
         dialcontrol1.SetFocus
         chkClick.Value = 0
         'play 1khz tone to find users threshold.
+        ' Plays a sound file and waits for user interaction.
+        ' The sound file path is "C:\TinData\tintest_wav\s2.wav".
+        ' The sound is played asynchronously and continuously in a loop.
+        ' The TimerStep8.Enabled property is set to True.
+        ' The code waits in a loop until the user clicks the knob.
+        ' If the user makes an adjustment, the change flag is reset and the attenuation level is updated.
+        ' If the user is using two PA5 devices, the attenuation level is also updated for the second device.
+        ' The loop continues until the user clicks the knob.
+        ' This code utilizes the sndPlaySound function and various control properties.
+        ' Note: This code assumes the existence of certain objects and controls (e.g., sndPlaySound, TimerStep8, chkClick, chkChange, PA5x1, PA5x2, txtValue).
+        ' It is recommended to review the entire code file for a complete understanding of the functionality.
         sndPlaySound "C:\TinData\tintest_wav\s2.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
         TimerStep8.Enabled = True
         Do While chkClick.Value = 0  'wait until the user clicks the knob
@@ -5592,6 +5620,17 @@ Private Sub Step8_Threshold()
         PA5ValuePure = 0
     End If
     
+    ' This code block is responsible for presenting sounds and adjusting sound levels.
+    ' It iterates through a loop to present multiple sounds and allows the user to adjust the sound level using a dial control.
+    ' The code also includes pauses between sounds and handles user interactions such as clicking the knob.
+    ' Sound levels are calculated based on the difference between a predefined value and the PA5 level.
+    ' The code also updates a text box with the sound level and stores the sound level matches in an array.
+    ' The code is specific to the TinTest application and the UofM version.
+    ' 
+    ' Note: The code references external resources such as sound files and controls (e.g., dialcontrol1, chkClick).
+    '       The code also includes conditional statements based on certain flags (e.g., usePA52, English).
+    '       The code assumes the existence of other variables and functions (e.g., PA5Level, PA5ValuePure, SoundOrderFile).
+    '       Please refer to the complete codebase for a comprehensive understanding.
     
     c1 = 1
     PA5ValueHiss = PA5Level(1)
@@ -5704,26 +5743,33 @@ Private Sub Step8_Threshold()
         c1 = c1 + 1
         DoEvents
     Loop
-    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop sound from playing
-    Timer1.Enabled = False
-    VolAdj = False
-    dialcontrol1.visible = False
-    lblNextSound.visible = False
-    lblTitle.FontSize = 60
-    'output info
-    intfilenumber = FreeFile ' This is safer than assigning a number
-    Open (WorkingDir & WorkingFile) For Append As #intfilenumber
-        Write #intfilenumber, (CInt(txtSoundThreshold(0).Text)), "PA5 Threshold # 1"
-        Write #intfilenumber, (CInt(txtSoundThreshold(1).Text)), "PA5 Threshold # 2"
-        Write #intfilenumber, (CInt(txtSoundThreshold(2).Text)), "PA5 Threshold # 3"
-        Write #intfilenumber, (CInt(txtSoundThreshold(3).Text)), "PA5 Threshold # 4"
-        Write #intfilenumber, (CInt(txtPA5ThreshValue.Text)), "PA5Value used for 1 kHz Threshold"
-        'Write #intfilenumber, (CInt(txtSoundLevelMatch(0).Text)), "PA5Value for file w1"
-        Write #intfilenumber, (CInt(txtSoundLevelMatch(1).Text)), "PA5Value for file w6"
-        'Write #intfilenumber, (CInt(txtSoundLevelMatch(2).Text)), "PA5Value for file wn"
-        'Write #intfilenumber, (CInt(txtSoundLevelMatch(3).Text)), ("PA5Value for Custom Masker: " & CM)
-    Close #intfilenumber
+    
+    ' This code block stops the sound from playing, disables Timer1, hides dialcontrol1 and lblNextSound,
+        ' sets the font size of lblTitle to 60, and appends information to a file.
+        ' The information includes the sound thresholds, PA5 value for 1 kHz threshold,
+        ' and PA5 values for file w6 and custom masker.
+        sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop sound from playing
+        Timer1.Enabled = False
+        VolAdj = False
+        dialcontrol1.visible = False
+        lblNextSound.visible = False
+        lblTitle.FontSize = 60
+        'output info
+        intfilenumber = FreeFile ' This is safer than assigning a number
+        Open (WorkingDir & WorkingFile) For Append As #intfilenumber
+            Write #intfilenumber, (CInt(txtSoundThreshold(0).Text)), "PA5 Threshold # 1"
+            Write #intfilenumber, (CInt(txtSoundThreshold(1).Text)), "PA5 Threshold # 2"
+            Write #intfilenumber, (CInt(txtSoundThreshold(2).Text)), "PA5 Threshold # 3"
+            Write #intfilenumber, (CInt(txtSoundThreshold(3).Text)), "PA5 Threshold # 4"
+            Write #intfilenumber, (CInt(txtPA5ThreshValue.Text)), "PA5Value used for 1 kHz Threshold"
+            'Write #intfilenumber, (CInt(txtSoundLevelMatch(0).Text)), "PA5Value for file w1"
+            Write #intfilenumber, (CInt(txtSoundLevelMatch(1).Text)), "PA5Value for file w6"
+            'Write #intfilenumber, (CInt(txtSoundLevelMatch(2).Text)), "PA5Value for file wn"
+            'Write #intfilenumber, (CInt(txtSoundLevelMatch(3).Text)), ("PA5Value for Custom Masker: " & CM)
+        Close #intfilenumber
+
 End Sub
+
 Private Sub Step9_ResidualInhibition()
     
     Dim intfilenumber, c1 As Integer
@@ -5764,89 +5810,57 @@ Private Sub Step9_ResidualInhibition()
     End If
     
     'fixed order.  Only 1 sound:
-    SoundOrder(1) = "C:\TinData\tintest_wav\w6_30s.wav"
-    OutputBox(1) = 0
-    SoundOrder(2) = "C:\TinData\tintest_wav\w6_30s.wav"
-    OutputBox(2) = 1
-    'select first four:
-'    RandomizeArray SO
-'    c1 = 1
-'    Do While (c1 <= 4)
-'        Select Case SO(c1)
-'            Case Is = 1
-'                SoundOrder(c1) = "C:\TinData\tintest_wav\w1_30s.wav"
-'                OutputBox(c1) = 0
-'            Case Is = 2
-'                SoundOrder(c1) = "C:\TinData\tintest_wav\w6_30s.wav"
-'                OutputBox(c1) = 1
-'            Case Is = 3
-'                SoundOrder(c1) = "C:\TinData\tintest_wav\wn_30s.wav"
-'                OutputBox(c1) = 2
-'            Case Is = 4
-'                SoundOrder(c1) = ("C:\TinData\CMBank\CM" & CM & ".wav") 'CUSTOM MASKER
-'                OutputBox(c1) = 3
-'                'MsgBox SoundOrderFile(c1)
-'        End Select
-'        c1 = c1 + 1
-'    Loop
-    
-    'select second four:
-'    RandomizeArray SO
-'    c1 = 1
-'    Do While (c1 <= 4)
-'        Select Case SO(c1)
-'            Case Is = 1
-'                SoundOrder(c1 + 4) = "C:\TinData\tintest_wav\w1_30s.wav"
-'                OutputBox(c1 + 4) = 0
-'            Case Is = 2
-'                SoundOrder(c1 + 4) = "C:\TinData\tintest_wav\w6_30s.wav"
-'                OutputBox(c1 + 4) = 1
-'            Case Is = 3
-'                SoundOrder(c1 + 4) = "C:\TinData\tintest_wav\wn_30s.wav"
-'                OutputBox(c1 + 4) = 2
-'            Case Is = 4
-'                SoundOrder(c1 + 4) = ("C:\TinData\CMBank\CM" & CM & ".wav") 'CUSTOM MASKER
-'                OutputBox(c1 + 4) = 3
-                'MsgBox SoundOrderFile(c1)
-'        End Select
-'        c1 = c1 + 1
-'    Loop
-    
-    Timer1.Interval = 1000
-'    SoundOrder(1) = "C:\TinData\tintest_wav\wn_30s.wav" 'dummy file...not recorded
-'    SoundOrder(2) = "C:\TinData\tintest_wav\w1_30s.wav"
-'    SoundOrder(3) = "C:\TinData\tintest_wav\w6_30s.wav"
-'    SoundOrder(4) = ("C:\TinData\CMBank\CM" & CM & ".wav") 'CUSTOM MASKER
-'    SoundOrder(5) = "C:\TinData\tintest_wav\w1_30s.wav"
-'    SoundOrder(6) = "C:\TinData\tintest_wav\w6_30s.wav"
-'    SoundOrder(7) = ("C:\TinData\CMBank\CM" & CM & ".wav") 'CUSTOM MASKER
-    If English Then
-        lblMainInstructions.Caption = "Please sit back and relax. An instruction will appear on the screen in 90 seconds and you will then proceed to the last part of the test."
-    Else
-        lblMainInstructions.Caption = "S'il vous plait, reposez-vous et d�tendez-vous. Une instruction va appara�tre sur l'�cran dans 90 secondes et vous pourrez effectuer la derni�re partie du test."
-    End If
-    lblMainInstructions.visible = True
-    txtTimer.Text = 0
-    Timer1.Enabled = True
-    ProgressBar1.Value = 0
-    ProgressBar1.Max = 90
-    ProgressBar1.visible = True
-    Do While (CInt(txtTimer.Text) < 90) 'loop for 90s
-        ProgressBar1.Value = CInt(txtTimer.Text)
-        DoEvents
-    Loop
-    ProgressBar1.visible = False
-    If English Then
-        lblMainInstructions.Caption = "Please press the dial to proceed to the last part of the test."
-    Else
-        lblMainInstructions.Caption = "Appuyez sur la commande rotative pour passer � la derni�re partie de l'essai."
-    End If
-    lblMainInstructions.visible = True
-    chkClick.Value = 0
-    Do While chkClick.Value = 0  'wait until the user clicks the knob
-        DoEvents
-    Loop
-    ProgressBar1.visible = False
+        SoundOrder(1) = "C:\TinData\tintest_wav\w6_30s.wav"
+        OutputBox(1) = 0
+        SoundOrder(2) = "C:\TinData\tintest_wav\w6_30s.wav"
+        OutputBox(2) = 1
+     
+        Timer1.Interval = 1000
+        If English Then
+            lblMainInstructions.Caption = "Please sit back and relax. An instruction will appear on the screen in 90 seconds and you will then proceed to the last part of the test."
+        Else
+            lblMainInstructions.Caption = "S'il vous plait, reposez-vous et d�tendez-vous. Une instruction va appara�tre sur l'�cran dans 90 secondes et vous pourrez effectuer la derni�re partie du test."
+        End If
+        lblMainInstructions.visible = True
+        txtTimer.Text = 0
+        Timer1.Enabled = True
+        ProgressBar1.Value = 0
+        ProgressBar1.Max = 90
+        ProgressBar1.visible = True
+        Do While (CInt(txtTimer.Text) < 90) 'loop for 90s
+            ProgressBar1.Value = CInt(txtTimer.Text)
+            DoEvents
+        Loop
+        ProgressBar1.visible = False
+        If English Then
+            lblMainInstructions.Caption = "Please press the dial to proceed to the last part of the test."
+        Else
+            lblMainInstructions.Caption = "Appuyez sur la commande rotative pour passer � la derni�re partie de l'essai."
+        End If
+        lblMainInstructions.visible = True
+        chkClick.Value = 0
+        Do While chkClick.Value = 0  'wait until the user clicks the knob
+            DoEvents
+        Loop
+        ProgressBar1.visible = False
+
+    ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+
+    ' This section of code is responsible for playing a sound and allowing the user to rate how their tinnitus has changed.
+    ' It starts by disabling the Timer1 control and setting the appropriate instructions based on the language.
+    ' Then, it sets the initial values for the timer, progress bar, and enables the Timer1 control.
+    ' The first loop runs for 30 seconds, allowing the user to read the instructions.
+    ' After that, the Timer1 control is disabled and the progress bar is hidden.
+    ' The sound is played using the sndPlaySound function, and another loop runs for 30 seconds to allow the sound to play uninterrupted.
+    ' The sound is then stopped using the silence.wav file.
+    ' The focus is set back to Form1, and the timer is disabled.
+    ' Depending on the tinnitus localization, different instructions and frames are displayed.
+    ' The user is prompted to adjust the dial to rate how their tinnitus has changed.
+    ' If the tinnitus is monaural, the user adjusts the dial for either the left or right ear.
+    ' If the tinnitus is bilateral, the user adjusts the dial for both ears.
+    ' The user's rating is stored in the appropriate text boxes.
+    ' The loop continues until all sounds have been played and rated.
+    ' The documentation comment provides an overview of the functionality and purpose of this code section.
     c1 = 1
     Do While c1 <= 2
         Timer1.Enabled = False
@@ -6090,12 +6104,6 @@ Private Sub Step9_ResidualInhibition()
     Open (WorkingDir & WorkingFile) For Append As #intfilenumber
         Write #intfilenumber, ((txtRILeftT1(0) - 50 - 1) / 10), ((txtRIRightT1(0) - 50 - 1) / 10), "Trial1:5000Hz NBN"
         Write #intfilenumber, ((txtRILeftT1(1) - 50 - 1) / 10), ((txtRIRightT1(1) - 50 - 1) / 10), "Trial2:5000Hz NBN"
-'        Write #intfilenumber, ((txtRILeftT1(2) - 50 - 1) / 10), ((txtRIRightT1(2) - 50 - 1) / 10), "Trial1:White Noise"
-'        Write #intfilenumber, ((txtRILeftT1(3) - 50 - 1) / 10), ((txtRIRightT1(3) - 50 - 1) / 10), "Trial1:Custom Masker: " & CM
-'        Write #intfilenumber, ((txtRILeftT2(0) - 50 - 1) / 10), ((txtRIRightT2(0) - 50 - 1) / 10), "Trial2:500Hz NBN"
-'        Write #intfilenumber, ((txtRILeftT2(1) - 50 - 1) / 10), ((txtRIRightT2(1) - 50 - 1) / 10), "Trial2:5000Hz NBN"
-'        Write #intfilenumber, ((txtRILeftT2(2) - 50 - 1) / 10), ((txtRIRightT2(2) - 50 - 1) / 10), "Trial2:White Noise"
-'        Write #intfilenumber, ((txtRILeftT2(3) - 50 - 1) / 10), ((txtRIRightT2(3) - 50 - 1) / 10), "Trial2:Custom Masker: " & CM
     Close #intfilenumber
     If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
         RI5k = (((txtRILeftT1(0) - 50 - 1) / 10) + ((txtRIRightT1(0) - 50 - 1) / 10) + ((txtRILeftT1(1) - 50 - 1) / 10) + ((txtRIRightT1(1) - 50 - 1) / 10)) / 4
@@ -6123,7 +6131,6 @@ End Sub
 
 Private Sub Command5_Click()
 'Call WriteReport
-
 End Sub
 
 Private Sub Command6_Click()
@@ -6148,7 +6155,11 @@ Private Sub dirResume_Change()
         txtPitchMatchT3(c1).Text = ""
     Next c1
     
-    
+    ' This code block checks if the file "MainData00.csv" exists in the specified directory.
+    ' If the file exists, it clears the text boxes and reads the data from the file into the respective text boxes.
+    ' The number of records in the file is counted and used to determine the available options in the combo box.
+    ' The combo box is populated with different steps based on the number of records.
+    ' If the file does not exist, no action is taken.
     If (dir(dirResume.Path & "\MainData00.csv")) = "MainData00.csv" Then 'the datafile exists!
         Call clearOldData 'clears the text boxes, which may be cluttered with bad values.
         cboResume.visible = True
@@ -6158,6 +6169,13 @@ Private Sub dirResume_Change()
         intfilenumber = FreeFile
         Open (dirResume.Path & "\MainData00.csv") For Input As #intfilenumber
         Do While Not EOF(intfilenumber)
+            ' This code block reads data from a file and assigns the values to various text boxes based on the value of c1.
+            ' The input file number is read using the Input statement.
+            ' The TempString variable stores the value read from the file.
+            ' The c1 variable is incremented by 1.
+            ' The Select Case statement is used to determine which text box to assign the value to based on the value of c1.
+            ' The corresponding text box is updated with the value of TempString.
+            ' The loop continues until the end of the file is reached.
             Input #intfilenumber, TempString
             c1 = c1 + 1
             
@@ -6308,6 +6326,19 @@ Private Sub dirResume_Change()
         Close #intfilenumber
         '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+        ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+        ' This Select Case statement adds items to the cboResume ComboBox based on the value of c1.
+        ' The items added depend on the range in which c1 falls.
+        ' If c1 is less than or equal to 2, it adds "Step1_Localize" to the ComboBox.
+        ' If c1 is between 3 and 6 (inclusive), it adds "Step1_Localize" and "Step2_SoundIntensity" to the ComboBox.
+        ' If c1 is between 7 and 8 (inclusive), it adds "Step1_Localize", "Step2_SoundIntensity", and "Step3_Bandwidth" to the ComboBox.
+        ' If c1 is between 9 and 10 (inclusive), it adds "Step1_Localize", "Step2_SoundIntensity", "Step3_Bandwidth", and "Step4_Temporal" to the ComboBox.
+        ' If c1 is between 11 and 12 (inclusive), it adds "Step1_Localize", "Step2_SoundIntensity", "Step3_Bandwidth", "Step4_Temporal", and "Step5_LoudnessRating" to the ComboBox.
+        ' If c1 is between 13 and 14 (inclusive), it adds "Step1_Localize", "Step2_SoundIntensity", "Step3_Bandwidth", "Step4_Temporal", "Step5_LoudnessRating", and "Step6_LoudnessMatching" to the ComboBox.
+        ' If c1 is between 15 and 62 (inclusive), it adds "Step1_Localize", "Step2_SoundIntensity", "Step3_Bandwidth", "Step4_Temporal", "Step5_LoudnessRating", "Step6_LoudnessMatching", and "Step7_PitchMatching" to the ComboBox.
+        ' If c1 is between 63 and 122 (inclusive), it adds "Step1_Localize", "Step2_SoundIntensity", "Step3_Bandwidth", "Step4_Temporal", "Step5_LoudnessRating", "Step6_LoudnessMatching", "Step7_PitchMatching", and "Step8_Threshold" to the ComboBox.
+        ' If c1 is greater than 122, it adds "Step1_Localize", "Step2_SoundIntensity", "Step3_Bandwidth", "Step4_Temporal", "Step5_LoudnessRating", "Step6_LoudnessMatching", "Step7_PitchMatching", and "Step8_Threshold" to the ComboBox.
+        ' Uncomment the last line to add "Step9_ResidualInhibition" to the ComboBox when c1 is greater than 140.
         Select Case c1
             Case Is <= 2
                 cboResume.AddItem "Step1_Localize"
@@ -6372,6 +6403,26 @@ Private Sub dirResume_Change()
     
 End Sub
 
+' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+'
+' Form_KeyDown is an event handler that is triggered when a key is pressed while the form has focus.
+' It handles specific key codes and performs corresponding actions based on the key pressed.
+'
+' Parameters:
+'   - KeyCode: An Integer representing the key code of the key that was pressed.
+'   - Shift: An Integer representing the state of the Shift, Ctrl, and Alt keys when the key was pressed.
+'
+' Remarks:
+'   - If the left arrow key (KeyCode = 37) is pressed and the value in the txtValue TextBox is greater than 1,
+'     the value is decremented by 1 and the chkChange CheckBox is marked to indicate that an event has occurred.
+'   - If the right arrow key (KeyCode = 39) is pressed and the value in the txtValue TextBox is less than 120,
+'     the value is incremented by 1 and the chkChange CheckBox is marked to indicate that an event has occurred.
+'   - If the value in the txtValue TextBox is already 120 or greater and the right arrow key is pressed,
+'     and the VolAdj flag is set to True, the intMaxVolume variable is incremented by 1 and the chkChange CheckBox is marked.
+'   - If the space bar (KeyCode = 32) is pressed and boolDblClick is False, the chkClick CheckBox is marked,
+'     boolDblClick is set to True, and the timerDblClick Timer is enabled.
+'   - If the 'c' key (KeyCode = 67 or 99) is pressed, the TinTrainComplete flag is set to True.
+'
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         If KeyCode = 37 Then 'user hit left arrow
             If CInt(txtValue.Text) > 1 Then
@@ -6407,106 +6458,90 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-
-'setup activelock check first:
-'Set ActiveLock = ActiveLock3.NewInstance()
-'With ActiveLock
-'    .SoftwareVersion = "1.1"
-'    .SoftwarePassword = Chr(99) & Chr(111) & Chr(111) & Chr(108)
-'End With
-' Specify where the license file is
-'ActiveLock.KeyStoreType = alsFile
-'ActiveLock.KeyStorePath = App.Path & "\myapp.lic"
-' Obtain the EventNotifier so that we can receive notifications from AL.
-'Set ActiveLockEventSink = ActiveLock.EventNotifier
-
-' Specify the name of the product that will be locked through AL.
-'ActiveLock.SoftwareName = "MyApp"
-
-' Specify your product code.
-' This code will be used later by ActiveLock to validate license keys.
-'SOFTWARE CODE = VCODE"
-'ActiveLock.SoftwareCode = "RSA1024BgIAAAAkAABSU0ExAAQAAAEAAQBTB0vIQA7WGFirMOuqmu0maAXBJkxGZjjDs5MfMkKqjlud1H4wzODEPwUZGyOsyagK+5E1+I/9EHwnHKF+G32/QifG274U3guD1+E3TGYZfBZFlrJoDpoI4et2KYI5yBH8sKw97sWrQDX9OQxHpW7q1Wv0YtG8BFGrAamuJ8YF4A=="
-
-' Specify product version
-'ActiveLock.SoftwareVersion = "1.1"
-
-' Specify Lock Type as Lock-to-HardDrive Firmware.
-' The primary hard drive firmware serial number.
-'ActiveLock.LockType = lockBIOS
-
-' Specify the path to the liberation file to be picked up for automatic registration.
-'ActiveLock.AutoRegisterKeyPath = App.Path & "\tt.all" ' all = ActiveLock Liberation file
-'ActiveLock.Init
-
-' Attempt to acquire a valid license token
-'         On Error GoTo ErrHandler
-'         ActiveLock.Acquire  ' Acquire will raise an error if no valid license exists.
-
-
-'Call CheckLicense 'program will end if there is an error with the license file
-
-VolAdj = False
-Form1.Hide
-FormReg.Hide
-formUserID.Hide
-Form2.Show
-Form2.SetFocus
-boolDblClick = False
-Exit Sub
+    ' This event is triggered when the form is loaded.
+    ' It initializes the form and sets the initial visibility of other forms.
+    ' If an error occurs during the initialization process, an error message is displayed.
+    
+    VolAdj = False
+    Form1.Hide
+    FormReg.Hide
+    formUserID.Hide
+    Form2.Show
+    Form2.SetFocus
+    boolDblClick = False
+    
+    Exit Sub
+    
 ErrHandler:
-        MsgBox "ActiveLock Error: " & Err.Description
-        FormReg.Show
-        Form1.Hide
-        formUserID.Hide
-        Form2.Hide
-        FormReg.SetFocus
+    MsgBox "ActiveLock Error: " & Err.Description
+    FormReg.Show
+    Form1.Hide
+    formUserID.Hide
+    Form2.Hide
+    FormReg.SetFocus
 End Sub
 
+' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+
+' This event handler is triggered when the form is resized.
+' It adjusts the position of various controls on the form to keep them centered.
 Private Sub Form_Resize()
     On Error Resume Next
-    '*******despite the odd assortment of numbers, these will actually line up the dial in the same spot on the screen for all of
-    'the seperate dials.
     
+    ' Adjust the position of dialcontrol1
     dialcontrol1.Left = (Form1.ScaleWidth / 2) - (dialcontrol1.Width / 2)
-    dialcontrol1.Top = (Form1.ScaleHeight / 2) - (dialcontrol1.Height / 2) + DialOffset 'put it a little lower than center
+    dialcontrol1.Top = (Form1.ScaleHeight / 2) - (dialcontrol1.Height / 2) + DialOffset
     
+    ' Adjust the position of soundYesNo1
     soundYesNo1.Left = (Form1.ScaleWidth / 2) - (soundYesNo1.Width / 2) + 9
-    soundYesNo1.Top = (Form1.ScaleHeight / 2) - (soundYesNo1.Height / 2) + YesNoTop 'put it a little lower than center
+    soundYesNo1.Top = (Form1.ScaleHeight / 2) - (soundYesNo1.Height / 2) + YesNoTop
     
+    ' Adjust the position of soundtypedial1
     soundtypedial1.Left = (Form1.ScaleWidth / 2) - (soundtypedial1.Width / 2) + 9
-    soundtypedial1.Top = (Form1.ScaleHeight / 2) - (soundtypedial1.Height / 2) + SoundTypeDialTop 'put it a little lower than center
+    soundtypedial1.Top = (Form1.ScaleHeight / 2) - (soundtypedial1.Height / 2) + SoundTypeDialTop
     
+    ' Adjust the position of soundbandwidthdial1
     soundbandwidthdial1.Left = (Form1.ScaleWidth / 2) - (soundbandwidthdial1.Width / 2) - 25
-    soundbandwidthdial1.Top = (Form1.ScaleHeight / 2) - (soundbandwidthdial1.Height / 2) + SoundBandwidthDialTop 'put it a little lower than center
+    soundbandwidthdial1.Top = (Form1.ScaleHeight / 2) - (soundbandwidthdial1.Height / 2) + SoundBandwidthDialTop
     
+    ' Adjust the position of whicheardial1
     whicheardial1.Left = (Form1.ScaleWidth / 2) - (whicheardial1.Width / 2) + 12
-    whicheardial1.Top = (Form1.ScaleHeight / 2) - (whicheardial1.Height / 2) + WhichEarTop 'put it a little lower than center
+    whicheardial1.Top = (Form1.ScaleHeight / 2) - (whicheardial1.Height / 2) + WhichEarTop
     
+    ' Move the cursor to the center of the form
     MoveClick (Form1.ScaleWidth / 2), (Form1.ScaleHeight / 2)
     
-    lblTitle.Left = (Form1.ScaleWidth / 2) - (lblTitle.Width / 2) 'center Title text whenever form is resized
+    ' Adjust the position of lblTitle
+    lblTitle.Left = (Form1.ScaleWidth / 2) - (lblTitle.Width / 2)
     
-    lblMainInstructions.Left = (Form1.ScaleWidth / 2) - (lblMainInstructions.Width / 2)  'center main instructions whenever form is resized
+    ' Adjust the position of lblMainInstructions
+    lblMainInstructions.Left = (Form1.ScaleWidth / 2) - (lblMainInstructions.Width / 2)
     lblInstruct2.Left = (Form1.ScaleWidth / 2) - (lblInstruct2.Width / 2)
     lblInstruct3.Left = (Form1.ScaleWidth / 2) - (lblInstruct3.Width / 2)
     
+    ' Adjust the position of framLoudness
     framLoudness.Left = (Form1.ScaleWidth / 2) - (framLoudness.Width / 2)
     framLoudness.Top = 500
+    
+    ' Adjust the position of lblNextSound
     lblNextSound.Left = (Form1.ScaleWidth / 2) - (lblNextSound.Width / 2)
     
+    ' Adjust the position of lblSoft and lblLoud
     lblSoft.Left = (Form1.ScaleWidth / 2) - (lblSoft.Width / 2) - 200
     lblSoft.Top = (Form1.ScaleHeight / 2) - (lblSoft.Height / 2) + 55
     lblLoud.Left = (Form1.ScaleWidth / 2) - (lblLoud.Width / 2) + 200
     lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 55
     
+    ' Adjust the position of frmBegin
     frmBegin.Left = (Form1.ScaleWidth / 2) - (frmBegin.Width / 2)
     
+    ' Adjust the position of Choice1231 and PitchControl1
     Choice1231.Left = (Form1.ScaleWidth / 2) - (Choice1231.Width / 2) + 9
-    Choice1231.Top = (Form1.ScaleHeight / 2) - (Choice1231.Height / 2) + 200 'put it a little lower than center
+    Choice1231.Top = (Form1.ScaleHeight / 2) - (Choice1231.Height / 2) + 200
     PitchControl1.Left = (Form1.ScaleWidth / 2) - (PitchControl1.Width / 2) + 9
-    PitchControl1.Top = (Form1.ScaleHeight / 2) - (PitchControl1.Height / 2) + 200 'put it a little lower than center
+    PitchControl1.Top = (Form1.ScaleHeight / 2) - (PitchControl1.Height / 2) + 200
     
+    ' Adjust the position of cmdTinTrain, cmdPrintReport, and cmdNext
     cmdTinTrain.Left = 24
     cmdTinTrain.Top = Form1.ScaleHeight - 100
     cmdPrintReport.Top = Form1.ScaleHeight - 100
