@@ -2899,12 +2899,13 @@ Private Sub cmdEar_Click(Index As Integer)
     End If
 End Sub
 
-
-
 ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
 '---------------------------------------------------------------------------
 ' Procedure: cmdNext_Click
-' Description: This procedure is the event handler for the "Next" button click event. It is responsible for executing the steps of the tinnitus tester based on the user's selection. It also handles the resume functionality, where the user can choose to resume the test from a specific step. The procedure performs various file operations, data manipulation, and calls other subroutines for each step of the tinnitus test.
+' Description: This procedure is the event handler for the "Next" button click event. 
+'   It is responsible for executing the steps of the tinnitus tester based on the user's selection. 
+'   It also handles the resume functionality, where the user can choose to resume the test from a specific step. 
+'   The procedure performs various file operations, data manipulation, and calls other subroutines for each step of the tinnitus test.
 '---------------------------------------------------------------------------
 Private Sub cmdNext_Click()
     ' Variable Declarations
@@ -3067,22 +3068,14 @@ Private Sub cmdNext_Click()
     End If
     
     ' Display completion message and write tinnitus report
-    If English Then
-        lblMainInstructions.Caption = "Thank you. The program is now complete. Please wait for the experimenter to enter."
-    Else
-        lblMainInstructions.Caption = "Merci. Le programme est maintenant terminé. Veuillez avertir l'évaluateur."
-    End If
+    lblMainInstructions.Caption = "Thank you. The program is now complete. Please wait for the experimenter to enter."
     Call WriteReportSPL
     lblMainInstructions.Visible = True
     
     ' Output tinnitus report
     If PReport Then
         lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
-        If English Then
-            Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
-        Else
-            Call OutputReport_F(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
-        End If
+        Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
     End If
 End Sub
 
@@ -3112,143 +3105,128 @@ End Sub
 '**
 '*************************************************************************************
 Private Sub WriteReportSPL()
-Dim intfilenumber As Integer
-Dim TempString1 As String
-Dim TinBW As Integer 'tinnitus bandwidth
-Dim x1 As Integer
-Dim CFreq(0 To 10) As String
-Dim cm1 As String
-Dim CMF As Integer  'custom masker frequency
-CFreq(0) = "0.5 kHz"
-CFreq(1) = "1 kHz"
-CFreq(2) = "2 kHz"
-CFreq(3) = "3 kHz"
-CFreq(4) = "4 kHz"
-CFreq(5) = "5 kHz"
-CFreq(6) = "6 kHz"
-CFreq(7) = "7 kHz"
-CFreq(8) = "8 kHz"
-CFreq(9) = "10 kHz"
-CFreq(10) = "12 kHz"
+    Dim intfilenumber As Integer
+    Dim TempString1 As String
+    Dim TinBW As Integer 'tinnitus bandwidth
+    Dim x1 As Integer
+    Dim CFreq(0 To 10) As String
+    Dim cm1 As String
+    Dim CMF As Integer  'custom masker frequency
+    CFreq(0) = "0.5 kHz"
+    CFreq(1) = "1 kHz"
+    CFreq(2) = "2 kHz"
+    CFreq(3) = "3 kHz"
+    CFreq(4) = "4 kHz"
+    CFreq(5) = "5 kHz"
+    CFreq(6) = "6 kHz"
+    CFreq(7) = "7 kHz"
+    CFreq(8) = "8 kHz"
+    CFreq(9) = "10 kHz"
+    CFreq(10) = "12 kHz"
 
-cm1 = CustomMaskerPath() 'returns the file to use for custom masker
-If Len(cm1) = 2 Then '1 to 9
+    cm1 = CustomMaskerPath() 'returns the file to use for custom masker
+    If Len(cm1) = 2 Then '1 to 9
     CMF = CInt(Right(cm1, 1))
-ElseIf Len(cm1) = 3 Then
+    ElseIf Len(cm1) = 3 Then
     CMF = CInt(Right(cm1, 2)) '10 or 11
-Else
+    Else
     CMF = 1
     MsgBox "ERROR DETERMINING CMF"
-End If
+    End If
 
-        ' This code reads in calibration values from a CSV file.
-        ' If the file exists, it reads the values into the CalibData array.
-        ' If the file does not exist, it sets all values in the CalibData array to 0 and displays a message.
-        ' The CalibData array stores calibration values for pure tone, ringing, hissing, and white noise.
-        ' The values are used to calculate sound pressure level (SPL) values.
-        ' Note: If the calibration data file is missing, the recorded PA5 values will be correct, but the SPL values will be incorrect.
-        ' The file path for the calibration data file is "C:\TinData\CalibrationData.csv".
-        'first,we must read in calibration values
-        If (dir("C:\TinData\CalibrationData.csv")) = "CalibrationData.csv" Then 'the datafile exists, read it in
-            'row 1 = pure tone, row 2 = ringing row 3 = hissing
-            intfilenumber = FreeFile
-            Open ("C:\TinData\CalibrationData.csv") For Input As #intfilenumber
-            For c1 = 1 To 3 Step 1
-                For c2 = 1 To 11 Step 1
-                    Input #intfilenumber, tempS
-                    CalibData(c1, c2) = tempS
-                Next c2
-            Next c1
-            Input #intfilenumber, tempS
-            CalibData(4, 1) = tempS 'white noise value
-            Close #intfilenumber
-        Else
-            For c1 = 1 To 3 Step 1
-                For c2 = 1 To 11 Step 1
-                    CalibData(c1, c2) = 0
-                Next c2
-            Next c1
-            MsgBox "No Calibration Data File Exists.  Recorded PA5 values will be correct, but SPL values will be incorrect"
-        End If
-        WorkingFile = "\MainDataSPL.csv"
-        'If dir(WorkingDir & WorkingFile) <> "" Then 'file exists, create a new file
-        '    MsgBox "File already exists.  Please enter a new filename."
-        '    Exit Sub
-        'End If
+    ' This code reads in calibration values from a CSV file.
+    ' If the file exists, it reads the values into the CalibData array.
+    ' If the file does not exist, it sets all values in the CalibData array to 0 and displays a message.
+    ' The CalibData array stores calibration values for pure tone, ringing, hissing, and white noise.
+    ' The values are used to calculate sound pressure level (SPL) values.
+    ' Note: If the calibration data file is missing, the recorded PA5 values will be correct, but the SPL values will be incorrect.
+    ' The file path for the calibration data file is "C:\TinData\CalibrationData.csv".
+    If (dir("C:\TinData\CalibrationData.csv")) = "CalibrationData.csv" Then 'the datafile exists, read it in
+        'row 1 = pure tone, row 2 = ringing row 3 = hissing
+        intfilenumber = FreeFile
+        Open ("C:\TinData\CalibrationData.csv") For Input As #intfilenumber
+        For c1 = 1 To 3 Step 1
+            For c2 = 1 To 11 Step 1
+                Input #intfilenumber, tempS
+                CalibData(c1, c2) = tempS
+            Next c2
+        Next c1
+        Input #intfilenumber, tempS
+        CalibData(4, 1) = tempS 'white noise value
+        Close #intfilenumber
+    Else
+        For c1 = 1 To 3 Step 1
+            For c2 = 1 To 11 Step 1
+                CalibData(c1, c2) = 0
+            Next c2
+        Next c1
+        MsgBox "No Calibration Data File Exists.  Recorded PA5 values will be correct, but SPL values will be incorrect"
+    End If
+    WorkingFile = "\MainDataSPL.csv"
 
-        ' This code writes data to a file specified by the WorkingDir and WorkingFile variables.
-        ' The data includes information about the recorded date, tinnitus location, temporal property, tinnitus bandwidth,
-        ' comfortable listening levels, loudness rating, tinnitus loudness match, tinnitus likeness match, RI results,
-        ' and RI sound levels for left and right ears.
-        ' The data is written in a specific format to the file using the Write statement.
-        ' The file is then closed using the Close statement.
-        intfilenumber = FreeFile ' This is safer than assigning a number
-        Open (WorkingDir & WorkingFile) For Output As #intfilenumber
-            'first, write the date file was recorded on
-            Write #intfilenumber, "Recorded On:", Now
-            'next, output location
+    ' This code writes data to a file specified by the WorkingDir and WorkingFile variables.
+    ' The data includes information about the recorded date, tinnitus location, temporal property, tinnitus bandwidth,
+    ' comfortable listening levels, loudness rating, tinnitus loudness match, tinnitus likeness match, RI results,
+    ' and RI sound levels for left and right ears.
+    ' The data is written in a specific format to the file using the Write statement.
+    ' The file is then closed using the Close statement.
+    intfilenumber = FreeFile ' This is safer than assigning a number
+    Open (WorkingDir & WorkingFile) For Output As #intfilenumber
+        'first, write the date file was recorded on
+        Write #intfilenumber, "Recorded On:", Now
+        'next, output location
             Select Case CInt(txtLocalize.Text)
-            Case Is = 1
-                TempString1 = "Localized in Left Ear"
-            Case Is = 2
-                TempString1 = "Localized in Both Ears"
-            Case Is >= 3
-                TempString1 = "Localized in Right Ear"
+                Case Is = 1
+                    TempString1 = "Localized in Left Ear"
+                Case Is = 2
+                    TempString1 = "Localized in Both Ears"
+                Case Is >= 3
+                    TempString1 = "Localized in Right Ear"
             End Select
-            Write #intfilenumber, "Tinnitus Location:", TempString1
-            'next temporal property:
+        Write #intfilenumber, "Tinnitus Location:", TempString1
+        'next temporal property:
             Select Case CInt(txtTemporal.Text)
                 Case Is = 1 'Steady Sound
                     TempString1 = "Steady Tinnitus"
                 Case Is >= 2 'pulsing Sound
                     TempString1 = "Pusling Tinnitus"
             End Select
-            Write #intfilenumber, "Temporal Property:", TempString1
-            'next, bandwidth
+        Write #intfilenumber, "Temporal Property:", TempString1
+        'next, bandwidth
             Select Case CInt(txtBandwidth.Text)
-            Case Is = 1
-                TempString1 = "Hissing"
-                TinBW = 3
-            Case Is = 2
-                TempString1 = "Ringing"
-                TinBW = 2
-            Case Is >= 3
-                TempString1 = "Tonal"
-                TinBW = 1
+                Case Is = 1
+                    TempString1 = "Hissing"
+                    TinBW = 3
+                Case Is = 2
+                    TempString1 = "Ringing"
+                    TinBW = 2
+                Case Is >= 3
+                    TempString1 = "Tonal"
+                    TinBW = 1
             End Select
-            Write #intfilenumber, "Tinnitus Bandwidth:", TempString1
-            'SPL for comfortable listening levels:
-            Write #intfilenumber, "500Hz Comfortable Level:", (CalibData(1, 1) - CInt(txtIntensity.Text)), "dB SPL"
-            Write #intfilenumber, "5kHz Comfortable Level:", (CalibData(1, 6) - CInt(txtIntensity.Text)), "dB SPL"
-            Write #intfilenumber, "Loudness Rating:", txtLoudness.Text
-            'output SPL levels for tinnitus loudness match
-            Write #intfilenumber, "TINNITUS LOUDNESS MATCH"
-            Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Average"
-            For x1 = 0 To 10 Step 1
-                Write #intfilenumber, CFreq(x1), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text)), ((CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)) + (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text))) / 2, "dB SPL"
-            Next x1
-            Write #intfilenumber, "TINNITUS LIKENESS MATCH"
-            Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Trial 3", "Average"
-            For x1 = 0 To 10 Step 1
-                Write #intfilenumber, CFreq(x1), CInt(txtPitchMatchT1(x1).Text), CInt(txtPitchMatchT2(x1).Text), CInt(txtPitchMatchT3(x1).Text), (CInt(txtPitchMatchT1(x1).Text) + CInt(txtPitchMatchT2(x1).Text) + CInt(txtPitchMatchT3(x1).Text)) / 3
-            Next x1
-            Write #intfilenumber, "RI RESULTS"
-            Write #intfilenumber, "1kHz Threshold:", (CalibData(1, 2) - CInt(txtPA5ThreshValue.Text)), "dB SPL"
-            'Write #intfilenumber, "500 Hz Masker Level:", (CalibData(3, 1) - (CInt(txtSoundLevelMatch(0).Text)))
-            Write #intfilenumber, "5000 Hz Masker Level:", (CalibData(3, 6) - (CInt(txtSoundLevelMatch(1).Text)))
-            'write #intfilenumber, "White Noise Masker Level:", (CalibData(4, 1) - (CInt(txtSoundLevelMatch(2).Text)))
-            'Write #intfilenumber, "Custom Masker " & cm1 & " Level:", (CalibData(TinBW, CMF) - CInt(txtSoundLevelMatch(3).Text))
-            Write #intfilenumber, "RI SOUND", "LEFT EAR T1", "RIGHT EAR T1", "LEFT EAR T2", "RIGHT EAR T2"
-            'Write #intfilenumber, "500Hz NBN", ((CInt(txtRILeftT1(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(0).Text) - 50 - 1) / 10), ((CInt(txtRILeftT2(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT2(0).Text) - 50 - 1) / 10)
-            Write #intfilenumber, "5000Hz NBN", ((CInt(txtRILeftT1(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(0).Text) - 50 - 1) / 10), ((CInt(txtRILeftT1(1).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(1).Text) - 50 - 1) / 10)
-            'Write #intfilenumber, "White Noise", ((CInt(txtRILeftT1(2).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(2).Text) - 50 - 1) / 10), ((CInt(txtRILeftT2(2).Text) - 50 - 1) / 10), ((CInt(txtRIRightT2(2).Text) - 50 - 1) / 10)
-            'Write #intfilenumber, "Custom Masker: " & cm1, ((CInt(txtRILeftT1(3).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(3).Text) - 50 - 1) / 10), ((CInt(txtRILeftT2(3).Text) - 50 - 1) / 10), ((CInt(txtRIRightT2(3).Text) - 50 - 1) / 10)
-            
-        Close #intfilenumber
-        
-        '
-        
+        Write #intfilenumber, "Tinnitus Bandwidth:", TempString1
+        'SPL for comfortable listening levels:
+        Write #intfilenumber, "500Hz Comfortable Level:", (CalibData(1, 1) - CInt(txtIntensity.Text)), "dB SPL"
+        Write #intfilenumber, "5kHz Comfortable Level:", (CalibData(1, 6) - CInt(txtIntensity.Text)), "dB SPL"
+        Write #intfilenumber, "Loudness Rating:", txtLoudness.Text
+        'output SPL levels for tinnitus loudness match
+        Write #intfilenumber, "TINNITUS LOUDNESS MATCH"
+        Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Average"
+        For x1 = 0 To 10 Step 1
+            Write #intfilenumber, CFreq(x1), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text)), ((CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)) + (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text))) / 2, "dB SPL"
+        Next x1
+        Write #intfilenumber, "TINNITUS LIKENESS MATCH"
+        Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Trial 3", "Average"
+        For x1 = 0 To 10 Step 1
+            Write #intfilenumber, CFreq(x1), CInt(txtPitchMatchT1(x1).Text), CInt(txtPitchMatchT2(x1).Text), CInt(txtPitchMatchT3(x1).Text), (CInt(txtPitchMatchT1(x1).Text) + CInt(txtPitchMatchT2(x1).Text) + CInt(txtPitchMatchT3(x1).Text)) / 3
+        Next x1
+        Write #intfilenumber, "RI RESULTS"
+        Write #intfilenumber, "1kHz Threshold:", (CalibData(1, 2) - CInt(txtPA5ThreshValue.Text)), "dB SPL"
+        Write #intfilenumber, "5000 Hz Masker Level:", (CalibData(3, 6) - (CInt(txtSoundLevelMatch(1).Text)))
+        Write #intfilenumber, "RI SOUND", "LEFT EAR T1", "RIGHT EAR T1", "LEFT EAR T2", "RIGHT EAR T2"
+        Write #intfilenumber, "5000Hz NBN", ((CInt(txtRILeftT1(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(0).Text) - 50 - 1) / 10), ((CInt(txtRILeftT1(1).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(1).Text) - 50 - 1) / 10)
 
+    Close #intfilenumber
 End Sub
 
 '******************************************************************************************************
@@ -3305,338 +3283,302 @@ Private Sub cmdPrintReport_Click()
     'code either continues if user clicks ok or skips to error if they hit cancel
     
 
-        ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
-        '*************************************************************************************
-        '** This code reads data from a file and populates various text boxes with the data. **
-        '** The file is opened for input and each record is read until the end of the file.   **
-        '** Depending on the record number, the corresponding text box is updated with the   **
-        '** value from the record.                                                           **
-        '**                                                                                 **
-        '** Input:                                                                          **
-        '** - comFile: The file to be opened for input.                                      **
-        '** - intfilenumber: The file number used for opening the file.                      **
-        '**                                                                                 **
-        '** Output:                                                                         **
-        '** - Various text boxes are updated with the data from the file.                    **
-        '**                                                                                 **
-        '** Note:                                                                           **
-        '** - The code assumes that the text boxes (txtLocalize, txtIntensity, etc.)        **
-        '**   already exist in the form.                                                     **
-        '** - The code uses a Select Case statement to determine which text box to update    **
-        '**   based on the record number.                                                    **
-        '** - The code assumes that the file contains the necessary number of records        **
-        '**   corresponding to the text boxes. If the file is missing any records, the       **
-        '**   corresponding text boxes will not be updated.                                  **
-        '*************************************************************************************
-        c1 = 0
-        Open comFile.FileName For Input As #intfilenumber
-        Do While Not EOF(intfilenumber)
-            Input #intfilenumber, TempString
-            c1 = c1 + 1
-            
-            Select Case c1
-                ' Update text boxes based on record number
-                Case Is = 3 'localize data
-                    txtLocalize.Text = TempString
-                Case Is = 5 'sound intensity data
-                    txtIntensity.Text = TempString
-                Case Is = 7 'bandwidth data
-                    txtIntensity2.Text = TempString
-                Case Is = 9 'bandwidth data
-                    txtBandwidth.Text = TempString
-                Case Is = 11 'temporal data
-                    txtTemporal.Text = TempString
-                Case Is = 13 'loudness data
-                    txtLoudness.Text = TempString
-                Case Is = 19  'loudness matching data
-                    txtLoudnessT1(0).Text = TempString
-                Case Is = 20
-                    txtLoudnessT2(0).Text = TempString
-                Case Is = 23  'loudness matching data
-                    txtLoudnessT1(1).Text = TempString
-                Case Is = 24
-                    txtLoudnessT2(1).Text = TempString
-                Case Is = 27  'loudness matching data
-                    txtLoudnessT1(2).Text = TempString
-                Case Is = 28
-                    txtLoudnessT2(2).Text = TempString
-                Case Is = 31  'loudness matching data
-                    txtLoudnessT1(3).Text = TempString
-                Case Is = 32
-                    txtLoudnessT2(3).Text = TempString
-                Case Is = 35  'loudness matching data
-                    txtLoudnessT1(4).Text = TempString
-                Case Is = 36
-                    txtLoudnessT2(4).Text = TempString
-                Case Is = 39  'loudness matching data
-                    txtLoudnessT1(5).Text = TempString
-                Case Is = 40
-                    txtLoudnessT2(5).Text = TempString
-                Case Is = 43  'loudness matching data
-                    txtLoudnessT1(6).Text = TempString
-                Case Is = 44
-                    txtLoudnessT2(6).Text = TempString
-                Case Is = 47  'loudness matching data
-                    txtLoudnessT1(7).Text = TempString
-                Case Is = 48
-                    txtLoudnessT2(7).Text = TempString
-                Case Is = 51  'loudness matching data
-                    txtLoudnessT1(8).Text = TempString
-                Case Is = 52
-                    txtLoudnessT2(8).Text = TempString
-                Case Is = 55  'loudness matching data
-                    txtLoudnessT1(9).Text = TempString
-                Case Is = 56
-                    txtLoudnessT2(9).Text = TempString
-                Case Is = 59  'loudness matching data
-                    txtLoudnessT1(10).Text = TempString
-                Case Is = 60
-                    txtLoudnessT2(10).Text = TempString
-                Case Is = 68
-                    txtPitchMatchT1(0).Text = TempString
-                Case Is = 69
-                    txtPitchMatchT2(0).Text = TempString
-                Case Is = 70
-                    txtPitchMatchT3(0).Text = TempString
-                Case Is = 73
-                    txtPitchMatchT1(1).Text = TempString
-                Case Is = 74
-                    txtPitchMatchT2(1).Text = TempString
-                Case Is = 75
-                    txtPitchMatchT3(1).Text = TempString
-                Case Is = 78
-                    txtPitchMatchT1(2).Text = TempString
-                Case Is = 79
-                    txtPitchMatchT2(2).Text = TempString
-                Case Is = 80
-                    txtPitchMatchT3(2).Text = TempString
-                Case Is = 83
-                    txtPitchMatchT1(3).Text = TempString
-                Case Is = 84
-                    txtPitchMatchT2(3).Text = TempString
-                Case Is = 85
-                    txtPitchMatchT3(3).Text = TempString
-                Case Is = 88
-                    txtPitchMatchT1(4).Text = TempString
-                Case Is = 89
-                    txtPitchMatchT2(4).Text = TempString
-                Case Is = 90
-                    txtPitchMatchT3(4).Text = TempString
-                Case Is = 93
-                    txtPitchMatchT1(5).Text = TempString
-                Case Is = 94
-                    txtPitchMatchT2(5).Text = TempString
-                Case Is = 95
-                    txtPitchMatchT3(5).Text = TempString
-                Case Is = 98
-                    txtPitchMatchT1(6).Text = TempString
-                Case Is = 99
-                    txtPitchMatchT2(6).Text = TempString
-                Case Is = 100
-                    txtPitchMatchT3(6).Text = TempString
-                Case Is = 103
-                    txtPitchMatchT1(7).Text = TempString
-                Case Is = 104
-                    txtPitchMatchT2(7).Text = TempString
-                Case Is = 105
-                    txtPitchMatchT3(7).Text = TempString
-                Case Is = 108
-                    txtPitchMatchT1(8).Text = TempString
-                Case Is = 109
-                    txtPitchMatchT2(8).Text = TempString
-                Case Is = 110
-                    txtPitchMatchT3(8).Text = TempString
-                Case Is = 113
-                    txtPitchMatchT1(9).Text = TempString
-                Case Is = 114
-                    txtPitchMatchT2(9).Text = TempString
-                Case Is = 115
-                    txtPitchMatchT3(9).Text = TempString
-                Case Is = 118
-                    txtPitchMatchT1(10).Text = TempString
-                Case Is = 119
-                    txtPitchMatchT2(10).Text = TempString
-                Case Is = 120
-                    txtPitchMatchT3(10).Text = TempString
-                Case Is = 123
-                    txtSoundThreshold(0).Text = TempString
-                Case Is = 125
-                    txtSoundThreshold(1).Text = TempString
-                Case Is = 127
-                    txtSoundThreshold(2).Text = TempString
-                Case Is = 129
-                    txtSoundThreshold(3).Text = TempString
-                Case Is = 131
-                    txtPA5ThreshValue.Text = TempString
-                Case Is = 133
-                    txtSoundLevelMatch(0).Text = TempString
-                    txtSoundLevelMatch(1).Text = TempString
-                    txtSoundLevelMatch(2).Text = TempString
-                    txtSoundLevelMatch(3).Text = TempString
-                'Case Is = 135
-                '    txtSoundLevelMatch(1).Text = TempString
-                'Case Is = 137
-                '    txtSoundLevelMatch(2).Text = TempString
-                'Case Is = 139
-                '    txtSoundLevelMatch(3).Text = TempString
-                'RI DATA
-                Case Is = 141
-                    txtRILeftT1(0).Text = TempString
-                Case Is = 142
-                    txtRIRightT1(0).Text = TempString
-                Case Is = 144
-                    txtRILeftT1(1).Text = TempString
-                Case Is = 145
-                    txtRIRightT1(1).Text = TempString
-                Case Is = 147
-                    txtRILeftT1(2).Text = TempString
-                Case Is = 148
-                    txtRIRightT1(2).Text = TempString
-                Case Is = 150
-                    txtRILeftT1(3).Text = TempString
-                Case Is = 151
-                    txtRIRightT1(3).Text = TempString
-                Case Is = 153
-                    txtRILeftT2(0).Text = TempString
-                Case Is = 154
-                    txtRIRightT2(0).Text = TempString
-                Case Is = 156
-                    txtRILeftT2(1).Text = TempString
-                Case Is = 157
-                    txtRIRightT2(1).Text = TempString
-                Case Is = 159
-                    txtRILeftT2(2).Text = TempString
-                Case Is = 160
-                    txtRIRightT2(2).Text = TempString
-                Case Is = 162
-                    txtRILeftT2(3).Text = TempString
-                Case Is = 163
-                    txtRIRightT2(3).Text = TempString
-            End Select
-        Loop
-        Close #intfilenumber
+    ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+    '*************************************************************************************
+    '** This code reads data from a file and populates various text boxes with the data. **
+    '** The file is opened for input and each record is read until the end of the file.   **
+    '** Depending on the record number, the corresponding text box is updated with the   **
+    '** value from the record.                                                           **
+    '**                                                                                 **
+    '** Input:                                                                          **
+    '** - comFile: The file to be opened for input.                                      **
+    '** - intfilenumber: The file number used for opening the file.                      **
+    '**                                                                                 **
+    '** Output:                                                                         **
+    '** - Various text boxes are updated with the data from the file.                    **
+    '**                                                                                 **
+    '** Note:                                                                           **
+    '** - The code assumes that the text boxes (txtLocalize, txtIntensity, etc.)        **
+    '**   already exist in the form.                                                     **
+    '** - The code uses a Select Case statement to determine which text box to update    **
+    '**   based on the record number.                                                    **
+    '** - The code assumes that the file contains the necessary number of records        **
+    '**   corresponding to the text boxes. If the file is missing any records, the       **
+    '**   corresponding text boxes will not be updated.                                  **
+    '*************************************************************************************
+    c1 = 0
+    Open comFile.FileName For Input As #intfilenumber
+    Do While Not EOF(intfilenumber)
+        Input #intfilenumber, TempString
+        c1 = c1 + 1
         
-        '******************************************************************************************************
-        '** Description: This code calculates various values based on user input and fills in the user values for a report.
-        '**
-        '** Inputs:
-        '**   - txtPA5ThreshValue: The threshold value for loudness match at 1kHz.
-        '**   - txtLoudnessT1: Array of loudness values for condition T1.
-        '**   - txtLoudnessT2: Array of loudness values for condition T2.
-        '**   - txtLocalize: The localization value for tinnitus (1 = left ear, 2 = both ears, 3 = right ear).
-        '**   - txtRILeftT1: Array of RI values for left ear in condition T1.
-        '**   - txtRIRightT1: Array of RI values for right ear in condition T1.
-        '**   - txtRILeftT2: Array of RI values for left ear in condition T2.
-        '**   - txtRIRightT2: Array of RI values for right ear in condition T2.
-        '**   - txtBandwidth: The bandwidth value (1 = hissing, 2 = ringing, >=3 = tonal).
-        '**   - English: Boolean value indicating whether the report should be in English or another language.
-        '**
-        '** Outputs:
-        '**   - lmdata: Loudness match data at 1kHz.
-        '**   - RI5k: RI data at 5kHz.
-        '**   - UserBW: User-defined bandwidth value for the report.
-        '**
-        '** Notes:
-        '**   - The code calculates the loudness match data at 1kHz based on the threshold value and the average of loudness values.
-        '**   - The code calculates the RI data at 5kHz based on the localization value and the average of RI values.
-        '**   - The code fills in the user-defined bandwidth value for the report based on the bandwidth input.
-        '******************************************************************************************************
-                '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                'calculate loudness match data at 1khz
-                lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
-                'calculate ri data @ 5khz
-                'MsgBox (CInt(txtLoudnessT1(1)) & " " & CInt(txtLoudnessT2(1)))
-                If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
-                    RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRIRightT1(1)) + CInt(txtRILeftT2(1)) + CInt(txtRIRightT2(1))) / 4
-                ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
-                    RI5k = (CInt(txtRIRightT1(1)) + CInt(txtRIRightT2(1))) / 2
-                Else 'tinnitus is in left ear only, txtLocalize.Text = 1
-                    RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRILeftT2(1))) / 2
-                End If
-                ' fill in user values for report
-                Select Case CInt(txtBandwidth.Text)
-                    Case Is = 1
-                        If English Then
-                            UserBW = "Hissing"
-                        Else
-                            UserBW = "Stifflement"
-                        End If
-                    Case Is = 2
-                        If English Then
-                            UserBW = "Ringing"
-                        Else
-                            UserBW = "Sonnerie"
-                        End If
-                    Case Is >= 3
-                        If English Then
-                            UserBW = "Tonal"
-                        Else
-                            UserBW = "Tonal"
-                        End If
-                  End Select
-
-        ' This Select Case statement assigns a value to the variable UserTL based on the value of txtLocalize.Text.
-        ' If txtLocalize.Text is 1, UserTL is assigned "Left Ear" if English is True, otherwise "Oreille Gauche".
-        ' If txtLocalize.Text is 2, UserTL is assigned "Both Ears" if English is True, otherwise "Deux Oreilles".
-        ' If txtLocalize.Text is greater than or equal to 3, UserTL is assigned "Right Ear" if English is True, otherwise "Oreille Droite".
-        Select Case CInt(txtLocalize.Text)
-            Case Is = 1
-                If English Then
-                    UserTL = "Left Ear"
-                Else
-                    UserTL = "Oreille Gauche"
-                End If
-            Case Is = 2
-                If English Then
-                    UserTL = "Both Ears"
-                Else
-                    UserTL = "Deux Oreilles"
-                End If
-            Case Is >= 3
-                If English Then
-                    UserTL = "Right Ear"
-                Else
-                    UserTL = "Oreille Droite"
-                End If
+        Select Case c1
+            ' Update text boxes based on record number
+            Case Is = 3 'localize data
+                txtLocalize.Text = TempString
+            Case Is = 5 'sound intensity data
+                txtIntensity.Text = TempString
+            Case Is = 7 'bandwidth data
+                txtIntensity2.Text = TempString
+            Case Is = 9 'bandwidth data
+                txtBandwidth.Text = TempString
+            Case Is = 11 'temporal data
+                txtTemporal.Text = TempString
+            Case Is = 13 'loudness data
+                txtLoudness.Text = TempString
+            Case Is = 19  'loudness matching data
+                txtLoudnessT1(0).Text = TempString
+            Case Is = 20
+                txtLoudnessT2(0).Text = TempString
+            Case Is = 23  'loudness matching data
+                txtLoudnessT1(1).Text = TempString
+            Case Is = 24
+                txtLoudnessT2(1).Text = TempString
+            Case Is = 27  'loudness matching data
+                txtLoudnessT1(2).Text = TempString
+            Case Is = 28
+                txtLoudnessT2(2).Text = TempString
+            Case Is = 31  'loudness matching data
+                txtLoudnessT1(3).Text = TempString
+            Case Is = 32
+                txtLoudnessT2(3).Text = TempString
+            Case Is = 35  'loudness matching data
+                txtLoudnessT1(4).Text = TempString
+            Case Is = 36
+                txtLoudnessT2(4).Text = TempString
+            Case Is = 39  'loudness matching data
+                txtLoudnessT1(5).Text = TempString
+            Case Is = 40
+                txtLoudnessT2(5).Text = TempString
+            Case Is = 43  'loudness matching data
+                txtLoudnessT1(6).Text = TempString
+            Case Is = 44
+                txtLoudnessT2(6).Text = TempString
+            Case Is = 47  'loudness matching data
+                txtLoudnessT1(7).Text = TempString
+            Case Is = 48
+                txtLoudnessT2(7).Text = TempString
+            Case Is = 51  'loudness matching data
+                txtLoudnessT1(8).Text = TempString
+            Case Is = 52
+                txtLoudnessT2(8).Text = TempString
+            Case Is = 55  'loudness matching data
+                txtLoudnessT1(9).Text = TempString
+            Case Is = 56
+                txtLoudnessT2(9).Text = TempString
+            Case Is = 59  'loudness matching data
+                txtLoudnessT1(10).Text = TempString
+            Case Is = 60
+                txtLoudnessT2(10).Text = TempString
+            Case Is = 68
+                txtPitchMatchT1(0).Text = TempString
+            Case Is = 69
+                txtPitchMatchT2(0).Text = TempString
+            Case Is = 70
+                txtPitchMatchT3(0).Text = TempString
+            Case Is = 73
+                txtPitchMatchT1(1).Text = TempString
+            Case Is = 74
+                txtPitchMatchT2(1).Text = TempString
+            Case Is = 75
+                txtPitchMatchT3(1).Text = TempString
+            Case Is = 78
+                txtPitchMatchT1(2).Text = TempString
+            Case Is = 79
+                txtPitchMatchT2(2).Text = TempString
+            Case Is = 80
+                txtPitchMatchT3(2).Text = TempString
+            Case Is = 83
+                txtPitchMatchT1(3).Text = TempString
+            Case Is = 84
+                txtPitchMatchT2(3).Text = TempString
+            Case Is = 85
+                txtPitchMatchT3(3).Text = TempString
+            Case Is = 88
+                txtPitchMatchT1(4).Text = TempString
+            Case Is = 89
+                txtPitchMatchT2(4).Text = TempString
+            Case Is = 90
+                txtPitchMatchT3(4).Text = TempString
+            Case Is = 93
+                txtPitchMatchT1(5).Text = TempString
+            Case Is = 94
+                txtPitchMatchT2(5).Text = TempString
+            Case Is = 95
+                txtPitchMatchT3(5).Text = TempString
+            Case Is = 98
+                txtPitchMatchT1(6).Text = TempString
+            Case Is = 99
+                txtPitchMatchT2(6).Text = TempString
+            Case Is = 100
+                txtPitchMatchT3(6).Text = TempString
+            Case Is = 103
+                txtPitchMatchT1(7).Text = TempString
+            Case Is = 104
+                txtPitchMatchT2(7).Text = TempString
+            Case Is = 105
+                txtPitchMatchT3(7).Text = TempString
+            Case Is = 108
+                txtPitchMatchT1(8).Text = TempString
+            Case Is = 109
+                txtPitchMatchT2(8).Text = TempString
+            Case Is = 110
+                txtPitchMatchT3(8).Text = TempString
+            Case Is = 113
+                txtPitchMatchT1(9).Text = TempString
+            Case Is = 114
+                txtPitchMatchT2(9).Text = TempString
+            Case Is = 115
+                txtPitchMatchT3(9).Text = TempString
+            Case Is = 118
+                txtPitchMatchT1(10).Text = TempString
+            Case Is = 119
+                txtPitchMatchT2(10).Text = TempString
+            Case Is = 120
+                txtPitchMatchT3(10).Text = TempString
+            Case Is = 123
+                txtSoundThreshold(0).Text = TempString
+            Case Is = 125
+                txtSoundThreshold(1).Text = TempString
+            Case Is = 127
+                txtSoundThreshold(2).Text = TempString
+            Case Is = 129
+                txtSoundThreshold(3).Text = TempString
+            Case Is = 131
+                txtPA5ThreshValue.Text = TempString
+            Case Is = 133
+                txtSoundLevelMatch(0).Text = TempString
+                txtSoundLevelMatch(1).Text = TempString
+                txtSoundLevelMatch(2).Text = TempString
+                txtSoundLevelMatch(3).Text = TempString
+            'Case Is = 135
+            '    txtSoundLevelMatch(1).Text = TempString
+            'Case Is = 137
+            '    txtSoundLevelMatch(2).Text = TempString
+            'Case Is = 139
+            '    txtSoundLevelMatch(3).Text = TempString
+            'RI DATA
+            Case Is = 141
+                txtRILeftT1(0).Text = TempString
+            Case Is = 142
+                txtRIRightT1(0).Text = TempString
+            Case Is = 144
+                txtRILeftT1(1).Text = TempString
+            Case Is = 145
+                txtRIRightT1(1).Text = TempString
+            Case Is = 147
+                txtRILeftT1(2).Text = TempString
+            Case Is = 148
+                txtRIRightT1(2).Text = TempString
+            Case Is = 150
+                txtRILeftT1(3).Text = TempString
+            Case Is = 151
+                txtRIRightT1(3).Text = TempString
+            Case Is = 153
+                txtRILeftT2(0).Text = TempString
+            Case Is = 154
+                txtRIRightT2(0).Text = TempString
+            Case Is = 156
+                txtRILeftT2(1).Text = TempString
+            Case Is = 157
+                txtRIRightT2(1).Text = TempString
+            Case Is = 159
+                txtRILeftT2(2).Text = TempString
+            Case Is = 160
+                txtRIRightT2(2).Text = TempString
+            Case Is = 162
+                txtRILeftT2(3).Text = TempString
+            Case Is = 163
+                txtRIRightT2(3).Text = TempString
         End Select
-    
-                ' This Select Case statement determines the value of the variable txtTemporal.Text and assigns a corresponding value to the variable UserSorP.
-                ' If the value of txtTemporal.Text is 1, the variable UserSorP is assigned the value "Steady" (or "Continu" if the language is not English).
-                ' If the value of txtTemporal.Text is greater than or equal to 2, the variable UserSorP is assigned the value "Pulsing" (or "Pulsatif" if the language is not English).
-                Select Case CInt(txtTemporal.Text)
-                    Case Is = 1 'Steady Sound
-                        If English Then
-                            UserSorP = "Steady"
-                        Else
-                            UserSorP = "Continu"
-                        End If
-                    Case Is >= 2 'pulsing Sound
-                        If English Then
-                            UserSorP = "Pulsing"
-                        Else
-                            UserSorP = "Pulsatif"
-                        End If
-                End Select
-                
+    Loop
+    Close #intfilenumber
+        
+    '******************************************************************************************************
+    '** Description: This code calculates various values based on user input and fills in the user values for a report.
+    '**
+    '** Inputs:
+    '**   - txtPA5ThreshValue: The threshold value for loudness match at 1kHz.
+    '**   - txtLoudnessT1: Array of loudness values for condition T1.
+    '**   - txtLoudnessT2: Array of loudness values for condition T2.
+    '**   - txtLocalize: The localization value for tinnitus (1 = left ear, 2 = both ears, 3 = right ear).
+    '**   - txtRILeftT1: Array of RI values for left ear in condition T1.
+    '**   - txtRIRightT1: Array of RI values for right ear in condition T1.
+    '**   - txtRILeftT2: Array of RI values for left ear in condition T2.
+    '**   - txtRIRightT2: Array of RI values for right ear in condition T2.
+    '**   - txtBandwidth: The bandwidth value (1 = hissing, 2 = ringing, >=3 = tonal).
+    '**   - English: Boolean value indicating whether the report should be in English or another language.
+    '**
+    '** Outputs:
+    '**   - lmdata: Loudness match data at 1kHz.
+    '**   - RI5k: RI data at 5kHz.
+    '**   - UserBW: User-defined bandwidth value for the report.
+    '**
+    '** Notes:
+    '**   - The code calculates the loudness match data at 1kHz based on the threshold value and the average of loudness values.
+    '**   - The code calculates the RI data at 5kHz based on the localization value and the average of RI values.
+    '**   - The code fills in the user-defined bandwidth value for the report based on the bandwidth input.
+    '******************************************************************************************************
+    'calculate loudness match data at 1khz
+    lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
+    'calculate ri data @ 5khz
+    'MsgBox (CInt(txtLoudnessT1(1)) & " " & CInt(txtLoudnessT2(1)))
+    If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
+        RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRIRightT1(1)) + CInt(txtRILeftT2(1)) + CInt(txtRIRightT2(1))) / 4
+    ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
+        RI5k = (CInt(txtRIRightT1(1)) + CInt(txtRIRightT2(1))) / 2
+    Else 'tinnitus is in left ear only, txtLocalize.Text = 1
+        RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRILeftT2(1))) / 2
+    End If
+    ' fill in user values for report
+    Select Case CInt(txtBandwidth.Text)
+        Case Is = 1
+                UserBW = "Hissing"
+        Case Is = 2
+                UserBW = "Ringing"
+        Case Is >= 3
+                UserBW = "Tonal"
+    End Select
 
-        'tell output report where to put file:
-        WorkingDir = Left(comFile.FileName, (Len(comFile.FileName) - Len(comFile.FileTitle) - 1)) 'removes filename from path and \
-        'output report:
-        If English Then
-            Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
-        Else
-            Call OutputReport_F(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
-        End If
-        MsgBox ("Report output complete")
-        cmdTinTrain.Enabled = True
-        cmdPrintReport.Caption = "Create Report"
-        cmdPrintReport.Enabled = True
-        cmdNext.Enabled = True
-        frmBegin.Enabled = True
-        Form1.SetFocus
-comErrorHandler:
-    'do nothing - user hit cancel
+    ' This Select Case statement assigns a value to the variable UserTL based on the value of txtLocalize.Text.
+    ' If txtLocalize.Text is 1, UserTL is assigned "Left Ear" if English is True, otherwise "Oreille Gauche".
+    ' If txtLocalize.Text is 2, UserTL is assigned "Both Ears" if English is True, otherwise "Deux Oreilles".
+    ' If txtLocalize.Text is greater than or equal to 3, UserTL is assigned "Right Ear" if English is True, otherwise "Oreille Droite".
+    Select Case CInt(txtLocalize.Text)
+        Case Is = 1
+                UserTL = "Left Ear"
+        Case Is = 2
+                UserTL = "Both Ears"
+        Case Is >= 3
+                UserTL = "Right Ear"
+    End Select
 
+    ' This Select Case statement determines the value of the variable txtTemporal.Text and assigns a corresponding value to the variable UserSorP.
+    ' If the value of txtTemporal.Text is 1, the variable UserSorP is assigned the value "Steady" (or "Continu" if the language is not English).
+    ' If the value of txtTemporal.Text is greater than or equal to 2, the variable UserSorP is assigned the value "Pulsing" (or "Pulsatif" if the language is not English).
+    Select Case CInt(txtTemporal.Text)
+        Case Is = 1 'Steady Sound
+            UserSorP = "Steady"
+        Case Is >= 2 'pulsing Sound
+            UserSorP = "Pulsing"
+    End Select
+            
+
+    'tell output report where to put file:
+    WorkingDir = Left(comFile.FileName, (Len(comFile.FileName) - Len(comFile.FileTitle) - 1)) 'removes filename from path and \
+
+    'output report:
+        Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
+    MsgBox ("Report output complete")
+    cmdTinTrain.Enabled = True
+    cmdPrintReport.Caption = "Create Report"
+    cmdPrintReport.Enabled = True
+    cmdNext.Enabled = True
+    frmBegin.Enabled = True
+    Form1.SetFocus
+
+    comErrorHandler:
+        'do nothing - user hit cancel
 End Sub
 
 '---------------------------------------------------------------------------
@@ -3658,13 +3600,13 @@ Private Sub cmdTinTrain_Click()
     Call hide_all
     
     ' Set labels and instructions based on language selection
-        lblTitle.Caption = "Welcome"
-        lblMainInstructions.Caption = "This program will introduce you to the computerized testing program for tinnitus."
-        lblInstruct2.Caption = "By following instructions and working slowly through this introduction, you will learn how to respond to automated cues from the computer."
-        lblInstruct3.Caption = "When you are ready to begin, please press the dial."
-        lblInstruct2.Top = 256
-        lblInstruct2.Height = 150
-        lblInstruct3.Top = 420
+    lblTitle.Caption = "Welcome"
+    lblMainInstructions.Caption = "This program will introduce you to the computerized testing program for tinnitus."
+    lblInstruct2.Caption = "By following instructions and working slowly through this introduction, you will learn how to respond to automated cues from the computer."
+    lblInstruct3.Caption = "When you are ready to begin, please press the dial."
+    lblInstruct2.Top = 256
+    lblInstruct2.Height = 150
+    lblInstruct3.Top = 420
     
     ' Set alignment of main instructions label to right justify
     lblMainInstructions.Alignment = 0
@@ -3708,16 +3650,22 @@ Private Sub cmdTinTrain_Click()
     cmdTinTrain.Visible = True
 End Sub
 
+'This subroutine is triggered when Command1 is clicked.
+'It plays a sound file asynchronously using the sndPlaySound function.
+'The sound file path is specified as "c:\davet\650am.wav".
+'The constants SND_ASYNC and SND_NODEFAULT are used to play the sound.
 Private Sub Command1_Click()
-    'This uses the constants ASYNC and NODEFAULT to play the sound
-    'sndPlaySound App.Path & "\sound.wav", SND_ASYNC Or SND_NODEFAULT
     sndPlaySound "c:\davet\650am.wav", SND_ASYNC Or SND_NODEFAULT
 End Sub
 
+' This subroutine is triggered when Command2 is clicked.
+' It calls the WriteReportSPL subroutine.
 Private Sub Command2_Click()
     'sndPlaySound "C:\davet\silence.wav", SND_ASYNC Or SND_NODEFAULT
     Call WriteReportSPL
 End Sub
+
+
 
 '---------------------------------------------------------------------------
 ' hide_all
@@ -3766,23 +3714,23 @@ Public Sub TinTrain1_DialChoice()
     lblInstruct2.Height = 150 '113
     lblInstruct3.Top = 420  '376
 
-lblMainInstructions.visible = True
-lblInstruct2.visible = True
-lblInstruct3.visible = True
-chkClick.Value = 0
-Choice1231.UserControl_Initialize
-Choice1231.visible = True
-Choice1231.SetFocus
-Do While chkClick.Value = 0
-    DoEvents
-Loop
-lblMainInstructions.visible = False
-lblInstruct2.visible = False
-lblInstruct3.visible = False
-Choice1231.visible = False
-lblInstruct2.Top = 208
-lblInstruct2.Height = 113
-lblInstruct3.Top = 328
+    lblMainInstructions.visible = True
+    lblInstruct2.visible = True
+    lblInstruct3.visible = True
+    chkClick.Value = 0
+    Choice1231.UserControl_Initialize
+    Choice1231.visible = True
+    Choice1231.SetFocus
+    Do While chkClick.Value = 0
+        DoEvents
+    Loop
+    lblMainInstructions.visible = False
+    lblInstruct2.visible = False
+    lblInstruct3.visible = False
+    Choice1231.visible = False
+    lblInstruct2.Top = 208
+    lblInstruct2.Height = 113
+    lblInstruct3.Top = 328
 End Sub
 
 '*******************************************************************************
@@ -3829,47 +3777,48 @@ Public Sub TinTrain2_Loudness()
     lblInstruct2.Height = 150 '113
     lblInstruct3.Top = 380  '376
 
-lblMainInstructions.visible = True
-lblInstruct2.visible = True
-lblInstruct3.visible = True
-VolAdj = True
-intMaxVolume = 0
-txtValue.Text = 30
-dialcontrol1.UserControl_Initialize
-dialcontrol1.setvolume (CInt(txtValue.Text))
-        'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
-PA5x1.SetAtten (120 - CInt(txtValue.Text))
-lblSoft.Left = (Form1.ScaleWidth / 2) - (lblSoft.Width / 2) - 200
-lblSoft.Top = (Form1.ScaleHeight / 2) - (lblSoft.Height / 2) + 200
-lblLoud.Left = (Form1.ScaleWidth / 2) - (lblLoud.Width / 2) + 200
-lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 200
+    lblMainInstructions.visible = True
+    lblInstruct2.visible = True
+    lblInstruct3.visible = True
+    VolAdj = True
+    intMaxVolume = 0
+    txtValue.Text = 30
+    dialcontrol1.UserControl_Initialize
+    dialcontrol1.setvolume (CInt(txtValue.Text))
+    
+    'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
+    PA5x1.SetAtten (120 - CInt(txtValue.Text))
+    lblSoft.Left = (Form1.ScaleWidth / 2) - (lblSoft.Width / 2) - 200
+    lblSoft.Top = (Form1.ScaleHeight / 2) - (lblSoft.Height / 2) + 200
+    lblLoud.Left = (Form1.ScaleWidth / 2) - (lblLoud.Width / 2) + 200
+    lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 200
 
     lblSoft.Caption = "Softer"
     lblLoud.Caption = "Louder"
 
-lblSoft.visible = True
-lblLoud.visible = True
-'play 500hz sound on loop
-sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
-dialcontrol1.visible = True
-dialcontrol1.SetFocus
-TimerStep2.Enabled = True
-chkClick.Value = 0
+    lblSoft.visible = True
+    lblLoud.visible = True
+    'play 500hz sound on loop
+    sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
+    dialcontrol1.visible = True
+    dialcontrol1.SetFocus
+    TimerStep2.Enabled = True
+    chkClick.Value = 0
 
-Do While chkClick.Value = 0  'wait until the user clicks the knob
-    DoEvents
-Loop
-sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
-TimerStep2.Enabled = False
-lblMainInstructions.visible = False
-lblInstruct2.visible = False
-lblInstruct3.visible = False
-dialcontrol1.visible = False
-lblSoft.visible = False
-lblLoud.visible = False
-lblInstruct2.Top = 208
-lblInstruct2.Height = 113
-lblInstruct3.Top = 328
+    Do While chkClick.Value = 0  'wait until the user clicks the knob
+        DoEvents
+    Loop
+    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
+    TimerStep2.Enabled = False
+    lblMainInstructions.visible = False
+    lblInstruct2.visible = False
+    lblInstruct3.visible = False
+    dialcontrol1.visible = False
+    lblSoft.visible = False
+    lblLoud.visible = False
+    lblInstruct2.Top = 208
+    lblInstruct2.Height = 113
+    lblInstruct3.Top = 328
 End Sub
 
 '---------------------------------------------------------------------------
@@ -3898,9 +3847,6 @@ Public Sub TinTrain3_pitch()
     
     
     PA5x1.SetAtten (35) 'set PA5 at reasonable level
-    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-        PA5x2.SetAtten (35)
-    End If
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     lblInstruct3.visible = True
@@ -4015,11 +3961,7 @@ Public Sub TinTrain4_HSlide()
     lblInstruct2.visible = False
     lblInstruct3.visible = False
     framLoudness.visible = False
-    If English Then
-        framLoudness.Caption = "Loudness Rating"
-    Else
-        framLoudness.Caption = "Intensit�"
-    End If
+    framLoudness.Caption = "Loudness Rating"
     lbl5.visible = True
     lbl30.visible = True
     lbl50.visible = True
@@ -4062,11 +4004,11 @@ Public Sub TinTrain5_VSlide()
     chkClick.Value = 0
     frmMono(0).Caption = "Vertical Slider"
     frmMono(0).ForeColor = &H0&        'change text to Black
-        lblMainInstructions.Top = 20
-        lblInstruct2.Top = 80
-        lblInstruct3.Top = 200
-        frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
-        frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 120 'put it lower than center so it doesn't cover up text
+    lblMainInstructions.Top = 20
+    lblInstruct2.Top = 80
+    lblInstruct3.Top = 200
+    frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
+    frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 120 'put it lower than center so it doesn't cover up text
     VScroll1(0).Value = 51
     txtValue.Text = 51
     frmMono(0).visible = True
@@ -4141,9 +4083,9 @@ End Sub
 ' RETURNS:       None
 '*******************************************************************************
 Public Sub TinTrain6_Complete()
-        lblMainInstructions.Caption = "Congratulations, the training program is now complete!"
-        lblInstruct2.Caption = "If you have any questions about the program you've just finished, please ask the experimenter."
-    
+    lblMainInstructions.Caption = "Congratulations, the training program is now complete!"
+    lblInstruct2.Caption = "If you have any questions about the program you've just finished, please ask the experimenter."
+
     lblMainInstructions.Visible = True
     lblInstruct2.Visible = True
     'chkClick.Value = 0
@@ -4172,19 +4114,12 @@ Public Sub Step1_Localize()
     
     Call Form_Resize  'fix formating after training has moved it all around.
 
-        lblTitle.Caption = "Welcome"
-        lblMainInstructions.Caption = "This program will test your tinnitus sensation."
-        lblMainInstructions.Alignment = 0 'right justify
-        lblInstruct2.Caption = "Instructions will appear on the screen to guide you.  Ask the experimenter if you need assistance."
-        lblInstruct3.Caption = "When you are ready to begin, please press the dial."
+    lblTitle.Caption = "Welcome"
+    lblMainInstructions.Caption = "This program will test your tinnitus sensation."
+    lblMainInstructions.Alignment = 0 'right justify
+    lblInstruct2.Caption = "Instructions will appear on the screen to guide you.  Ask the experimenter if you need assistance."
+    lblInstruct3.Caption = "When you are ready to begin, please press the dial."
 
-        lblTitle.Caption = "Bienvenue"
-        lblMainInstructions.Caption = "Ce programme va examiner vos sensations d'acouph�ne."
-        lblMainInstructions.Alignment = 0 'right justify
-        lblInstruct2.Caption = "Des instructions vont apparaitrent sur l'�cran pour vous guider. Demandez � l'�valuateur si vous avez besoin d'aide."
-        lblInstruct3.Caption = "Quand vous �tes pr�t � commencer, pressez la commande rotative."
-
-    
     If Form2.opt1024 Then '1024 mode.  Move text around.
         lblMainInstructions.Top = 144
         lblInstruct2.Top = 208
@@ -4202,8 +4137,8 @@ Public Sub Step1_Localize()
     lblInstruct2.visible = False 'hide 2nd instructino line
     lblInstruct3.visible = False 'hide 3rd instructino line
     chkClick.Value = 0
-        lblMainInstructions.Caption = "Which ear is your tinnitus coming from? "
-        lblInstruct2.Caption = "Turn the dial to select one of the options, then press when you've made your selection."
+    lblMainInstructions.Caption = "Which ear is your tinnitus coming from? "
+    lblInstruct2.Caption = "Turn the dial to select one of the options, then press when you've made your selection."
     lblInstruct2.visible = True
 
     whicheardial1.UserControl_Initialize
@@ -4222,8 +4157,7 @@ Public Sub Step1_Localize()
         Case Is = 1
             TempString = "Localized in Left Ear"
             t1 = 1
-
-                UserTL = "Left Ear"
+            UserTL = "Left Ear"
         Case Is = 2
             TempString = "Localized in Both Ears"
             t1 = 2
@@ -4231,8 +4165,7 @@ Public Sub Step1_Localize()
         Case Is >= 3
             TempString = "Localized in Right Ear"
             t1 = 3
-                UserTL = "Right Ear"
-                
+            UserTL = "Right Ear" 
     End Select
     whicheardial1.visible = False
     lblInstruct2.visible = False
@@ -4285,7 +4218,6 @@ Private Sub Step2_SoundIntensity()
         lblInstruct3.Top = 352
     End If
 
-
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     
@@ -4302,28 +4234,25 @@ Private Sub Step2_SoundIntensity()
     lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 55
 
     'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
-        PA5x1.SetAtten (120 - CInt(txtValue.Text))
-        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-            PA5x2.SetAtten (120 - CInt(txtValue.Text))
-        End If
-        Form1.SetFocus
-        'first we'll adjust a 500hz tone:
-        sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
-        dialcontrol1.Show_Arrows
-        dialcontrol1.visible = True
-        dialcontrol1.SetFocus
-        TimerStep2.Enabled = True
-        Do While chkClick.Value = 0  'wait until the user clicks the knob
-            DoEvents
-        Loop
-        
-        sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
-        TimerStep2.Enabled = False
-        txtIntensity.Text = 120 - CInt(txtValue.Text)
+    PA5x1.SetAtten (120 - CInt(txtValue.Text))
+    Form1.SetFocus
+    'first we'll adjust a 500hz tone:
+    sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
+    dialcontrol1.Show_Arrows
+    dialcontrol1.visible = True
+    dialcontrol1.SetFocus
+    TimerStep2.Enabled = True
+    Do While chkClick.Value = 0  'wait until the user clicks the knob
+        DoEvents
+    Loop
     
+    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
+    TimerStep2.Enabled = False
+    txtIntensity.Text = 120 - CInt(txtValue.Text)
+
     'next we'll present a 5kHz tone.
-        lblMainInstructions.Caption = "We will now present a second sound."
-        lblInstruct2.Caption = "Please turn the dial until this sound is also at a comfortable level, then press to continue."
+    lblMainInstructions.Caption = "We will now present a second sound."
+    lblInstruct2.Caption = "Please turn the dial until this sound is also at a comfortable level, then press to continue."
     VolAdj = True
     intMaxVolume = 0
     txtValue.Text = 30
@@ -4387,8 +4316,8 @@ Private Sub Step3_Bandwidth()
     
     ' Set initial values and display instructions
     OneStep = False
-        lblMainInstructions.Caption = "Which of the sounds below does your tinnitus sensation sound more like? "
-        lblInstruct2.Caption = "Turn the dial to select and hear. Once you've decided, press the dial to move on."
+    lblMainInstructions.Caption = "Which of the sounds below does your tinnitus sensation sound more like? "
+    lblInstruct2.Caption = "Turn the dial to select and hear. Once you've decided, press the dial to move on."
     lblInstruct2.Top = 256 'need to move this down a bit as mainstructions span 2 lines.
     lblInstruct2.visible = True
     lblMainInstructions.visible = True
@@ -4469,9 +4398,6 @@ Private Sub Step4_Temporal()
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     PA5x1.SetAtten CInt(txtIntensity2.Text) 'set value of PA5 in case resuming experiment
-    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-        PA5x2.SetAtten CInt(txtIntensity2.Text) 'set value of PA5 in case resuming experiment
-    End If
     
     TempString = "Temporal Property is Steady"
     txtValue.Text = 1
@@ -4533,8 +4459,7 @@ End Sub
 ' Parameters: None
 ' Returns: None
 '
-' Remarks: - The subroutine checks the language setting (English or non-English) to display the appropriate labels and instructions.
-'          - The subroutine adjusts the position and visibility of various controls on the form.
+' Remarks: - The subroutine adjusts the position and visibility of various controls on the form.
 '          - The user can adjust the rating by turning the knob and press the button to record the rating.
 '          - The subroutine changes the color of certain controls temporarily when the button is pressed.
 '          - The subroutine saves the rating to a file.
@@ -4542,16 +4467,16 @@ Private Sub Step5_LoudnessRating()
     Dim intfilenumber As Integer
     Dim TempTop2 As Integer
     Dim TempTop3 As Integer
-        lblTitle.Caption = "Tinnitus Loudness Rating"
-        lblMainInstructions.Caption = "We have now switched the sounds off, so that you can hear only your tinnitus. Listen to your tinnitus now."
-        lblInstruct2.Caption = "How Loud is your tinnitus? "
-        lblInstruct3.Caption = "Rate its loudness on the scale below by turning the dial, then press to record your rating."
-        framLoudness.Caption = "Loudness Rating"
-        lbl5 = "Extremely Weak"
-        lbl30 = "Moderate"
-        lbl50 = "Strong"
-        lbl70 = "Very Strong"
-        lbl95 = "Extremely Strong"
+    lblTitle.Caption = "Tinnitus Loudness Rating"
+    lblMainInstructions.Caption = "We have now switched the sounds off, so that you can hear only your tinnitus. Listen to your tinnitus now."
+    lblInstruct2.Caption = "How Loud is your tinnitus? "
+    lblInstruct3.Caption = "Rate its loudness on the scale below by turning the dial, then press to record your rating."
+    framLoudness.Caption = "Loudness Rating"
+    lbl5 = "Extremely Weak"
+    lbl30 = "Moderate"
+    lbl50 = "Strong"
+    lbl70 = "Very Strong"
+    lbl95 = "Extremely Strong"
     lblInstruct2.Left = lblMainInstructions.Left
     lblInstruct3.Left = lblMainInstructions.Left
     TempTop2 = lblInstruct2.Top
@@ -4616,11 +4541,29 @@ End Sub
 
 ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest_back.frm
 '
-' This code block is part of the TinTest_back.frm file and contains the subroutine "Step6_LoudnessMatching".
-' The Step6_LoudnessMatching subroutine is responsible for conducting the loudness matching task in a tinnitus testing program.
+' Subroutine: "Step6_LoudnessMatching".
+' Description: The Step6_LoudnessMatching subroutine is responsible for conducting the loudness matching task in a tinnitus testing program.
 ' It displays instructions to the user, plays a series of sounds, and allows the user to adjust the volume using a dial control.
-' The subroutine utilizes various variables and objects such as intfilenumber, c1, WavNum, PA5Results, SoundOrder, TSoundOrder, TempChar, MaxedOutFlag, temp, MaxedOutCounter, lblNextSound, lblTitle, lblMainInstructions, lblInstruct2, lblInstruct3, chkClick, vRes, lblNextSound, lblInstruct2, lblInstruct3, txtBandwidth, txtValue, dialcontrol1, Timer1, VolAdj, intMaxVolume, txtTimer, sndPlaySound, and more.
+' The subroutine utilizes various variables and objects such as intfilenumber, c1, WavNum, PA5Results, SoundOrder, TSoundOrder, TempChar, MaxedOutFlag, temp, MaxedOutCounter, intMaxVolume, lblNextSound, lblTitle, lblMainInstructions, lblInstruct2, lblInstruct3, chkClick, txtBandwidth, txtValue, Timer1, VolAdj, txtTimer, sndPlaySound, dialcontrol1, and more.
 ' It also includes conditional statements, loops, and function calls to handle different scenarios and interactions with the user.
+'
+' Parameters:
+'   None
+'
+' Returns:
+'   None
+'
+' Remarks:
+'   - The subroutine starts by displaying instructions to the user for the loudness matching task.
+'   - It waits for the user to click the dial control to proceed.
+'   - The subroutine then initializes variables and arrays for the loudness matching procedure.
+'   - It determines the value of TempChar based on the user's selection of bandwidth.
+'   - The subroutine populates a randomized array with the sound order based on TempChar.
+'   - It plays a series of sounds and allows the user to adjust the volume using the dial control.
+'   - The subroutine checks if the user can hear the sound and determines if it is softer than their tinnitus.
+'   - It handles scenarios where the user continuously tries to turn the volume up or cannot hear the sound.
+'   - The subroutine updates the PA5 value and keeps track of the maxed out counter.
+'   - It repeats the process for all 22 sounds in the sound order.
 Private Sub Step6_LoudnessMatching()
     Dim intfilenumber, c1, WavNum, PA5Results(11, 2) As Integer
     Dim SoundOrder(1 To 22) As String
@@ -4722,8 +4665,6 @@ Private Sub Step6_LoudnessMatching()
     ' The code block includes various conditional statements and control structures to handle different scenarios.
     ' It utilizes several variables and objects such as c1, dialcontrol1, txtValue, PA5x1, SoundOrder, MaxedOutFlag, chkClick, lblNextSound, txtTimer, sndPlaySound, and more.
     ' The code block is part of a larger program designed for tinnitus testing.
-    ' Note: Some parts of the code are commented out and may not be active.
-    '
     c1 = 1
     dialcontrol1.Show_Arrows
     dialcontrol1.visible = True
@@ -4899,12 +4840,12 @@ Private Sub Step7_PitchMatching()
     lblNextSound.Top = 440
     lblNextSound.Alignment = 0 'Left justify for better look when the text is above the dial
     'first we will show an intro screen that will describe the pitch mathcing task:
-        lblTitle.Caption = "Pitch Matching"
-        lblMainInstructions.Caption = "We are now going to present several sounds differing in PITCH."
-        lblInstruct2.Caption = "Using the dial, rate the similarity of each PITCH to your tinnitus by adjusting the slider."
-        lblInstruct3.Caption = "When ready, press the dial to hear the first sound."
-        lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
-        lblInstruct3.Top = 376
+    lblTitle.Caption = "Pitch Matching"
+    lblMainInstructions.Caption = "We are now going to present several sounds differing in PITCH."
+    lblInstruct2.Caption = "Using the dial, rate the similarity of each PITCH to your tinnitus by adjusting the slider."
+    lblInstruct3.Caption = "When ready, press the dial to hear the first sound."
+    lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
+    lblInstruct3.Top = 376
     
     lblTitle.visible = True
     lblMainInstructions.visible = True
@@ -4927,24 +4868,24 @@ Private Sub Step7_PitchMatching()
     PA5x1.SetAtten (CInt(txtIntensity.Text))
     Form1.SetFocus
     Timer1.Interval = 100
-        'first we need to populate a randomized array with the sound order.  2 passes are used of all 11 stim.  Stim are
-        'based on selection in step 3 (bandwidth)
-        Select Case CInt(txtBandwidth.Text)
-            Case Is = 1  'user selected "Hissing" in previous step
-                TempChar = "w"
-            Case Is = 2 'user selected "Ringing" in previous step
-                TempChar = "r"
-            Case Is = 3 'user selected "Tonal" in previous step
-                TempChar = "s"
-        End Select
+    'first we need to populate a randomized array with the sound order.  2 passes are used of all 11 stim.  Stim are
+    'based on selection in step 3 (bandwidth)
+    Select Case CInt(txtBandwidth.Text)
+        Case Is = 1  'user selected "Hissing" in previous step
+            TempChar = "w"
+        Case Is = 2 'user selected "Ringing" in previous step
+            TempChar = "r"
+        Case Is = 3 'user selected "Tonal" in previous step
+            TempChar = "s"
+    End Select
     '&&&&&&&&&&&&&&&& POPULATE ARRAYS &&&&&&&&&&&&&&&&&&&&&
-        ' This section of code populates the SoundOrder array with file paths to sound files.
-        ' It uses the TSoundOrder array to generate the file paths based on the value of TempChar.
-        ' The file paths are in the format "C:\TinData\tintest_wav\[TempChar][c1].wav", where [TempChar] is the value of TempChar and [c1] is a number from 1 to 11.
-        ' The TSoundOrder array is then randomized using the RandomizeArray function.
-        ' The randomized TSoundOrder array is then copied to the SoundOrder array.
-        ' This process is repeated three times, with the SoundOrder array being populated with a total of 33 file paths.
-        '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    ' This section of code populates the SoundOrder array with file paths to sound files.
+    ' It uses the TSoundOrder array to generate the file paths based on the value of TempChar.
+    ' The file paths are in the format "C:\TinData\tintest_wav\[TempChar][c1].wav", where [TempChar] is the value of TempChar and [c1] is a number from 1 to 11.
+    ' The TSoundOrder array is then randomized using the RandomizeArray function.
+    ' The randomized TSoundOrder array is then copied to the SoundOrder array.
+    ' This process is repeated three times, with the SoundOrder array being populated with a total of 33 file paths.
+    '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     '&&&&&&&&&&&&&&&& POPULATE ARRAYS &&&&&&&&&&&&&&&&&&&&&
     For c1 = 1 To 11
         TSoundOrder(c1) = ("C:\TinData\tintest_wav\" & TempChar & CStr(c1) & ".wav")
@@ -4971,13 +4912,13 @@ Private Sub Step7_PitchMatching()
     Next c1
     '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-        lbl5.Caption = "Not At All"
-        lbl30.Caption = "Not very Similar"
-        lbl50.Caption = "Somewhat Similar"
-        lbl70.Caption = "Very Similar"
-        lbl95.Caption = "Identical"
-        lblNextSound.Caption = "Starting First Sound..."
-        framLoudness.Caption = "Pitch Rating"
+    lbl5.Caption = "Not At All"
+    lbl30.Caption = "Not very Similar"
+    lbl50.Caption = "Somewhat Similar"
+    lbl70.Caption = "Very Similar"
+    lbl95.Caption = "Identical"
+    lblNextSound.Caption = "Starting First Sound..."
+    framLoudness.Caption = "Pitch Rating"
     txtValue.Text = 0
 
     ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
@@ -5015,20 +4956,11 @@ Private Sub Step7_PitchMatching()
             ' Set the volume to the proper PA5 level
             If txtLoudnessT2(WavNum - 1).Text = -102 Then 'user maxed out sound but can still hear it
                 PA5x1.SetAtten (0)
-                If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-                    PA5x2.SetAtten (0)
-                End If
             Else
                 If CInt(txtLoudnessT1(WavNum - 1).Text) < CInt(txtLoudnessT2(WavNum - 1).Text) Then 'first trial was louder, use that value
                     PA5x1.SetAtten (CInt(txtLoudnessT1(WavNum - 1).Text))
-                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-                        PA5x2.SetAtten (CInt(txtLoudnessT1(WavNum - 1).Text))
-                    End If
                 Else '2nd trial was louder...user that instead
                     PA5x1.SetAtten (CInt(txtLoudnessT2(WavNum - 1).Text))
-                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-                        PA5x2.SetAtten (CInt(txtLoudnessT2(WavNum - 1).Text))
-                    End If
                 End If
             End If
             
@@ -5127,14 +5059,14 @@ Private Sub Step7_PitchMatching()
     lblNextSound.Top = 440
 
     'output info
-        sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
-        intfilenumber = FreeFile ' This is safer than assigning a number
-        Open (WorkingDir & WorkingFile) For Append As #intfilenumber
-            Write #intfilenumber, "SliderValueTrial1", "SliderValueTrial2", "SliderValueTrial3", "SliderValueAVG", "File"
-            For c1 = 0 To 10
-                Write #intfilenumber, CInt(txtPitchMatchT1(c1).Text), CInt(txtPitchMatchT2(c1).Text), CInt(txtPitchMatchT3(c1).Text), (CInt(txtPitchMatchT1(c1).Text) + CInt(txtPitchMatchT2(c1).Text) + CInt(txtPitchMatchT3(c1).Text)) / 3, (TempChar & CStr(c1 + 1))
-            Next c1
-        Close #intfilenumber
+    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
+    intfilenumber = FreeFile ' This is safer than assigning a number
+    Open (WorkingDir & WorkingFile) For Append As #intfilenumber
+        Write #intfilenumber, "SliderValueTrial1", "SliderValueTrial2", "SliderValueTrial3", "SliderValueAVG", "File"
+        For c1 = 0 To 10
+            Write #intfilenumber, CInt(txtPitchMatchT1(c1).Text), CInt(txtPitchMatchT2(c1).Text), CInt(txtPitchMatchT3(c1).Text), (CInt(txtPitchMatchT1(c1).Text) + CInt(txtPitchMatchT2(c1).Text) + CInt(txtPitchMatchT3(c1).Text)) / 3, (TempChar & CStr(c1 + 1))
+        Next c1
+    Close #intfilenumber
 
 End Sub
 
@@ -5165,7 +5097,7 @@ Private Sub Step8_Threshold()
     For c1 = 0 To 10
         TempString = TempString & " " & CInt((CInt(txtPitchMatchT1(c1).Text) + CInt(txtPitchMatchT2(c1).Text) + CInt(txtPitchMatchT3(c1).Text)) / 3)
     Next c1
-'    'we must generate a custom masker:
+   'we must generate a custom masker:
     txtTimer.Text = 0
     Timer1.Interval = 100
 
