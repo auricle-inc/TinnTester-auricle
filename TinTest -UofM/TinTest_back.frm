@@ -3737,7 +3737,6 @@ End Sub
 '**  FUNCTION NAME: TinTrain2_Loudness
 '**
 '**  DESCRIPTION: This subroutine adjusts the loudness of a sound using a dial control.
-'**               It displays instructions in English or French based on the language setting.
 '**               The user can turn the dial clockwise to increase the loudness and
 '**               counter-clockwise to decrease the loudness. Once the user is comfortable,
 '**               they can press the dial to move to the next step.
