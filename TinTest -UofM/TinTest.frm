@@ -6550,9 +6550,13 @@ Private Sub Form_Resize()
     cmdPrintReport.Left = (Form1.ScaleWidth / 2) - (cmdPrintReport.Width / 2)
 End Sub
 
+' This event handler is triggered when the form is being unloaded.
+' It plays a sound file and terminates the program.
 Private Sub Form_Unload(Cancel As Integer)
-sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
-End
+    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
+    End
+End Sub
+
 End Sub
 
 
@@ -6577,12 +6581,14 @@ Private Sub optResume_Click()
 End Sub
 
 
-
+' This subroutine is triggered by the Timer1 control's Timer event.
+' It increments the value of txtTimer by 1.
 Private Sub Timer1_Timer()
     txtTimer.Text = CInt(txtTimer.Text) + 1
 End Sub
 
-
+' This subroutine is triggered by the timerCheck timer event.
+' It disables the timerCheck and hides the imgCheck control.
 Private Sub timerCheck_Timer()
     'this was used to show checkmark after clicking space bar, but that was abandoned for colour change, now controled
     'by timerclick
@@ -6590,21 +6596,10 @@ Private Sub timerCheck_Timer()
     timerCheck.Enabled = False
 End Sub
 
-
-
+' This subroutine is triggered by the timerClick timer event.
+' It sets the background color of various labels and frames to a light gray color.
+' The timerClick timer is then disabled.
 Private Sub timerClick_Timer()
-'this function will show the 'click' graphic for a specified period of time, then hide it and disable the timer.
-'Dim c9 As Integer
-'    If lineClick(0).visible = False Then
-'        For c9 = 0 To 7 Step 1
-'            lineClick(c9).visible = True
-'        Next c9
-'    Else
-'        For c9 = 0 To 7 Step 1
-'            lineClick(c9).visible = False
-'        Next c9
-'        timerClick.Enabled = False
-'    End If
     framLoudness.BackColor = &HF0F0E6
     lbl5.BackColor = &HF0F0E6
     lbl30.BackColor = &HF0F0E6       'original color:  &H00F0F0E6&
@@ -6630,7 +6625,7 @@ Private Sub timerClick_Timer()
     lblLouder(0).BackColor = &HF0F0E6
     lblMuchLouder(0).BackColor = &HF0F0E6
     frmMono(0).BackColor = &HF0F0E6
-timerClick.Enabled = False
+    timerClick.Enabled = False
 End Sub
 
 Private Sub timerDblClick_Timer()
@@ -6638,10 +6633,31 @@ boolDblClick = False
 timerDblClick.Enabled = False
 End Sub
 
+' TimerStep1_Timer event is triggered when the TimerStep1 control fires.
+' It checks the value of whicheardial1 and if it is greater than or equal to 100,
+' it sets the value of chkClick to 1.
 Private Sub TimerStep1_Timer()
     If whicheardial1.getvalue >= 100 Then chkClick.Value = 1
 End Sub
 
+'------------------------------------------------------------------------------
+' Sub: TimerStep2_Timer
+'
+' Description:
+'   This subroutine is triggered by the TimerStep2 timer event. It updates the
+'   value of the txtValue textbox with the current volume obtained from the
+'   dialcontrol1 object. If the volume is within the range of 0 to 120, it sets
+'   the attenuation level of the PA5x1 object and, if usePA52 is true, the
+'   attenuation level of the PA5x2 object. If the volume is 999, it resets the
+'   txtValue textbox to 0.
+'
+' Parameters:
+'   None
+'
+' Returns:
+'   None
+'
+'------------------------------------------------------------------------------
 Private Sub TimerStep2_Timer()
     txtValue.Text = dialcontrol1.getvolume
     If CInt((txtValue.Text) >= 0) And CInt((txtValue.Text) <= 120) Then
@@ -6655,6 +6671,10 @@ Private Sub TimerStep2_Timer()
     End If
 End Sub
 
+' TimerStep6_Timer is an event handler that is triggered when the TimerStep6 timer interval elapses.
+' It updates the value of the txtValue textbox with the current volume obtained from dialcontrol1.
+' If the value is between 0 and 120 (inclusive), it sets the attenuation level of PA5x1 and PA5x2 accordingly.
+' If the value is 999, it displays a message box indicating that the user can't hear sound and resets the txtValue to 0.
 Private Sub TimerStep6_Timer()
     txtValue.Text = dialcontrol1.getvolume
     If CInt((txtValue.Text) >= 0) And CInt((txtValue.Text) <= 120) Then
@@ -6669,9 +6689,16 @@ Private Sub TimerStep6_Timer()
 End Sub
 
 Private Sub TimerStep8_Timer()
+    ' This subroutine is triggered by the TimerStep8 timer event.
+    ' It updates the value of the txtValue textbox with the current volume from the dialcontrol1.
+    ' If the value is between 0 and 120 (inclusive), it sets the attenuation level of the PA5x1 and PA5x2 accordingly.
+    ' If usePA52 is True, it also sets the attenuation level of the PA5x2.
+    
     txtValue.Text = dialcontrol1.getvolume
+    
     If CInt((txtValue.Text) >= 0) And CInt((txtValue.Text) <= 120) Then
         PA5x1.SetAtten (120 - CInt(txtValue.Text))
+        
         If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
             PA5x2.SetAtten (120 - CInt(txtValue.Text))
         End If
@@ -6691,6 +6718,21 @@ Private Sub txtInitials_Change()
         cmdNext.Enabled = True
     End If
 End Sub
+
+' RandomizeArray is a subroutine that shuffles the elements of an array in a random order.
+' It takes an input array (ArrayIn) as a parameter and modifies it in place.
+' The algorithm used is the Fisher-Yates shuffle algorithm.
+'
+' Parameters:
+'   - ArrayIn: The input array to be shuffled.
+'
+' Example usage:
+'   Dim myArray() As Variant
+'   myArray = Array(1, 2, 3, 4, 5)
+'   RandomizeArray myArray
+'
+'   After the execution of the subroutine, the elements in myArray will be randomly shuffled.
+'
 Private Sub RandomizeArray(ArrayIn As Variant)
 
    Dim c As Long
@@ -6725,30 +6767,43 @@ Private Sub RandomizeArray(ArrayIn As Variant)
    End If
 
 End Sub
+
+' This subroutine increases the volume by making the volume up button visible and starting the volume timer.
 Private Sub VolumeUp()
-imgVolume(1).visible = False
-imgVolume(0).visible = True
-TimerVolume.Enabled = True
+    imgVolume(1).Visible = False
+    imgVolume(0).Visible = True
+    TimerVolume.Enabled = True
 End Sub
+
+' This subroutine decreases the volume by hiding the first volume image and showing the second volume image.
+' It also enables the TimerVolume to start decreasing the volume gradually.
 Private Sub VolumeDown()
 imgVolume(0).visible = False
 imgVolume(1).visible = True
 TimerVolume.Enabled = True
 End Sub
 
+'*******************************************************************************
+' FUNCTION NAME: CanYouHearThis
+'
+' DESCRIPTION: This function is called when a user reaches the maximum output for volume.
+'              It prompts the user to determine if they can hear a sound playing.
+'              If the user can hear the sound, it prompts them to determine if the sound is quieter than their tinnitus.
+'
+' PARAMETERS:
+'   - SoundToPlay: The path of the sound file to be played.
+'
+' RETURNS:
+'   - Integer: 0 if the user cannot hear the sound or if the sound is quieter than their tinnitus,
+'              1 if the user can hear the sound,
+'              2 if the user can hear the sound and it is louder than their tinnitus.
+'
+'*******************************************************************************
 Private Function CanYouHearThis(SoundToPlay As String) As Integer
 'this sub function is called when a user reaches the maximum output for volume
     VolAdj = False
     lblMainInstructions.Caption = "Can you hear a sound playing right now?"
     lblMainInstructions.visible = True
-'    lblChoice4.Caption = "No"
-'    lblChoice5.Caption = "Yes"
-'    shpChoice4.visible = True
-'    shpChoice5.visible = True
-'    lblChoice4.visible = True
-'    lblChoice5.visible = True
-'    shpChoice4.BackColor = &H80000000 '&H80FF80 'green
-'    shpChoice5.BackColor = &H80000000  'grey
     soundYesNo1.UserControl_Initialize
     'must initialize values to match the initalized control****
     txtValue.Text = 1
@@ -6785,20 +6840,13 @@ Private Function CanYouHearThis(SoundToPlay As String) As Integer
         DoEvents
     Loop
     soundYesNo1.visible = False
+
+    
     If CInt(txtValue.Text) = 2 Then 'user can hear sound
         
         chkChange.Value = 0
         chkClick.Value = 0
         lblMainInstructions.Caption = "Is this sound quieter than your tinnitus?"
-'        lblMainInstructions.visible = True
-'        lblChoice4.Caption = "No"
-'        lblChoice5.Caption = "Yes"
-'        shpChoice4.visible = True
-'        shpChoice5.visible = True
-'        lblChoice4.visible = True
-'        lblChoice5.visible = True
-'        shpChoice4.BackColor = &H80000000 '&H80FF80 'green
-'        shpChoice5.BackColor = &H80000000  'grey
         soundYesNo1.UserControl_Initialize
         'must initialize values to match the initalized control****
         txtValue.Text = 1
@@ -6814,13 +6862,9 @@ Private Function CanYouHearThis(SoundToPlay As String) As Integer
                     chkChange.Value = 0 'reset change flag
                     Select Case soundYesNo1.getvalue
                         Case Is = 0 'no
-                            'shpChoice4.BackColor = &H80FF80 'green
-                            'shpChoice5.BackColor = &H80000000  'grey
                             txtValue.Text = 1
                             CanYouHearThis = 0
                         Case Is >= 1 'yes
-                            'shpChoice4.BackColor = &H80000000  'grey
-                            'shpChoice5.BackColor = &H80FF80 'green
                             txtValue.Text = 2
                             CanYouHearThis = 2
                     End Select
@@ -6834,11 +6878,13 @@ Private Function CanYouHearThis(SoundToPlay As String) As Integer
         Loop
         soundYesNo1.visible = False
     End If
+
     sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
     Call hide_all
     chkClick.Value = 0
     VolAdj = True
 End Function
+
 
 Private Function CustomMaskerPath() As String
 '*********************************************************************************
@@ -6958,10 +7004,20 @@ Dim cValue As Integer
     CustomMaskerPath = MCustString
 End Function
 
-
 ' ***********************************************
 '               Multidimensional Array sorted on a single dimensions
 ' ***********************************************
+
+' Name: MyQuickSort_Single
+' Description: Sorts a multidimensional array based on a single dimension using the QuickSort algorithm.
+' Parameters:
+'   - SortArray: The array to be sorted.
+'   - First: The index of the first element to be sorted.
+'   - Last: The index of the last element to be sorted.
+'   - PrimeSort: The index of the dimension to be sorted.
+'   - Ascending: Boolean value indicating whether the sorting should be in ascending order (True) or descending order (False).
+' Returns: None
+
 Private Sub MyQuickSort_Single(ByRef SortArray As Variant, ByVal First As Long, ByVal Last As Long, _
                                                             ByVal PrimeSort As Integer, ByVal Ascending As Boolean)
 Dim Low As Long, High As Long
