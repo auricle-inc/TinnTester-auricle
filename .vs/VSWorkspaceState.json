@@ -1,8 +1,9 @@
 {
+  "ActiveTargetSystem": "WSL: Ubuntu-22.04",
   "ExpandedNodes": [
     "",
     "\\TinTest -UofM"
   ],
-  "SelectedNode": "\\TinTest -UofM\\TinTest.frm",
+  "SelectedNode": "\\TinTest -UofM",
   "PreviewInSolutionExplorer": false
 }

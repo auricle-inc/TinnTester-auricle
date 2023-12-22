@@ -18,7 +18,6 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 ' The code snippet provided represents a portion of the form's design, including the Loudness Rating frame and the Left Ear frame.
 ' Each control within the frames has specific properties such as caption, size, position, and font settings.
 ' The form is part of the TinTest.frm file located at "C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm".
-
 Begin VB.Form Form1 
    BackColor       =   &H00F0F0E6&
    Caption         =   "Tinnitus Tester v2.0"
@@ -2834,9 +2833,8 @@ Attribute VB_Exposed = False
 '              It also includes public variables used for volume adjustment, dial offset, and other sound-related settings.
 '              The constants define various flags for controlling the behavior of the sound playback.
 '-----------------------------------------------------------------------------------------------
-'First we have to declare the API call
 Private Declare Function sndPlaySound Lib "winmm.dll" Alias "sndPlaySoundA" (ByVal lpszSoundName As String, ByVal uFlags As Long) As Long
-
+'First we have to declare the API call
 'Then we have to declare the constants that go along with the sndPlaySound function
 Const SND_ASYNC = &H1       'ASYNC allows us to play waves with the ability to interrupt
 Const SND_LOOP = &H8        'LOOP causes to sound to be continuously replayed
@@ -2913,15 +2911,10 @@ Private Sub cmdNext_Click()
     Dim TempString, tempstring2, InputArray(200) As String
     Dim ResumeCounter As Integer
     Dim lmdata As Single ' tinnitus loudness in dbspl- to be passed into tinnitus report call
-    
+
     ' Set attenuation level for PA5x1
-    PA5x1.SetAtten (50)
-    
-    ' Check if user is using 2 PA5s and set level for PA5x2
-    If usePA52 Then
-        PA5x2.SetAtten (50)
-    End If
-    
+    PA5x1.SetAtten(50)
+
     ' Set dial offset for tintester
     DialOffset = 100
     dialcontrol1.Top = (Form1.ScaleHeight / 2) - (dialcontrol1.Height / 2) + DialOffset
@@ -3533,11 +3526,11 @@ Private Sub cmdPrintReport_Click()
     ' fill in user values for report
     Select Case CInt(txtBandwidth.Text)
         Case Is = 1
-                UserBW = "Hissing"
+            UserBW = "Hissing"
         Case Is = 2
-                UserBW = "Ringing"
+            UserBW = "Ringing"
         Case Is >= 3
-                UserBW = "Tonal"
+            UserBW = "Tonal"
     End Select
 
     ' This Select Case statement assigns a value to the variable UserTL based on the value of txtLocalize.Text.
@@ -3546,11 +3539,11 @@ Private Sub cmdPrintReport_Click()
     ' If txtLocalize.Text is greater than or equal to 3, UserTL is assigned "Right Ear" if English is True, otherwise "Oreille Droite".
     Select Case CInt(txtLocalize.Text)
         Case Is = 1
-                UserTL = "Left Ear"
+            UserTL = "Left Ear"
         Case Is = 2
-                UserTL = "Both Ears"
+            UserTL = "Both Ears"
         Case Is >= 3
-                UserTL = "Right Ear"
+            UserTL = "Right Ear"
     End Select
 
     ' This Select Case statement determines the value of the variable txtTemporal.Text and assigns a corresponding value to the variable UserSorP.
@@ -3861,17 +3854,14 @@ Public Sub TinTrain3_pitch()
             Select Case CInt(txtValue.Text)
                 Case Is = 1
                     'play lowpitch sound - 1khz
-                    'CHANGED ON JAN 26-Request of LER to 250Hz
                     sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop playing old sound
                     sndPlaySound "C:\TinData\TinTestTrainer\250_1s_48k.wav", SND_ASYNC Or SND_NODEFAULT 'start playing new sound
                 Case Is = 2
                     'play medium pitch sound - 2khz
-                    'CHANGED ON JAN 26-Request of LER to 500Hz
                     sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop playing old sound
                     sndPlaySound "C:\TinData\TinTestTrainer\500_1s_48k.wav", SND_ASYNC Or SND_NODEFAULT 'start playing new sound
                 Case Is >= 3
                     'play high pitch sound - 5khz
-                    'CHANGED ON JAN 26-Request of LER to 2kHz
                     sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop playing old sound
                     sndPlaySound "C:\TinData\TinTestTrainer\2k_1s_48k.wav", SND_ASYNC Or SND_NODEFAULT 'start playing new sound
                     txtValue.Text = 3
@@ -3896,7 +3886,7 @@ End Sub
 ' TinTrain4_HSlide
 '
 ' This subroutine controls the behavior of a horizontal slider in the TinTest form.
-' It displays instructions in either English or French, allows the user to adjust the slider,
+' It displays instructions, allows the user to adjust the slider,
 ' and changes the color of certain labels and frames when the user interacts with the slider.
 '
 ' Parameters:
@@ -4198,7 +4188,7 @@ End Sub
 '**  NOTES:
 '**      - This subroutine assumes that the necessary form controls (lblMainInstructions,
 '**        lblInstruct2, lblSoft, lblLoud, txtValue, dialcontrol1, chkClick, txtIntensity,
-'**        txtIntensity2) and objects (PA5x1, PA5x2) are properly initialized and available.
+'**        txtIntensity2) and objects (PA5x1) are properly initialized and available.
 '**      - The sound files used for the tones (s1.wav and s6.wav) are assumed to be located
 '**        at the specified file paths.
 '**      - The WorkingDir and WorkingFile variables are assumed to be defined and contain
@@ -4258,10 +4248,7 @@ Private Sub Step2_SoundIntensity()
     dialcontrol1.UserControl_Initialize
     dialcontrol1.setvolume (CInt(txtValue.Text))
     'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
-    PA5x1.SetAtten (120 - CInt(txtValue.Text))
-    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
-        PA5x2.SetAtten (120 - CInt(txtValue.Text))
-    End If
+    PA5x1.SetAtten(120 - CInt(txtValue.Text))
     Form1.SetFocus
     chkClick.Value = 0
     sndPlaySound "C:\TinData\tintest_wav\s6.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP

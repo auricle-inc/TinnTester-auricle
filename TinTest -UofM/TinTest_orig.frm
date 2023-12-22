@@ -1,15 +1,3 @@
-VERSION 5.00
-
-' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest_back.frm
-' This code block includes the declaration of three ActiveX controls: PA5x.ocx, mscomctl.ocx, and comdlg32.ocx.
-' These controls are referenced by their respective Object IDs and file names.
-' The first control (PA5x.ocx) has an Object ID of "{73B7CFAB-7D2C-487A-81EC-E6A15FB9E84A}#1.0#0".
-' The second control (mscomctl.ocx) has an Object ID of "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0".
-' The third control (comdlg32.ocx) has an Object ID of "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0".
-Object = "{73B7CFAB-7D2C-487A-81EC-E6A15FB9E84A}#1.0#0"; "PA5x.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-
 ' This code represents the design of a form named "Form1" in the Tinnitus Tester v2.0 application.
 ' It includes various controls such as command buttons, labels, and scrollbars.
 ' The form has a specific layout and appearance, with different colors and captions for each control.
@@ -18,7 +6,10 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 ' The code snippet provided represents a portion of the form's design, including the Loudness Rating frame and the Left Ear frame.
 ' Each control within the frames has specific properties such as caption, size, position, and font settings.
 ' The form is part of the TinTest.frm file located at "C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm".
-
+VERSION 5.00
+Object = "{73B7CFAB-7D2C-487A-81EC-E6A15FB9E84A}#1.0#0"; "PA5x.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form Form1 
    BackColor       =   &H00F0F0E6&
    Caption         =   "Tinnitus Tester v2.0"
@@ -2820,9 +2811,6 @@ Begin VB.Form Form1
       Width           =   16575
    End
 End
-' Form1
-' This form represents the main form of the TinTest application.
-' It contains various attributes and properties that define the behavior and appearance of the form.
 Attribute VB_Name = "Form1"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
@@ -2899,13 +2887,12 @@ Private Sub cmdEar_Click(Index As Integer)
     End If
 End Sub
 
+
+
 ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
 '---------------------------------------------------------------------------
 ' Procedure: cmdNext_Click
-' Description: This procedure is the event handler for the "Next" button click event. 
-'   It is responsible for executing the steps of the tinnitus tester based on the user's selection. 
-'   It also handles the resume functionality, where the user can choose to resume the test from a specific step. 
-'   The procedure performs various file operations, data manipulation, and calls other subroutines for each step of the tinnitus test.
+' Description: This procedure is the event handler for the "Next" button click event. It is responsible for executing the steps of the tinnitus tester based on the user's selection. It also handles the resume functionality, where the user can choose to resume the test from a specific step. The procedure performs various file operations, data manipulation, and calls other subroutines for each step of the tinnitus test.
 '---------------------------------------------------------------------------
 Private Sub cmdNext_Click()
     ' Variable Declarations
@@ -2962,6 +2949,7 @@ Private Sub cmdNext_Click()
         ' Each step is called using the "Call" keyword followed by the corresponding subroutine name.
         ' After each step is called, the "hide_all" subroutine is called to hide all elements on the form.
         ' This code is located in the file "TinTest.frm" within the "TinnTester" project.
+        ' Call each step of the tinnitus test
         Call hide_all
         Call Step1_Localize
         Call hide_all
@@ -3046,36 +3034,53 @@ Private Sub cmdNext_Click()
             Select Case ResumeCounter
                 Case Is = 1
                     Call Step1_Localize
+                    Call hide_all
                 Case Is = 2
                     Call Step2_SoundIntensity
+                    Call hide_all
                 Case Is = 3
                     Call Step3_Bandwidth
+                    Call hide_all
                 Case Is = 4
                     Call Step4_Temporal
+                    Call hide_all
                 Case Is = 5
                     Call Step5_LoudnessRating
+                    Call hide_all
                 Case Is = 6
                     Call Step6_LoudnessMatching
+                    Call hide_all
                 Case Is = 7
                     Call Step7_PitchMatching
+                    Call hide_all
                 Case Is = 8
                     Call Step8_Threshold
+                    Call hide_all
                 Case Is = 9
                     Call Step9_ResidualInhibition
+                    Call hide_all
             End Select
             ResumeCounter = ResumeCounter + 1
         Loop
     End If
     
     ' Display completion message and write tinnitus report
-    lblMainInstructions.Caption = "Thank you. The program is now complete. Please wait for the experimenter to enter."
+    If English Then
+        lblMainInstructions.Caption = "Thank you. The program is now complete. Please wait for the experimenter to enter."
+    Else
+        lblMainInstructions.Caption = "Merci. Le programme est maintenant terminé. Veuillez avertir l'évaluateur."
+    End If
     Call WriteReportSPL
     lblMainInstructions.Visible = True
     
     ' Output tinnitus report
     If PReport Then
         lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
-        Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
+        If English Then
+            Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
+        Else
+            Call OutputReport_F(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
+        End If
     End If
 End Sub
 
@@ -3105,128 +3110,143 @@ End Sub
 '**
 '*************************************************************************************
 Private Sub WriteReportSPL()
-    Dim intfilenumber As Integer
-    Dim TempString1 As String
-    Dim TinBW As Integer 'tinnitus bandwidth
-    Dim x1 As Integer
-    Dim CFreq(0 To 10) As String
-    Dim cm1 As String
-    Dim CMF As Integer  'custom masker frequency
-    CFreq(0) = "0.5 kHz"
-    CFreq(1) = "1 kHz"
-    CFreq(2) = "2 kHz"
-    CFreq(3) = "3 kHz"
-    CFreq(4) = "4 kHz"
-    CFreq(5) = "5 kHz"
-    CFreq(6) = "6 kHz"
-    CFreq(7) = "7 kHz"
-    CFreq(8) = "8 kHz"
-    CFreq(9) = "10 kHz"
-    CFreq(10) = "12 kHz"
+Dim intfilenumber As Integer
+Dim TempString1 As String
+Dim TinBW As Integer 'tinnitus bandwidth
+Dim x1 As Integer
+Dim CFreq(0 To 10) As String
+Dim cm1 As String
+Dim CMF As Integer  'custom masker frequency
+CFreq(0) = "0.5 kHz"
+CFreq(1) = "1 kHz"
+CFreq(2) = "2 kHz"
+CFreq(3) = "3 kHz"
+CFreq(4) = "4 kHz"
+CFreq(5) = "5 kHz"
+CFreq(6) = "6 kHz"
+CFreq(7) = "7 kHz"
+CFreq(8) = "8 kHz"
+CFreq(9) = "10 kHz"
+CFreq(10) = "12 kHz"
 
-    cm1 = CustomMaskerPath() 'returns the file to use for custom masker
-    If Len(cm1) = 2 Then '1 to 9
+cm1 = CustomMaskerPath() 'returns the file to use for custom masker
+If Len(cm1) = 2 Then '1 to 9
     CMF = CInt(Right(cm1, 1))
-    ElseIf Len(cm1) = 3 Then
+ElseIf Len(cm1) = 3 Then
     CMF = CInt(Right(cm1, 2)) '10 or 11
-    Else
+Else
     CMF = 1
     MsgBox "ERROR DETERMINING CMF"
-    End If
+End If
 
-    ' This code reads in calibration values from a CSV file.
-    ' If the file exists, it reads the values into the CalibData array.
-    ' If the file does not exist, it sets all values in the CalibData array to 0 and displays a message.
-    ' The CalibData array stores calibration values for pure tone, ringing, hissing, and white noise.
-    ' The values are used to calculate sound pressure level (SPL) values.
-    ' Note: If the calibration data file is missing, the recorded PA5 values will be correct, but the SPL values will be incorrect.
-    ' The file path for the calibration data file is "C:\TinData\CalibrationData.csv".
-    If (dir("C:\TinData\CalibrationData.csv")) = "CalibrationData.csv" Then 'the datafile exists, read it in
-        'row 1 = pure tone, row 2 = ringing row 3 = hissing
-        intfilenumber = FreeFile
-        Open ("C:\TinData\CalibrationData.csv") For Input As #intfilenumber
-        For c1 = 1 To 3 Step 1
-            For c2 = 1 To 11 Step 1
-                Input #intfilenumber, tempS
-                CalibData(c1, c2) = tempS
-            Next c2
-        Next c1
-        Input #intfilenumber, tempS
-        CalibData(4, 1) = tempS 'white noise value
-        Close #intfilenumber
-    Else
-        For c1 = 1 To 3 Step 1
-            For c2 = 1 To 11 Step 1
-                CalibData(c1, c2) = 0
-            Next c2
-        Next c1
-        MsgBox "No Calibration Data File Exists.  Recorded PA5 values will be correct, but SPL values will be incorrect"
-    End If
-    WorkingFile = "\MainDataSPL.csv"
+        ' This code reads in calibration values from a CSV file.
+        ' If the file exists, it reads the values into the CalibData array.
+        ' If the file does not exist, it sets all values in the CalibData array to 0 and displays a message.
+        ' The CalibData array stores calibration values for pure tone, ringing, hissing, and white noise.
+        ' The values are used to calculate sound pressure level (SPL) values.
+        ' Note: If the calibration data file is missing, the recorded PA5 values will be correct, but the SPL values will be incorrect.
+        ' The file path for the calibration data file is "C:\TinData\CalibrationData.csv".
+        'first,we must read in calibration values
+        If (dir("C:\TinData\CalibrationData.csv")) = "CalibrationData.csv" Then 'the datafile exists, read it in
+            'row 1 = pure tone, row 2 = ringing row 3 = hissing
+            intfilenumber = FreeFile
+            Open ("C:\TinData\CalibrationData.csv") For Input As #intfilenumber
+            For c1 = 1 To 3 Step 1
+                For c2 = 1 To 11 Step 1
+                    Input #intfilenumber, tempS
+                    CalibData(c1, c2) = tempS
+                Next c2
+            Next c1
+            Input #intfilenumber, tempS
+            CalibData(4, 1) = tempS 'white noise value
+            Close #intfilenumber
+        Else
+            For c1 = 1 To 3 Step 1
+                For c2 = 1 To 11 Step 1
+                    CalibData(c1, c2) = 0
+                Next c2
+            Next c1
+            MsgBox "No Calibration Data File Exists.  Recorded PA5 values will be correct, but SPL values will be incorrect"
+        End If
+        WorkingFile = "\MainDataSPL.csv"
+        'If dir(WorkingDir & WorkingFile) <> "" Then 'file exists, create a new file
+        '    MsgBox "File already exists.  Please enter a new filename."
+        '    Exit Sub
+        'End If
 
-    ' This code writes data to a file specified by the WorkingDir and WorkingFile variables.
-    ' The data includes information about the recorded date, tinnitus location, temporal property, tinnitus bandwidth,
-    ' comfortable listening levels, loudness rating, tinnitus loudness match, tinnitus likeness match, RI results,
-    ' and RI sound levels for left and right ears.
-    ' The data is written in a specific format to the file using the Write statement.
-    ' The file is then closed using the Close statement.
-    intfilenumber = FreeFile ' This is safer than assigning a number
-    Open (WorkingDir & WorkingFile) For Output As #intfilenumber
-        'first, write the date file was recorded on
-        Write #intfilenumber, "Recorded On:", Now
-        'next, output location
+        ' This code writes data to a file specified by the WorkingDir and WorkingFile variables.
+        ' The data includes information about the recorded date, tinnitus location, temporal property, tinnitus bandwidth,
+        ' comfortable listening levels, loudness rating, tinnitus loudness match, tinnitus likeness match, RI results,
+        ' and RI sound levels for left and right ears.
+        ' The data is written in a specific format to the file using the Write statement.
+        ' The file is then closed using the Close statement.
+        intfilenumber = FreeFile ' This is safer than assigning a number
+        Open (WorkingDir & WorkingFile) For Output As #intfilenumber
+            'first, write the date file was recorded on
+            Write #intfilenumber, "Recorded On:", Now
+            'next, output location
             Select Case CInt(txtLocalize.Text)
-                Case Is = 1
-                    TempString1 = "Localized in Left Ear"
-                Case Is = 2
-                    TempString1 = "Localized in Both Ears"
-                Case Is >= 3
-                    TempString1 = "Localized in Right Ear"
+            Case Is = 1
+                TempString1 = "Localized in Left Ear"
+            Case Is = 2
+                TempString1 = "Localized in Both Ears"
+            Case Is >= 3
+                TempString1 = "Localized in Right Ear"
             End Select
-        Write #intfilenumber, "Tinnitus Location:", TempString1
-        'next temporal property:
+            Write #intfilenumber, "Tinnitus Location:", TempString1
+            'next temporal property:
             Select Case CInt(txtTemporal.Text)
                 Case Is = 1 'Steady Sound
                     TempString1 = "Steady Tinnitus"
                 Case Is >= 2 'pulsing Sound
                     TempString1 = "Pusling Tinnitus"
             End Select
-        Write #intfilenumber, "Temporal Property:", TempString1
-        'next, bandwidth
+            Write #intfilenumber, "Temporal Property:", TempString1
+            'next, bandwidth
             Select Case CInt(txtBandwidth.Text)
-                Case Is = 1
-                    TempString1 = "Hissing"
-                    TinBW = 3
-                Case Is = 2
-                    TempString1 = "Ringing"
-                    TinBW = 2
-                Case Is >= 3
-                    TempString1 = "Tonal"
-                    TinBW = 1
+            Case Is = 1
+                TempString1 = "Hissing"
+                TinBW = 3
+            Case Is = 2
+                TempString1 = "Ringing"
+                TinBW = 2
+            Case Is >= 3
+                TempString1 = "Tonal"
+                TinBW = 1
             End Select
-        Write #intfilenumber, "Tinnitus Bandwidth:", TempString1
-        'SPL for comfortable listening levels:
-        Write #intfilenumber, "500Hz Comfortable Level:", (CalibData(1, 1) - CInt(txtIntensity.Text)), "dB SPL"
-        Write #intfilenumber, "5kHz Comfortable Level:", (CalibData(1, 6) - CInt(txtIntensity.Text)), "dB SPL"
-        Write #intfilenumber, "Loudness Rating:", txtLoudness.Text
-        'output SPL levels for tinnitus loudness match
-        Write #intfilenumber, "TINNITUS LOUDNESS MATCH"
-        Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Average"
-        For x1 = 0 To 10 Step 1
-            Write #intfilenumber, CFreq(x1), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text)), ((CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)) + (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text))) / 2, "dB SPL"
-        Next x1
-        Write #intfilenumber, "TINNITUS LIKENESS MATCH"
-        Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Trial 3", "Average"
-        For x1 = 0 To 10 Step 1
-            Write #intfilenumber, CFreq(x1), CInt(txtPitchMatchT1(x1).Text), CInt(txtPitchMatchT2(x1).Text), CInt(txtPitchMatchT3(x1).Text), (CInt(txtPitchMatchT1(x1).Text) + CInt(txtPitchMatchT2(x1).Text) + CInt(txtPitchMatchT3(x1).Text)) / 3
-        Next x1
-        Write #intfilenumber, "RI RESULTS"
-        Write #intfilenumber, "1kHz Threshold:", (CalibData(1, 2) - CInt(txtPA5ThreshValue.Text)), "dB SPL"
-        Write #intfilenumber, "5000 Hz Masker Level:", (CalibData(3, 6) - (CInt(txtSoundLevelMatch(1).Text)))
-        Write #intfilenumber, "RI SOUND", "LEFT EAR T1", "RIGHT EAR T1", "LEFT EAR T2", "RIGHT EAR T2"
-        Write #intfilenumber, "5000Hz NBN", ((CInt(txtRILeftT1(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(0).Text) - 50 - 1) / 10), ((CInt(txtRILeftT1(1).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(1).Text) - 50 - 1) / 10)
+            Write #intfilenumber, "Tinnitus Bandwidth:", TempString1
+            'SPL for comfortable listening levels:
+            Write #intfilenumber, "500Hz Comfortable Level:", (CalibData(1, 1) - CInt(txtIntensity.Text)), "dB SPL"
+            Write #intfilenumber, "5kHz Comfortable Level:", (CalibData(1, 6) - CInt(txtIntensity.Text)), "dB SPL"
+            Write #intfilenumber, "Loudness Rating:", txtLoudness.Text
+            'output SPL levels for tinnitus loudness match
+            Write #intfilenumber, "TINNITUS LOUDNESS MATCH"
+            Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Average"
+            For x1 = 0 To 10 Step 1
+                Write #intfilenumber, CFreq(x1), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)), (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text)), ((CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT1(x1).Text)) + (CalibData(TinBW, x1 + 1) - CInt(txtLoudnessT2(x1).Text))) / 2, "dB SPL"
+            Next x1
+            Write #intfilenumber, "TINNITUS LIKENESS MATCH"
+            Write #intfilenumber, "Center Freq", "Trial 1", "Trial 2", "Trial 3", "Average"
+            For x1 = 0 To 10 Step 1
+                Write #intfilenumber, CFreq(x1), CInt(txtPitchMatchT1(x1).Text), CInt(txtPitchMatchT2(x1).Text), CInt(txtPitchMatchT3(x1).Text), (CInt(txtPitchMatchT1(x1).Text) + CInt(txtPitchMatchT2(x1).Text) + CInt(txtPitchMatchT3(x1).Text)) / 3
+            Next x1
+            Write #intfilenumber, "RI RESULTS"
+            Write #intfilenumber, "1kHz Threshold:", (CalibData(1, 2) - CInt(txtPA5ThreshValue.Text)), "dB SPL"
+            'Write #intfilenumber, "500 Hz Masker Level:", (CalibData(3, 1) - (CInt(txtSoundLevelMatch(0).Text)))
+            Write #intfilenumber, "5000 Hz Masker Level:", (CalibData(3, 6) - (CInt(txtSoundLevelMatch(1).Text)))
+            'write #intfilenumber, "White Noise Masker Level:", (CalibData(4, 1) - (CInt(txtSoundLevelMatch(2).Text)))
+            'Write #intfilenumber, "Custom Masker " & cm1 & " Level:", (CalibData(TinBW, CMF) - CInt(txtSoundLevelMatch(3).Text))
+            Write #intfilenumber, "RI SOUND", "LEFT EAR T1", "RIGHT EAR T1", "LEFT EAR T2", "RIGHT EAR T2"
+            'Write #intfilenumber, "500Hz NBN", ((CInt(txtRILeftT1(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(0).Text) - 50 - 1) / 10), ((CInt(txtRILeftT2(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT2(0).Text) - 50 - 1) / 10)
+            Write #intfilenumber, "5000Hz NBN", ((CInt(txtRILeftT1(0).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(0).Text) - 50 - 1) / 10), ((CInt(txtRILeftT1(1).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(1).Text) - 50 - 1) / 10)
+            'Write #intfilenumber, "White Noise", ((CInt(txtRILeftT1(2).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(2).Text) - 50 - 1) / 10), ((CInt(txtRILeftT2(2).Text) - 50 - 1) / 10), ((CInt(txtRIRightT2(2).Text) - 50 - 1) / 10)
+            'Write #intfilenumber, "Custom Masker: " & cm1, ((CInt(txtRILeftT1(3).Text) - 50 - 1) / 10), ((CInt(txtRIRightT1(3).Text) - 50 - 1) / 10), ((CInt(txtRILeftT2(3).Text) - 50 - 1) / 10), ((CInt(txtRIRightT2(3).Text) - 50 - 1) / 10)
+            
+        Close #intfilenumber
+        
+        '
+        
 
-    Close #intfilenumber
 End Sub
 
 '******************************************************************************************************
@@ -3283,302 +3303,339 @@ Private Sub cmdPrintReport_Click()
     'code either continues if user clicks ok or skips to error if they hit cancel
     
 
-    ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
-    '*************************************************************************************
-    '** This code reads data from a file and populates various text boxes with the data. **
-    '** The file is opened for input and each record is read until the end of the file.   **
-    '** Depending on the record number, the corresponding text box is updated with the   **
-    '** value from the record.                                                           **
-    '**                                                                                 **
-    '** Input:                                                                          **
-    '** - comFile: The file to be opened for input.                                      **
-    '** - intfilenumber: The file number used for opening the file.                      **
-    '**                                                                                 **
-    '** Output:                                                                         **
-    '** - Various text boxes are updated with the data from the file.                    **
-    '**                                                                                 **
-    '** Note:                                                                           **
-    '** - The code assumes that the text boxes (txtLocalize, txtIntensity, etc.)        **
-    '**   already exist in the form.                                                     **
-    '** - The code uses a Select Case statement to determine which text box to update    **
-    '**   based on the record number.                                                    **
-    '** - The code assumes that the file contains the necessary number of records        **
-    '**   corresponding to the text boxes. If the file is missing any records, the       **
-    '**   corresponding text boxes will not be updated.                                  **
-    '*************************************************************************************
-    c1 = 0
-    Open comFile.FileName For Input As #intfilenumber
-    Do While Not EOF(intfilenumber)
-        Input #intfilenumber, TempString
-        c1 = c1 + 1
-        
-        Select Case c1
-            ' Update text boxes based on record number
-            Case Is = 3 'localize data
-                txtLocalize.Text = TempString
-            Case Is = 5 'sound intensity data
-                txtIntensity.Text = TempString
-            Case Is = 7 'bandwidth data
-                txtIntensity2.Text = TempString
-            Case Is = 9 'bandwidth data
-                txtBandwidth.Text = TempString
-            Case Is = 11 'temporal data
-                txtTemporal.Text = TempString
-            Case Is = 13 'loudness data
-                txtLoudness.Text = TempString
-            Case Is = 19  'loudness matching data
-                txtLoudnessT1(0).Text = TempString
-            Case Is = 20
-                txtLoudnessT2(0).Text = TempString
-            Case Is = 23  'loudness matching data
-                txtLoudnessT1(1).Text = TempString
-            Case Is = 24
-                txtLoudnessT2(1).Text = TempString
-            Case Is = 27  'loudness matching data
-                txtLoudnessT1(2).Text = TempString
-            Case Is = 28
-                txtLoudnessT2(2).Text = TempString
-            Case Is = 31  'loudness matching data
-                txtLoudnessT1(3).Text = TempString
-            Case Is = 32
-                txtLoudnessT2(3).Text = TempString
-            Case Is = 35  'loudness matching data
-                txtLoudnessT1(4).Text = TempString
-            Case Is = 36
-                txtLoudnessT2(4).Text = TempString
-            Case Is = 39  'loudness matching data
-                txtLoudnessT1(5).Text = TempString
-            Case Is = 40
-                txtLoudnessT2(5).Text = TempString
-            Case Is = 43  'loudness matching data
-                txtLoudnessT1(6).Text = TempString
-            Case Is = 44
-                txtLoudnessT2(6).Text = TempString
-            Case Is = 47  'loudness matching data
-                txtLoudnessT1(7).Text = TempString
-            Case Is = 48
-                txtLoudnessT2(7).Text = TempString
-            Case Is = 51  'loudness matching data
-                txtLoudnessT1(8).Text = TempString
-            Case Is = 52
-                txtLoudnessT2(8).Text = TempString
-            Case Is = 55  'loudness matching data
-                txtLoudnessT1(9).Text = TempString
-            Case Is = 56
-                txtLoudnessT2(9).Text = TempString
-            Case Is = 59  'loudness matching data
-                txtLoudnessT1(10).Text = TempString
-            Case Is = 60
-                txtLoudnessT2(10).Text = TempString
-            Case Is = 68
-                txtPitchMatchT1(0).Text = TempString
-            Case Is = 69
-                txtPitchMatchT2(0).Text = TempString
-            Case Is = 70
-                txtPitchMatchT3(0).Text = TempString
-            Case Is = 73
-                txtPitchMatchT1(1).Text = TempString
-            Case Is = 74
-                txtPitchMatchT2(1).Text = TempString
-            Case Is = 75
-                txtPitchMatchT3(1).Text = TempString
-            Case Is = 78
-                txtPitchMatchT1(2).Text = TempString
-            Case Is = 79
-                txtPitchMatchT2(2).Text = TempString
-            Case Is = 80
-                txtPitchMatchT3(2).Text = TempString
-            Case Is = 83
-                txtPitchMatchT1(3).Text = TempString
-            Case Is = 84
-                txtPitchMatchT2(3).Text = TempString
-            Case Is = 85
-                txtPitchMatchT3(3).Text = TempString
-            Case Is = 88
-                txtPitchMatchT1(4).Text = TempString
-            Case Is = 89
-                txtPitchMatchT2(4).Text = TempString
-            Case Is = 90
-                txtPitchMatchT3(4).Text = TempString
-            Case Is = 93
-                txtPitchMatchT1(5).Text = TempString
-            Case Is = 94
-                txtPitchMatchT2(5).Text = TempString
-            Case Is = 95
-                txtPitchMatchT3(5).Text = TempString
-            Case Is = 98
-                txtPitchMatchT1(6).Text = TempString
-            Case Is = 99
-                txtPitchMatchT2(6).Text = TempString
-            Case Is = 100
-                txtPitchMatchT3(6).Text = TempString
-            Case Is = 103
-                txtPitchMatchT1(7).Text = TempString
-            Case Is = 104
-                txtPitchMatchT2(7).Text = TempString
-            Case Is = 105
-                txtPitchMatchT3(7).Text = TempString
-            Case Is = 108
-                txtPitchMatchT1(8).Text = TempString
-            Case Is = 109
-                txtPitchMatchT2(8).Text = TempString
-            Case Is = 110
-                txtPitchMatchT3(8).Text = TempString
-            Case Is = 113
-                txtPitchMatchT1(9).Text = TempString
-            Case Is = 114
-                txtPitchMatchT2(9).Text = TempString
-            Case Is = 115
-                txtPitchMatchT3(9).Text = TempString
-            Case Is = 118
-                txtPitchMatchT1(10).Text = TempString
-            Case Is = 119
-                txtPitchMatchT2(10).Text = TempString
-            Case Is = 120
-                txtPitchMatchT3(10).Text = TempString
-            Case Is = 123
-                txtSoundThreshold(0).Text = TempString
-            Case Is = 125
-                txtSoundThreshold(1).Text = TempString
-            Case Is = 127
-                txtSoundThreshold(2).Text = TempString
-            Case Is = 129
-                txtSoundThreshold(3).Text = TempString
-            Case Is = 131
-                txtPA5ThreshValue.Text = TempString
-            Case Is = 133
-                txtSoundLevelMatch(0).Text = TempString
-                txtSoundLevelMatch(1).Text = TempString
-                txtSoundLevelMatch(2).Text = TempString
-                txtSoundLevelMatch(3).Text = TempString
-            'Case Is = 135
-            '    txtSoundLevelMatch(1).Text = TempString
-            'Case Is = 137
-            '    txtSoundLevelMatch(2).Text = TempString
-            'Case Is = 139
-            '    txtSoundLevelMatch(3).Text = TempString
-            'RI DATA
-            Case Is = 141
-                txtRILeftT1(0).Text = TempString
-            Case Is = 142
-                txtRIRightT1(0).Text = TempString
-            Case Is = 144
-                txtRILeftT1(1).Text = TempString
-            Case Is = 145
-                txtRIRightT1(1).Text = TempString
-            Case Is = 147
-                txtRILeftT1(2).Text = TempString
-            Case Is = 148
-                txtRIRightT1(2).Text = TempString
-            Case Is = 150
-                txtRILeftT1(3).Text = TempString
-            Case Is = 151
-                txtRIRightT1(3).Text = TempString
-            Case Is = 153
-                txtRILeftT2(0).Text = TempString
-            Case Is = 154
-                txtRIRightT2(0).Text = TempString
-            Case Is = 156
-                txtRILeftT2(1).Text = TempString
-            Case Is = 157
-                txtRIRightT2(1).Text = TempString
-            Case Is = 159
-                txtRILeftT2(2).Text = TempString
-            Case Is = 160
-                txtRIRightT2(2).Text = TempString
-            Case Is = 162
-                txtRILeftT2(3).Text = TempString
-            Case Is = 163
-                txtRIRightT2(3).Text = TempString
-        End Select
-    Loop
-    Close #intfilenumber
-        
-    '******************************************************************************************************
-    '** Description: This code calculates various values based on user input and fills in the user values for a report.
-    '**
-    '** Inputs:
-    '**   - txtPA5ThreshValue: The threshold value for loudness match at 1kHz.
-    '**   - txtLoudnessT1: Array of loudness values for condition T1.
-    '**   - txtLoudnessT2: Array of loudness values for condition T2.
-    '**   - txtLocalize: The localization value for tinnitus (1 = left ear, 2 = both ears, 3 = right ear).
-    '**   - txtRILeftT1: Array of RI values for left ear in condition T1.
-    '**   - txtRIRightT1: Array of RI values for right ear in condition T1.
-    '**   - txtRILeftT2: Array of RI values for left ear in condition T2.
-    '**   - txtRIRightT2: Array of RI values for right ear in condition T2.
-    '**   - txtBandwidth: The bandwidth value (1 = hissing, 2 = ringing, >=3 = tonal).
-    '**   - English: Boolean value indicating whether the report should be in English or another language.
-    '**
-    '** Outputs:
-    '**   - lmdata: Loudness match data at 1kHz.
-    '**   - RI5k: RI data at 5kHz.
-    '**   - UserBW: User-defined bandwidth value for the report.
-    '**
-    '** Notes:
-    '**   - The code calculates the loudness match data at 1kHz based on the threshold value and the average of loudness values.
-    '**   - The code calculates the RI data at 5kHz based on the localization value and the average of RI values.
-    '**   - The code fills in the user-defined bandwidth value for the report based on the bandwidth input.
-    '******************************************************************************************************
-    'calculate loudness match data at 1khz
-    lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
-    'calculate ri data @ 5khz
-    'MsgBox (CInt(txtLoudnessT1(1)) & " " & CInt(txtLoudnessT2(1)))
-    If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
-        RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRIRightT1(1)) + CInt(txtRILeftT2(1)) + CInt(txtRIRightT2(1))) / 4
-    ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
-        RI5k = (CInt(txtRIRightT1(1)) + CInt(txtRIRightT2(1))) / 2
-    Else 'tinnitus is in left ear only, txtLocalize.Text = 1
-        RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRILeftT2(1))) / 2
-    End If
-    ' fill in user values for report
-    Select Case CInt(txtBandwidth.Text)
-        Case Is = 1
-                UserBW = "Hissing"
-        Case Is = 2
-                UserBW = "Ringing"
-        Case Is >= 3
-                UserBW = "Tonal"
-    End Select
-
-    ' This Select Case statement assigns a value to the variable UserTL based on the value of txtLocalize.Text.
-    ' If txtLocalize.Text is 1, UserTL is assigned "Left Ear" if English is True, otherwise "Oreille Gauche".
-    ' If txtLocalize.Text is 2, UserTL is assigned "Both Ears" if English is True, otherwise "Deux Oreilles".
-    ' If txtLocalize.Text is greater than or equal to 3, UserTL is assigned "Right Ear" if English is True, otherwise "Oreille Droite".
-    Select Case CInt(txtLocalize.Text)
-        Case Is = 1
-                UserTL = "Left Ear"
-        Case Is = 2
-                UserTL = "Both Ears"
-        Case Is >= 3
-                UserTL = "Right Ear"
-    End Select
-
-    ' This Select Case statement determines the value of the variable txtTemporal.Text and assigns a corresponding value to the variable UserSorP.
-    ' If the value of txtTemporal.Text is 1, the variable UserSorP is assigned the value "Steady" (or "Continu" if the language is not English).
-    ' If the value of txtTemporal.Text is greater than or equal to 2, the variable UserSorP is assigned the value "Pulsing" (or "Pulsatif" if the language is not English).
-    Select Case CInt(txtTemporal.Text)
-        Case Is = 1 'Steady Sound
-            UserSorP = "Steady"
-        Case Is >= 2 'pulsing Sound
-            UserSorP = "Pulsing"
-    End Select
+        ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+        '*************************************************************************************
+        '** This code reads data from a file and populates various text boxes with the data. **
+        '** The file is opened for input and each record is read until the end of the file.   **
+        '** Depending on the record number, the corresponding text box is updated with the   **
+        '** value from the record.                                                           **
+        '**                                                                                 **
+        '** Input:                                                                          **
+        '** - comFile: The file to be opened for input.                                      **
+        '** - intfilenumber: The file number used for opening the file.                      **
+        '**                                                                                 **
+        '** Output:                                                                         **
+        '** - Various text boxes are updated with the data from the file.                    **
+        '**                                                                                 **
+        '** Note:                                                                           **
+        '** - The code assumes that the text boxes (txtLocalize, txtIntensity, etc.)        **
+        '**   already exist in the form.                                                     **
+        '** - The code uses a Select Case statement to determine which text box to update    **
+        '**   based on the record number.                                                    **
+        '** - The code assumes that the file contains the necessary number of records        **
+        '**   corresponding to the text boxes. If the file is missing any records, the       **
+        '**   corresponding text boxes will not be updated.                                  **
+        '*************************************************************************************
+        c1 = 0
+        Open comFile.FileName For Input As #intfilenumber
+        Do While Not EOF(intfilenumber)
+            Input #intfilenumber, TempString
+            c1 = c1 + 1
             
+            Select Case c1
+                ' Update text boxes based on record number
+                Case Is = 3 'localize data
+                    txtLocalize.Text = TempString
+                Case Is = 5 'sound intensity data
+                    txtIntensity.Text = TempString
+                Case Is = 7 'bandwidth data
+                    txtIntensity2.Text = TempString
+                Case Is = 9 'bandwidth data
+                    txtBandwidth.Text = TempString
+                Case Is = 11 'temporal data
+                    txtTemporal.Text = TempString
+                Case Is = 13 'loudness data
+                    txtLoudness.Text = TempString
+                Case Is = 19  'loudness matching data
+                    txtLoudnessT1(0).Text = TempString
+                Case Is = 20
+                    txtLoudnessT2(0).Text = TempString
+                Case Is = 23  'loudness matching data
+                    txtLoudnessT1(1).Text = TempString
+                Case Is = 24
+                    txtLoudnessT2(1).Text = TempString
+                Case Is = 27  'loudness matching data
+                    txtLoudnessT1(2).Text = TempString
+                Case Is = 28
+                    txtLoudnessT2(2).Text = TempString
+                Case Is = 31  'loudness matching data
+                    txtLoudnessT1(3).Text = TempString
+                Case Is = 32
+                    txtLoudnessT2(3).Text = TempString
+                Case Is = 35  'loudness matching data
+                    txtLoudnessT1(4).Text = TempString
+                Case Is = 36
+                    txtLoudnessT2(4).Text = TempString
+                Case Is = 39  'loudness matching data
+                    txtLoudnessT1(5).Text = TempString
+                Case Is = 40
+                    txtLoudnessT2(5).Text = TempString
+                Case Is = 43  'loudness matching data
+                    txtLoudnessT1(6).Text = TempString
+                Case Is = 44
+                    txtLoudnessT2(6).Text = TempString
+                Case Is = 47  'loudness matching data
+                    txtLoudnessT1(7).Text = TempString
+                Case Is = 48
+                    txtLoudnessT2(7).Text = TempString
+                Case Is = 51  'loudness matching data
+                    txtLoudnessT1(8).Text = TempString
+                Case Is = 52
+                    txtLoudnessT2(8).Text = TempString
+                Case Is = 55  'loudness matching data
+                    txtLoudnessT1(9).Text = TempString
+                Case Is = 56
+                    txtLoudnessT2(9).Text = TempString
+                Case Is = 59  'loudness matching data
+                    txtLoudnessT1(10).Text = TempString
+                Case Is = 60
+                    txtLoudnessT2(10).Text = TempString
+                Case Is = 68
+                    txtPitchMatchT1(0).Text = TempString
+                Case Is = 69
+                    txtPitchMatchT2(0).Text = TempString
+                Case Is = 70
+                    txtPitchMatchT3(0).Text = TempString
+                Case Is = 73
+                    txtPitchMatchT1(1).Text = TempString
+                Case Is = 74
+                    txtPitchMatchT2(1).Text = TempString
+                Case Is = 75
+                    txtPitchMatchT3(1).Text = TempString
+                Case Is = 78
+                    txtPitchMatchT1(2).Text = TempString
+                Case Is = 79
+                    txtPitchMatchT2(2).Text = TempString
+                Case Is = 80
+                    txtPitchMatchT3(2).Text = TempString
+                Case Is = 83
+                    txtPitchMatchT1(3).Text = TempString
+                Case Is = 84
+                    txtPitchMatchT2(3).Text = TempString
+                Case Is = 85
+                    txtPitchMatchT3(3).Text = TempString
+                Case Is = 88
+                    txtPitchMatchT1(4).Text = TempString
+                Case Is = 89
+                    txtPitchMatchT2(4).Text = TempString
+                Case Is = 90
+                    txtPitchMatchT3(4).Text = TempString
+                Case Is = 93
+                    txtPitchMatchT1(5).Text = TempString
+                Case Is = 94
+                    txtPitchMatchT2(5).Text = TempString
+                Case Is = 95
+                    txtPitchMatchT3(5).Text = TempString
+                Case Is = 98
+                    txtPitchMatchT1(6).Text = TempString
+                Case Is = 99
+                    txtPitchMatchT2(6).Text = TempString
+                Case Is = 100
+                    txtPitchMatchT3(6).Text = TempString
+                Case Is = 103
+                    txtPitchMatchT1(7).Text = TempString
+                Case Is = 104
+                    txtPitchMatchT2(7).Text = TempString
+                Case Is = 105
+                    txtPitchMatchT3(7).Text = TempString
+                Case Is = 108
+                    txtPitchMatchT1(8).Text = TempString
+                Case Is = 109
+                    txtPitchMatchT2(8).Text = TempString
+                Case Is = 110
+                    txtPitchMatchT3(8).Text = TempString
+                Case Is = 113
+                    txtPitchMatchT1(9).Text = TempString
+                Case Is = 114
+                    txtPitchMatchT2(9).Text = TempString
+                Case Is = 115
+                    txtPitchMatchT3(9).Text = TempString
+                Case Is = 118
+                    txtPitchMatchT1(10).Text = TempString
+                Case Is = 119
+                    txtPitchMatchT2(10).Text = TempString
+                Case Is = 120
+                    txtPitchMatchT3(10).Text = TempString
+                Case Is = 123
+                    txtSoundThreshold(0).Text = TempString
+                Case Is = 125
+                    txtSoundThreshold(1).Text = TempString
+                Case Is = 127
+                    txtSoundThreshold(2).Text = TempString
+                Case Is = 129
+                    txtSoundThreshold(3).Text = TempString
+                Case Is = 131
+                    txtPA5ThreshValue.Text = TempString
+                Case Is = 133
+                    txtSoundLevelMatch(0).Text = TempString
+                    txtSoundLevelMatch(1).Text = TempString
+                    txtSoundLevelMatch(2).Text = TempString
+                    txtSoundLevelMatch(3).Text = TempString
+                'Case Is = 135
+                '    txtSoundLevelMatch(1).Text = TempString
+                'Case Is = 137
+                '    txtSoundLevelMatch(2).Text = TempString
+                'Case Is = 139
+                '    txtSoundLevelMatch(3).Text = TempString
+                'RI DATA
+                Case Is = 141
+                    txtRILeftT1(0).Text = TempString
+                Case Is = 142
+                    txtRIRightT1(0).Text = TempString
+                Case Is = 144
+                    txtRILeftT1(1).Text = TempString
+                Case Is = 145
+                    txtRIRightT1(1).Text = TempString
+                Case Is = 147
+                    txtRILeftT1(2).Text = TempString
+                Case Is = 148
+                    txtRIRightT1(2).Text = TempString
+                Case Is = 150
+                    txtRILeftT1(3).Text = TempString
+                Case Is = 151
+                    txtRIRightT1(3).Text = TempString
+                Case Is = 153
+                    txtRILeftT2(0).Text = TempString
+                Case Is = 154
+                    txtRIRightT2(0).Text = TempString
+                Case Is = 156
+                    txtRILeftT2(1).Text = TempString
+                Case Is = 157
+                    txtRIRightT2(1).Text = TempString
+                Case Is = 159
+                    txtRILeftT2(2).Text = TempString
+                Case Is = 160
+                    txtRIRightT2(2).Text = TempString
+                Case Is = 162
+                    txtRILeftT2(3).Text = TempString
+                Case Is = 163
+                    txtRIRightT2(3).Text = TempString
+            End Select
+        Loop
+        Close #intfilenumber
+        
+        '******************************************************************************************************
+        '** Description: This code calculates various values based on user input and fills in the user values for a report.
+        '**
+        '** Inputs:
+        '**   - txtPA5ThreshValue: The threshold value for loudness match at 1kHz.
+        '**   - txtLoudnessT1: Array of loudness values for condition T1.
+        '**   - txtLoudnessT2: Array of loudness values for condition T2.
+        '**   - txtLocalize: The localization value for tinnitus (1 = left ear, 2 = both ears, 3 = right ear).
+        '**   - txtRILeftT1: Array of RI values for left ear in condition T1.
+        '**   - txtRIRightT1: Array of RI values for right ear in condition T1.
+        '**   - txtRILeftT2: Array of RI values for left ear in condition T2.
+        '**   - txtRIRightT2: Array of RI values for right ear in condition T2.
+        '**   - txtBandwidth: The bandwidth value (1 = hissing, 2 = ringing, >=3 = tonal).
+        '**   - English: Boolean value indicating whether the report should be in English or another language.
+        '**
+        '** Outputs:
+        '**   - lmdata: Loudness match data at 1kHz.
+        '**   - RI5k: RI data at 5kHz.
+        '**   - UserBW: User-defined bandwidth value for the report.
+        '**
+        '** Notes:
+        '**   - The code calculates the loudness match data at 1kHz based on the threshold value and the average of loudness values.
+        '**   - The code calculates the RI data at 5kHz based on the localization value and the average of RI values.
+        '**   - The code fills in the user-defined bandwidth value for the report based on the bandwidth input.
+        '******************************************************************************************************
+                '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                'calculate loudness match data at 1khz
+                lmdata = CInt(txtPA5ThreshValue.Text) - ((CInt(txtLoudnessT1(1)) + CInt(txtLoudnessT2(1))) / 2)
+                'calculate ri data @ 5khz
+                'MsgBox (CInt(txtLoudnessT1(1)) & " " & CInt(txtLoudnessT2(1)))
+                If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
+                    RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRIRightT1(1)) + CInt(txtRILeftT2(1)) + CInt(txtRIRightT2(1))) / 4
+                ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
+                    RI5k = (CInt(txtRIRightT1(1)) + CInt(txtRIRightT2(1))) / 2
+                Else 'tinnitus is in left ear only, txtLocalize.Text = 1
+                    RI5k = (CInt(txtRILeftT1(1)) + CInt(txtRILeftT2(1))) / 2
+                End If
+                ' fill in user values for report
+                Select Case CInt(txtBandwidth.Text)
+                    Case Is = 1
+                        If English Then
+                            UserBW = "Hissing"
+                        Else
+                            UserBW = "Stifflement"
+                        End If
+                    Case Is = 2
+                        If English Then
+                            UserBW = "Ringing"
+                        Else
+                            UserBW = "Sonnerie"
+                        End If
+                    Case Is >= 3
+                        If English Then
+                            UserBW = "Tonal"
+                        Else
+                            UserBW = "Tonal"
+                        End If
+                  End Select
 
-    'tell output report where to put file:
-    WorkingDir = Left(comFile.FileName, (Len(comFile.FileName) - Len(comFile.FileTitle) - 1)) 'removes filename from path and \
 
-    'output report:
-        Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
-    MsgBox ("Report output complete")
-    cmdTinTrain.Enabled = True
-    cmdPrintReport.Caption = "Create Report"
-    cmdPrintReport.Enabled = True
-    cmdNext.Enabled = True
-    frmBegin.Enabled = True
-    Form1.SetFocus
+        ' This Select Case statement assigns a value to the variable UserTL based on the value of txtLocalize.Text.
+        ' If txtLocalize.Text is 1, UserTL is assigned "Left Ear" if English is True, otherwise "Oreille Gauche".
+        ' If txtLocalize.Text is 2, UserTL is assigned "Both Ears" if English is True, otherwise "Deux Oreilles".
+        ' If txtLocalize.Text is greater than or equal to 3, UserTL is assigned "Right Ear" if English is True, otherwise "Oreille Droite".
+        Select Case CInt(txtLocalize.Text)
+            Case Is = 1
+                If English Then
+                    UserTL = "Left Ear"
+                Else
+                    UserTL = "Oreille Gauche"
+                End If
+            Case Is = 2
+                If English Then
+                    UserTL = "Both Ears"
+                Else
+                    UserTL = "Deux Oreilles"
+                End If
+            Case Is >= 3
+                If English Then
+                    UserTL = "Right Ear"
+                Else
+                    UserTL = "Oreille Droite"
+                End If
+        End Select
+    
+                ' This Select Case statement determines the value of the variable txtTemporal.Text and assigns a corresponding value to the variable UserSorP.
+                ' If the value of txtTemporal.Text is 1, the variable UserSorP is assigned the value "Steady" (or "Continu" if the language is not English).
+                ' If the value of txtTemporal.Text is greater than or equal to 2, the variable UserSorP is assigned the value "Pulsing" (or "Pulsatif" if the language is not English).
+                Select Case CInt(txtTemporal.Text)
+                    Case Is = 1 'Steady Sound
+                        If English Then
+                            UserSorP = "Steady"
+                        Else
+                            UserSorP = "Continu"
+                        End If
+                    Case Is >= 2 'pulsing Sound
+                        If English Then
+                            UserSorP = "Pulsing"
+                        Else
+                            UserSorP = "Pulsatif"
+                        End If
+                End Select
+                
 
-    comErrorHandler:
-        'do nothing - user hit cancel
+        'tell output report where to put file:
+        WorkingDir = Left(comFile.FileName, (Len(comFile.FileName) - Len(comFile.FileTitle) - 1)) 'removes filename from path and \
+        'output report:
+        If English Then
+            Call OutputReport(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
+        Else
+            Call OutputReport_F(CInt(txtLoudness.Text), CInt(lmdata), RI5k)
+        End If
+        MsgBox ("Report output complete")
+        cmdTinTrain.Enabled = True
+        cmdPrintReport.Caption = "Create Report"
+        cmdPrintReport.Enabled = True
+        cmdNext.Enabled = True
+        frmBegin.Enabled = True
+        Form1.SetFocus
+comErrorHandler:
+    'do nothing - user hit cancel
+
 End Sub
 
 '---------------------------------------------------------------------------
@@ -3590,6 +3647,11 @@ Private Sub cmdTinTrain_Click()
     ' Set attenuation level for PA5x1
     PA5x1.SetAtten (50)
     
+    ' Check if user is using 2 PA5s and set attenuation level for PA5x2
+    If usePA52 Then
+        PA5x2.SetAtten (50)
+    End If
+    
     ' Set dial offset
     DialOffset = 222
     
@@ -3600,13 +3662,23 @@ Private Sub cmdTinTrain_Click()
     Call hide_all
     
     ' Set labels and instructions based on language selection
-    lblTitle.Caption = "Welcome"
-    lblMainInstructions.Caption = "This program will introduce you to the computerized testing program for tinnitus."
-    lblInstruct2.Caption = "By following instructions and working slowly through this introduction, you will learn how to respond to automated cues from the computer."
-    lblInstruct3.Caption = "When you are ready to begin, please press the dial."
-    lblInstruct2.Top = 256
-    lblInstruct2.Height = 150
-    lblInstruct3.Top = 420
+    If English Then
+        lblTitle.Caption = "Welcome"
+        lblMainInstructions.Caption = "This program will introduce you to the computerized testing program for tinnitus."
+        lblInstruct2.Caption = "By following instructions and working slowly through this introduction, you will learn how to respond to automated cues from the computer."
+        lblInstruct3.Caption = "When you are ready to begin, please press the dial."
+        lblInstruct2.Top = 256
+        lblInstruct2.Height = 150
+        lblInstruct3.Top = 420
+    Else
+        lblTitle.Caption = "Bienvenue"
+        lblMainInstructions.Caption = "Ce programme va vous présenter un programme informatisé qui teste les acouphènes."
+        lblInstruct2.Caption = "En suivant les instructions indiquées, vous passerez à travers les différentes étapes."
+        lblInstruct3.Caption = "Quand vous êtes prêt à commencer, veuillez presser le cadran s'il vous plaît."
+        lblInstruct2.Top = 280
+        lblInstruct2.Height = 120
+        lblInstruct3.Top = 420
+    End If
     
     ' Set alignment of main instructions label to right justify
     lblMainInstructions.Alignment = 0
@@ -3650,29 +3722,16 @@ Private Sub cmdTinTrain_Click()
     cmdTinTrain.Visible = True
 End Sub
 
-'This subroutine is triggered when Command1 is clicked.
-'It plays a sound file asynchronously using the sndPlaySound function.
-'The sound file path is specified as "c:\davet\650am.wav".
-'The constants SND_ASYNC and SND_NODEFAULT are used to play the sound.
 Private Sub Command1_Click()
+    'This uses the constants ASYNC and NODEFAULT to play the sound
+    'sndPlaySound App.Path & "\sound.wav", SND_ASYNC Or SND_NODEFAULT
     sndPlaySound "c:\davet\650am.wav", SND_ASYNC Or SND_NODEFAULT
 End Sub
 
-' This subroutine is triggered when Command2 is clicked.
-' It calls the WriteReportSPL subroutine.
 Private Sub Command2_Click()
     'sndPlaySound "C:\davet\silence.wav", SND_ASYNC Or SND_NODEFAULT
     Call WriteReportSPL
 End Sub
-
-
-
-'---------------------------------------------------------------------------
-' hide_all
-'
-' Description: Hides all the controls and elements on the form.
-'
-'---------------------------------------------------------------------------
 Public Sub hide_all()
     cmdNext.visible = False
     cmdTinTrain.visible = False
@@ -3706,37 +3765,44 @@ End Sub
 '              The user can turn the dial to change the selection and press it down to proceed.
 '---------------------------------------------------------------------------
 Public Sub TinTrain1_DialChoice()
+If English Then
     lblMainInstructions.Caption = "By turning the dial, you can select a different option below."
     lblInstruct2.Caption = "Try turning the dial and changing the selection.  Gentle movements are all you need because the dial is very sensitive."
     lblInstruct3.Caption = "When you are comfortable with this, press the dial down to move to the next step."
+Else
 
+    lblMainInstructions.Caption = "En tournant la commande rotative, vous pouvez choisir une option diff�rente en-dessous."
+    lblInstruct2.Caption = "Essayez de tourner la commande rotative et de changer d'option. Faites des mouvements doux car la commande rotative est tr�s sensible."
+    lblInstruct3.Caption = "Lorsque vous vous sentez � l'aise avec ceci, appuyez sur la commande rotative vers le bas pour passer � l'�tape suivante."
+End If
     lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
     lblInstruct2.Height = 150 '113
     lblInstruct3.Top = 420  '376
 
-    lblMainInstructions.visible = True
-    lblInstruct2.visible = True
-    lblInstruct3.visible = True
-    chkClick.Value = 0
-    Choice1231.UserControl_Initialize
-    Choice1231.visible = True
-    Choice1231.SetFocus
-    Do While chkClick.Value = 0
-        DoEvents
-    Loop
-    lblMainInstructions.visible = False
-    lblInstruct2.visible = False
-    lblInstruct3.visible = False
-    Choice1231.visible = False
-    lblInstruct2.Top = 208
-    lblInstruct2.Height = 113
-    lblInstruct3.Top = 328
+lblMainInstructions.visible = True
+lblInstruct2.visible = True
+lblInstruct3.visible = True
+chkClick.Value = 0
+Choice1231.UserControl_Initialize
+Choice1231.visible = True
+Choice1231.SetFocus
+Do While chkClick.Value = 0
+    DoEvents
+Loop
+lblMainInstructions.visible = False
+lblInstruct2.visible = False
+lblInstruct3.visible = False
+Choice1231.visible = False
+lblInstruct2.Top = 208
+lblInstruct2.Height = 113
+lblInstruct3.Top = 328
 End Sub
 
 '*******************************************************************************
 '**  FUNCTION NAME: TinTrain2_Loudness
 '**
 '**  DESCRIPTION: This subroutine adjusts the loudness of a sound using a dial control.
+'**               It displays instructions in English or French based on the language setting.
 '**               The user can turn the dial clockwise to increase the loudness and
 '**               counter-clockwise to decrease the loudness. Once the user is comfortable,
 '**               they can press the dial to move to the next step.
@@ -3767,57 +3833,66 @@ End Sub
 '**
 '*******************************************************************************
 Public Sub TinTrain2_Loudness()
-
+If English Then
     lblMainInstructions.Caption = "Turning the dial will adjust the LOUDNESS of a sound."
     lblInstruct2.Caption = "Turn the dial clockwise until you hear a sound. Try turning the sound up and down to get a feel for changing the LOUDNESS with the dial."
     lblInstruct3.Caption = "When you are comfortable with this, press the dial to move to the next step."
-
+Else
+    lblMainInstructions.Caption = "En tournant la commande rotative vous pouvez ajuster le volume du son."
+    lblInstruct2.Caption = "Tournez la commande rotative jusqu'� ce que vous entendez un son. Tournez la pour avoir une id�e du changement de volume."
+    lblInstruct3.Caption = "Lorsque vous vous sentez � l'aise avec ceci, appuyez sur la commande rotative pour passer � l'�tape suivante."
+End If
     lblInstruct2.Top = 215 'these need to be bumped down a bit due to two lines in maininstruct
     lblInstruct2.Height = 150 '113
     lblInstruct3.Top = 380  '376
 
-    lblMainInstructions.visible = True
-    lblInstruct2.visible = True
-    lblInstruct3.visible = True
-    VolAdj = True
-    intMaxVolume = 0
-    txtValue.Text = 30
-    dialcontrol1.UserControl_Initialize
-    dialcontrol1.setvolume (CInt(txtValue.Text))
-    
-    'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
-    PA5x1.SetAtten (120 - CInt(txtValue.Text))
-    lblSoft.Left = (Form1.ScaleWidth / 2) - (lblSoft.Width / 2) - 200
-    lblSoft.Top = (Form1.ScaleHeight / 2) - (lblSoft.Height / 2) + 200
-    lblLoud.Left = (Form1.ScaleWidth / 2) - (lblLoud.Width / 2) + 200
-    lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 200
-
+lblMainInstructions.visible = True
+lblInstruct2.visible = True
+lblInstruct3.visible = True
+VolAdj = True
+intMaxVolume = 0
+txtValue.Text = 30
+dialcontrol1.UserControl_Initialize
+dialcontrol1.setvolume (CInt(txtValue.Text))
+        'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
+PA5x1.SetAtten (120 - CInt(txtValue.Text))
+If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+    PA5x2.SetAtten (120 - CInt(txtValue.Text))
+End If
+lblSoft.Left = (Form1.ScaleWidth / 2) - (lblSoft.Width / 2) - 200
+lblSoft.Top = (Form1.ScaleHeight / 2) - (lblSoft.Height / 2) + 200
+lblLoud.Left = (Form1.ScaleWidth / 2) - (lblLoud.Width / 2) + 200
+lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 200
+If English Then
     lblSoft.Caption = "Softer"
     lblLoud.Caption = "Louder"
+Else
+    lblSoft.Caption = "Faible"
+    lblLoud.Caption = "Fort"
+End If
+lblSoft.visible = True
+lblLoud.visible = True
+'play 500hz sound on loop
+sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
+dialcontrol1.visible = True
+dialcontrol1.SetFocus
+TimerStep2.Enabled = True
+chkClick.Value = 0
 
-    lblSoft.visible = True
-    lblLoud.visible = True
-    'play 500hz sound on loop
-    sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
-    dialcontrol1.visible = True
-    dialcontrol1.SetFocus
-    TimerStep2.Enabled = True
-    chkClick.Value = 0
-
-    Do While chkClick.Value = 0  'wait until the user clicks the knob
-        DoEvents
-    Loop
-    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
-    TimerStep2.Enabled = False
-    lblMainInstructions.visible = False
-    lblInstruct2.visible = False
-    lblInstruct3.visible = False
-    dialcontrol1.visible = False
-    lblSoft.visible = False
-    lblLoud.visible = False
-    lblInstruct2.Top = 208
-    lblInstruct2.Height = 113
-    lblInstruct3.Top = 328
+Do While chkClick.Value = 0  'wait until the user clicks the knob
+    DoEvents
+Loop
+sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
+TimerStep2.Enabled = False
+lblMainInstructions.visible = False
+lblInstruct2.visible = False
+lblInstruct3.visible = False
+dialcontrol1.visible = False
+lblSoft.visible = False
+lblLoud.visible = False
+lblInstruct2.Top = 208
+lblInstruct2.Height = 113
+lblInstruct3.Top = 328
 End Sub
 
 '---------------------------------------------------------------------------
@@ -3837,15 +3912,25 @@ End Sub
 '
 '---------------------------------------------------------------------------
 Public Sub TinTrain3_pitch()
+If English Then
     lblMainInstructions.Caption = "The sounds you hear below vary in PITCH."
     lblInstruct2.Caption = "Turn the dial to hear the different sounds. Try turning the dial left and right to get a feel for the differences in PITCH of each sound."
     lblInstruct3.Caption = "When you have listened to each sound a few times, press the dial to move to the next step."
     lblInstruct3.Top = 380
+Else
+    lblMainInstructions.Caption = "Les sons que vous allez entendre varient en tonalit� (aigu-grave)."
+    lblInstruct2.Caption = "Tourner la commande rotative pour �couter les diff�rentes tonalit�s."
+    lblInstruct3.Caption = "Lorsque vous aurez �cout� chaque son plusieurs fois, appuyez sur la commande rotative pour passer � l'etape suivante. "
+    lblInstruct3.Top = 290
+End If
     lblInstruct2.Top = 215 'these need to be bumped down a bit due to two lines in maininstruct
     lblInstruct2.Height = 150 '113
     
     
     PA5x1.SetAtten (35) 'set PA5 at reasonable level
+    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+        PA5x2.SetAtten (35)
+    End If
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     lblInstruct3.visible = True
@@ -3909,10 +3994,20 @@ End Sub
 '   TinTrain4_HSlide
 '
 Public Sub TinTrain4_HSlide()
+    ' Code implementation goes here
+End Sub
+Public Sub TinTrain4_HSlide()
+If English Then
     lblMainInstructions.Caption = "By turning the dial, you can control the slider below."
     lblInstruct2.Caption = "Move the slider all the way back and forth a few times to get a feel for it."
     lblInstruct3.Caption = "When you're comfortable, press the dial to move on."
     framLoudness.Caption = "Horizontal Slider"
+Else
+    lblMainInstructions.Caption = "En tournant la commande rotative, vous pouvez contr�ler le curseur."
+    lblInstruct2.Caption = "D�placez le curseur d'avant en arri�re, � quelques reprises, afin d'obtenir une id�e de son fonctionnement."
+    lblInstruct3.Caption = "Lorsque vous vous sentez � l'aise, appuyez sur la commande rotative pour passer � l'�tape suivante."
+    framLoudness.Caption = "Curseur Horizontal"
+End If
 
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
@@ -3960,7 +4055,11 @@ Public Sub TinTrain4_HSlide()
     lblInstruct2.visible = False
     lblInstruct3.visible = False
     framLoudness.visible = False
-    framLoudness.Caption = "Loudness Rating"
+    If English Then
+        framLoudness.Caption = "Loudness Rating"
+    Else
+        framLoudness.Caption = "Intensit�"
+    End If
     lbl5.visible = True
     lbl30.visible = True
     lbl50.visible = True
@@ -3988,10 +4087,15 @@ End Sub
 '             - The language selection is determined by the value of the "English" variable.
 '------------------------------------------------------------------------------
 Public Sub TinTrain5_VSlide()
+If English Then
     lblMainInstructions.Caption = "The dial can also move the slider up and down."
     lblInstruct2.Caption = "Turn the dial to move the slider up and down a few times to get a feel for it."
     lblInstruct3.Caption = "When you're comfortable, press the dial to move on."
-
+Else
+    lblMainInstructions.Caption = "On peut �galement d�placer le curseur de haut en bas."
+    lblInstruct2.Caption = "Tournez la commande rotative pour d�placez le curseur de haut en bas quelques fois afin d'obtenir une id�e de son fonctionnement."
+    lblInstruct3.Caption = "Lorsque vous vous sentez � l'aise, appuyez sur la commande rotative pour continuer."
+End If
     lblSofter(0).visible = False 'hide labels
     lblGone(0).visible = False
     lblNoChange(0).visible = False
@@ -4001,13 +4105,24 @@ Public Sub TinTrain5_VSlide()
     txtValue.Text = 1
     chkChange.Value = 0
     chkClick.Value = 0
-    frmMono(0).Caption = "Vertical Slider"
+    If English Then
+        frmMono(0).Caption = "Vertical Slider"
+    Else
+        frmMono(0).Caption = "Curseur Vertical"
+    End If
     frmMono(0).ForeColor = &H0&        'change text to Black
-    lblMainInstructions.Top = 20
-    lblInstruct2.Top = 80
-    lblInstruct3.Top = 200
-    frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
-    frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 120 'put it lower than center so it doesn't cover up text
+'    If vRes = 1024 Then 'everything needs to be moved up to fit in the slider
+        lblMainInstructions.Top = 20
+        lblInstruct2.Top = 80
+        lblInstruct3.Top = 200
+        frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
+        frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 120 'put it lower than center so it doesn't cover up text
+'    Else
+'        frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
+'        frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 200 'put it lower than center so it doesn't cover up text
+'    End If
+    'frmMono(0).Left = 392
+    'frmMono(0).Top = 352
     VScroll1(0).Value = 51
     txtValue.Text = 51
     frmMono(0).visible = True
@@ -4032,6 +4147,7 @@ Public Sub TinTrain5_VSlide()
         End If
         DoEvents
     Loop
+
 
     '******change colour for button press
     lbl0(0).BackColor = &HC0FFC0
@@ -4082,9 +4198,14 @@ End Sub
 ' RETURNS:       None
 '*******************************************************************************
 Public Sub TinTrain6_Complete()
-    lblMainInstructions.Caption = "Congratulations, the training program is now complete!"
-    lblInstruct2.Caption = "If you have any questions about the program you've just finished, please ask the experimenter."
-
+    If English Then
+        lblMainInstructions.Caption = "Congratulations, the training program is now complete!"
+        lblInstruct2.Caption = "If you have any questions about the program you've just finished, please ask the experimenter."
+    Else
+        lblMainInstructions.Caption = "Félicitation, l'entrainement est maintenant terminé."
+        lblInstruct2.Caption = "Si vous avez des questions au sujet du test que vous venez de faire, veuillez demander à l'expérimentateur."
+    End If
+    
     lblMainInstructions.Visible = True
     lblInstruct2.Visible = True
     'chkClick.Value = 0
@@ -4112,13 +4233,20 @@ Public Sub Step1_Localize()
     Dim TempString As String
     
     Call Form_Resize  'fix formating after training has moved it all around.
-
-    lblTitle.Caption = "Welcome"
-    lblMainInstructions.Caption = "This program will test your tinnitus sensation."
-    lblMainInstructions.Alignment = 0 'right justify
-    lblInstruct2.Caption = "Instructions will appear on the screen to guide you.  Ask the experimenter if you need assistance."
-    lblInstruct3.Caption = "When you are ready to begin, please press the dial."
-
+    If English Then
+        lblTitle.Caption = "Welcome"
+        lblMainInstructions.Caption = "This program will test your tinnitus sensation."
+        lblMainInstructions.Alignment = 0 'right justify
+        lblInstruct2.Caption = "Instructions will appear on the screen to guide you.  Ask the experimenter if you need assistance."
+        lblInstruct3.Caption = "When you are ready to begin, please press the dial."
+    Else
+        lblTitle.Caption = "Bienvenue"
+        lblMainInstructions.Caption = "Ce programme va examiner vos sensations d'acouph�ne."
+        lblMainInstructions.Alignment = 0 'right justify
+        lblInstruct2.Caption = "Des instructions vont apparaitrent sur l'�cran pour vous guider. Demandez � l'�valuateur si vous avez besoin d'aide."
+        lblInstruct3.Caption = "Quand vous �tes pr�t � commencer, pressez la commande rotative."
+    End If
+    
     If Form2.opt1024 Then '1024 mode.  Move text around.
         lblMainInstructions.Top = 144
         lblInstruct2.Top = 208
@@ -4136,10 +4264,23 @@ Public Sub Step1_Localize()
     lblInstruct2.visible = False 'hide 2nd instructino line
     lblInstruct3.visible = False 'hide 3rd instructino line
     chkClick.Value = 0
-    lblMainInstructions.Caption = "Which ear is your tinnitus coming from? "
-    lblInstruct2.Caption = "Turn the dial to select one of the options, then press when you've made your selection."
+    If English Then
+        lblMainInstructions.Caption = "Which ear is your tinnitus coming from? "
+        lblInstruct2.Caption = "Turn the dial to select one of the options, then press when you've made your selection."
+    Else
+        lblMainInstructions.Caption = "De quelle oreille votre acouph�ne vient-il?"
+        lblInstruct2.Caption = "Tournez la commande rotative pour choisir une des options, puis pressez la quand vous avez fait votre choix."
+    End If
     lblInstruct2.visible = True
-
+'    lblChoice1.Caption = "Left Ear"
+'    lblChoice2.Caption = "Both Ears"
+'    lblChoice3.Caption = "Right Ear"
+'    shpChoice1.Visible = True
+'    shpChoice2.Visible = True
+'    shpChoice3.Visible = True
+'    lblChoice1.Visible = True
+'    lblChoice2.Visible = True
+'    lblChoice3.Visible = True
     whicheardial1.UserControl_Initialize
     whicheardial1.visible = True
     whicheardial1.SetFocus
@@ -4148,6 +4289,24 @@ Public Sub Step1_Localize()
     chkChange.Value = 0
     TimerStep1.Enabled = True
     Do While chkClick.Value = 0  'wait until the user clicks the knob
+'        If chkChange.value = 1 Then 'user has made an adjustment
+'            chkChange.value = 0 'reset change flag
+'            Select Case CInt(txtValue.Text)
+'                Case Is = 1
+'                    shpChoice1.BackColor = &H80FF80 'green
+'                    shpChoice2.BackColor = &H80000000  'grey
+'                    shpChoice3.BackColor = &H80000000  'grey
+'                Case Is = 2
+'                    shpChoice1.BackColor = &H80000000  'grey
+'                    shpChoice2.BackColor = &H80FF80 'green
+'                    shpChoice3.BackColor = &H80000000  'grey
+'                Case Is >= 3
+'                    shpChoice1.BackColor = &H80000000  'grey
+'                    shpChoice2.BackColor = &H80000000  'grey
+'                    shpChoice3.BackColor = &H80FF80 'green
+'                    txtValue.Text = 3
+'            End Select
+'        End If
         DoEvents
     Loop
     TimerStep1.Enabled = False
@@ -4156,15 +4315,29 @@ Public Sub Step1_Localize()
         Case Is = 1
             TempString = "Localized in Left Ear"
             t1 = 1
-            UserTL = "Left Ear"
+            If English Then
+                UserTL = "Left Ear"
+            Else
+                UserTL = "Oreille Gauche"
+            End If
         Case Is = 2
             TempString = "Localized in Both Ears"
             t1 = 2
-            UserTL = "Both Ears"
+            If English Then
+                UserTL = "Both Ears"
+            Else
+                UserTL = "Deux Oreilles"
+            End If
+
         Case Is >= 3
             TempString = "Localized in Right Ear"
             t1 = 3
-            UserTL = "Right Ear" 
+            If English Then
+                UserTL = "Right Ear"
+            Else
+                UserTL = "Oreille Droite"
+            End If
+                
     End Select
     whicheardial1.visible = False
     lblInstruct2.visible = False
@@ -4206,16 +4379,25 @@ End Sub
 '*******************************************************************************
 Private Sub Step2_SoundIntensity()
     Dim intfilenumber As Integer
+    If English Then
         lblMainInstructions.Caption = "Turning the dial will adjust the loudness of a sound.  "
         lblInstruct2.Caption = "Please turn the dial until the sound is at a comfortable level, then press to continue."
         lblSoft.Caption = "Softer"
         lblLoud.Caption = "Louder"
+    Else
+        lblMainInstructions.Caption = "En tournant la commande rotative vous pouvez ajuster le volume du"
+        lblInstruct2.Caption = "son. Veuillez tourner la commande rotative jusqu'� ce que le son soit � un niveau confortable, puis pressez la pour continuer."
+        lblSoft.Caption = "Faible"
+        lblLoud.Caption = "Fort"
+
+    End If
 
     If Form2.opt1024 Then '1024 mode.  Move text around.
         lblMainInstructions.Top = 144
         lblInstruct2.Top = 208
         lblInstruct3.Top = 352
     End If
+
 
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
@@ -4233,25 +4415,46 @@ Private Sub Step2_SoundIntensity()
     lblLoud.Top = (Form1.ScaleHeight / 2) - (lblLoud.Height / 2) + 55
 
     'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
-    PA5x1.SetAtten (120 - CInt(txtValue.Text))
-    Form1.SetFocus
-    'first we'll adjust a 500hz tone:
-    sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
-    dialcontrol1.Show_Arrows
-    dialcontrol1.visible = True
-    dialcontrol1.SetFocus
-    TimerStep2.Enabled = True
-    Do While chkClick.Value = 0  'wait until the user clicks the knob
-        DoEvents
-    Loop
+        PA5x1.SetAtten (120 - CInt(txtValue.Text))
+        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+        End If
+        Form1.SetFocus
+        'first we'll adjust a 500hz tone:
+        sndPlaySound "C:\TinData\tintest_wav\s1.wav", SND_ASYNC Or SND_NODEFAULT Or SND_LOOP
+        dialcontrol1.Show_Arrows
+        dialcontrol1.visible = True
+        dialcontrol1.SetFocus
+        TimerStep2.Enabled = True
+        Do While chkClick.Value = 0  'wait until the user clicks the knob
+    '        If chkChange.value = 1 Then 'user has made an adjustment
+    '            chkChange.value = 0 'reset change flag
+    '            PA5x1.SetAtten (120 - CInt(txtValue.Text))
+    '            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+    '            If intMaxVolume >= 5 Then 'user has continually tried to turn the volume up past it's loudest level
+    '                Call hide_all
+    '                intMaxVolume = 0
+    '                If CanYouHearThis("C:\TinData\tintest_wav\s1.wav") = 2 Then 'user can hear the sound
+    '                Else 'user cannot hear the sound
+    '                End If
+    '            End If
+    '            'PA5 value = 120-cint(txtValue.text)
+    '        End If
+            DoEvents
+        Loop
+        
+        sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
+        TimerStep2.Enabled = False
+        txtIntensity.Text = 120 - CInt(txtValue.Text)
     
-    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
-    TimerStep2.Enabled = False
-    txtIntensity.Text = 120 - CInt(txtValue.Text)
-
     'next we'll present a 5kHz tone.
-    lblMainInstructions.Caption = "We will now present a second sound."
-    lblInstruct2.Caption = "Please turn the dial until this sound is also at a comfortable level, then press to continue."
+    If English Then
+        lblMainInstructions.Caption = "We will now present a second sound."
+        lblInstruct2.Caption = "Please turn the dial until this sound is also at a comfortable level, then press to continue."
+    Else
+        lblMainInstructions.Caption = "Nous allons vous pr�senter un deuxi�me son."
+        lblInstruct2.Caption = "Veuillez tourner la commande rotative jusqu'� ce que ce son soit aussi � un niveau confortable, puis pressez la pour continuer."
+    End If
     VolAdj = True
     intMaxVolume = 0
     txtValue.Text = 30
@@ -4315,8 +4518,13 @@ Private Sub Step3_Bandwidth()
     
     ' Set initial values and display instructions
     OneStep = False
-    lblMainInstructions.Caption = "Which of the sounds below does your tinnitus sensation sound more like? "
-    lblInstruct2.Caption = "Turn the dial to select and hear. Once you've decided, press the dial to move on."
+    If English Then
+        lblMainInstructions.Caption = "Which of the sounds below does your tinnitus sensation sound more like? "
+        lblInstruct2.Caption = "Turn the dial to select and hear. Once you've decided, press the dial to move on."
+    Else
+        lblMainInstructions.Caption = "Lequel de ces sons se rapproche le plus de votre sensation d'acouph�ne?"
+        lblInstruct2.Caption = "Tournez la commande rotative pour s�lectionner et �couter. Une fois que vous avez d�cid�, pressez la commande rotative pour continuer."
+    End If
     lblInstruct2.Top = 256 'need to move this down a bit as mainstructions span 2 lines.
     lblInstruct2.visible = True
     lblMainInstructions.visible = True
@@ -4325,6 +4533,9 @@ Private Sub Step3_Bandwidth()
     txtValue.Text = 99
     chkChange.Value = 0
     PA5x1.SetAtten CInt(txtIntensity2.Text) 'set value of PA5 to intensity of 5khz tone
+    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+        PA5x2.SetAtten CInt(txtIntensity2.Text) 'set value of PA5 to intensity of 5khz tone
+    End If
     
     ' Set initial values for dial and display it
     TempString = "Bandwidth is Hissing"
@@ -4343,15 +4554,27 @@ Private Sub Step3_Bandwidth()
             Select Case CInt(txtValue.Text)
                 Case Is = 1
                     TempString = "Bandwidth is Hissing"
+                    If English Then
                         UserBW = "Hissing"
+                    Else
+                        UserBW = "Stifflement"
+                    End If
                     sndPlaySound "C:\TinData\tintest_wav\w6.wav", SND_ASYNC Or SND_NODEFAULT
                 Case Is = 2
                     TempString = "Bandwidth is Ringing"
+                    If English Then
                         UserBW = "Ringing"
+                    Else
+                        UserBW = "Sonnerie"
+                    End If
                     sndPlaySound "C:\TinData\tintest_wav\r6.wav", SND_ASYNC Or SND_NODEFAULT
                 Case Is >= 3
                     TempString = "Bandwidth is Tonal"
+                    If English Then
                         UserBW = "Tonal"
+                    Else
+                        UserBW = "Tonal"
+                    End If
                     txtValue.Text = 3
                     sndPlaySound "C:\TinData\tintest_wav\s6.wav", SND_ASYNC Or SND_NODEFAULT
             End Select
@@ -4392,12 +4615,28 @@ End Sub
 Private Sub Step4_Temporal()
     Dim intfilenumber As Integer
     Dim PlayFileName1, PlayFileName2 As String
+    If English Then
         lblMainInstructions.Caption = "Turn the dial to hear these sounds.  "
         lblInstruct2.Caption = "Which sound is most like your tinnitus? Once you've decided, press the dial to move on."
+    Else
+        lblMainInstructions.Caption = "Tournez la commande rotative pour �couter les sons."
+        lblInstruct2.Caption = "Quel son ressemble le plus � votre acouph�ne? Une fois que vous avez d�cid�, pressez la commande rotative pour continuer."
+    End If
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     PA5x1.SetAtten CInt(txtIntensity2.Text) 'set value of PA5 in case resuming experiment
+    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+        PA5x2.SetAtten CInt(txtIntensity2.Text) 'set value of PA5 in case resuming experiment
+    End If
     
+    'lblChoice4.Caption = "A Steady Sound"
+    'lblChoice5.Caption = "A Pulsing Sound"
+    'shpChoice4.visible = True
+    'shpChoice5.visible = True
+    'lblChoice4.visible = True
+    'lblChoice5.visible = True
+    'shpChoice4.BackColor = &H80FF80 'green
+    'shpChoice5.BackColor = &H80000000  'grey
     TempString = "Temporal Property is Steady"
     txtValue.Text = 1
     chkChange.Value = 0
@@ -4412,7 +4651,6 @@ Private Sub Step4_Temporal()
             PlayFileName1 = "C:\TinData\tintest_wav\s6.wav"
             PlayFileName2 = "C:\TinData\tintest_wav\s6_pulse_3s.wav"
     End Select
-
     soundtypedial1.UserControl_Initialize
     soundtypedial1.visible = True
     soundtypedial1.SetFocus
@@ -4421,14 +4659,27 @@ Private Sub Step4_Temporal()
             chkChange.Value = 0 'reset change flag
             Select Case CInt(soundtypedial1.getvalue)
                 Case Is = 0 'Steady Sound
+                    'shpChoice4.BackColor = &H80FF80 'green
+                    'shpChoice5.BackColor = &H80000000  'grey
                     TempString = "Temporal Property is Steady"
                     sndPlaySound PlayFileName1, SND_ASYNC Or SND_NODEFAULT
                     txtValue.Text = 1
+                    If English Then
                         UserSorP = "Steady"
+                    Else
+                        UserSorP = "Continu"
+                    End If
                 Case Is = 1 'off
                     sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
                 Case Is >= 2 'pulsing Sound
+                    'shpChoice4.BackColor = &H80000000  'grey
+                    'shpChoice5.BackColor = &H80FF80 'green
+                    If English Then
                         UserSorP = "Pulsing"
+                    Else
+                        UserSorP = "Pulsatif"
+                    End If
+                    
                     TempString = "Temporal Property is Pulsing"
                     txtValue.Text = 2
                     sndPlaySound PlayFileName2, SND_ASYNC Or SND_NODEFAULT
@@ -4458,7 +4709,8 @@ End Sub
 ' Parameters: None
 ' Returns: None
 '
-' Remarks: - The subroutine adjusts the position and visibility of various controls on the form.
+' Remarks: - The subroutine checks the language setting (English or non-English) to display the appropriate labels and instructions.
+'          - The subroutine adjusts the position and visibility of various controls on the form.
 '          - The user can adjust the rating by turning the knob and press the button to record the rating.
 '          - The subroutine changes the color of certain controls temporarily when the button is pressed.
 '          - The subroutine saves the rating to a file.
@@ -4466,16 +4718,29 @@ Private Sub Step5_LoudnessRating()
     Dim intfilenumber As Integer
     Dim TempTop2 As Integer
     Dim TempTop3 As Integer
-    lblTitle.Caption = "Tinnitus Loudness Rating"
-    lblMainInstructions.Caption = "We have now switched the sounds off, so that you can hear only your tinnitus. Listen to your tinnitus now."
-    lblInstruct2.Caption = "How Loud is your tinnitus? "
-    lblInstruct3.Caption = "Rate its loudness on the scale below by turning the dial, then press to record your rating."
-    framLoudness.Caption = "Loudness Rating"
-    lbl5 = "Extremely Weak"
-    lbl30 = "Moderate"
-    lbl50 = "Strong"
-    lbl70 = "Very Strong"
-    lbl95 = "Extremely Strong"
+    If English Then
+        lblTitle.Caption = "Tinnitus Loudness Rating"
+        lblMainInstructions.Caption = "We have now switched the sounds off, so that you can hear only your tinnitus. Listen to your tinnitus now."
+        lblInstruct2.Caption = "How Loud is your tinnitus? "
+        lblInstruct3.Caption = "Rate its loudness on the scale below by turning the dial, then press to record your rating."
+        framLoudness.Caption = "Loudness Rating"
+        lbl5 = "Extremely Weak"
+        lbl30 = "Moderate"
+        lbl50 = "Strong"
+        lbl70 = "Very Strong"
+        lbl95 = "Extremely Strong"
+    Else
+        lblTitle.Caption = "L'Intensit� de Votre Acouph�ne"
+        lblMainInstructions.Caption = "Cette �tape est une �valuation subjective de l'intensit� de votre acouph�ne."
+        lblInstruct2.Caption = "Aucun son ne sera pr�sent�."
+        lblInstruct3.Caption = "�valuez son volume sur l'�chelle ci-dessous en tournant la commande rotative, puis presser la pour enregistrer votre estimation."
+        framLoudness.Caption = "volume sur l'�chelle"
+        lbl5 = "Extr�mement faible"
+        lbl30 = "Mod�r�e"
+        lbl50 = "Forte"
+        lbl70 = "Tr�s Forte"
+        lbl95 = "Extr�mement fort"
+    End If
     lblInstruct2.Left = lblMainInstructions.Left
     lblInstruct3.Left = lblMainInstructions.Left
     TempTop2 = lblInstruct2.Top
@@ -4538,31 +4803,6 @@ Private Sub Step5_LoudnessRating()
     Close #intfilenumber
 End Sub
 
-' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest_back.frm
-'
-' Subroutine: "Step6_LoudnessMatching".
-' Description: The Step6_LoudnessMatching subroutine is responsible for conducting the loudness matching task in a tinnitus testing program.
-' It displays instructions to the user, plays a series of sounds, and allows the user to adjust the volume using a dial control.
-' The subroutine utilizes various variables and objects such as intfilenumber, c1, WavNum, PA5Results, SoundOrder, TSoundOrder, TempChar, MaxedOutFlag, temp, MaxedOutCounter, intMaxVolume, lblNextSound, lblTitle, lblMainInstructions, lblInstruct2, lblInstruct3, chkClick, txtBandwidth, txtValue, Timer1, VolAdj, txtTimer, sndPlaySound, dialcontrol1, and more.
-' It also includes conditional statements, loops, and function calls to handle different scenarios and interactions with the user.
-'
-' Parameters:
-'   None
-'
-' Returns:
-'   None
-'
-' Remarks:
-'   - The subroutine starts by displaying instructions to the user for the loudness matching task.
-'   - It waits for the user to click the dial control to proceed.
-'   - The subroutine then initializes variables and arrays for the loudness matching procedure.
-'   - It determines the value of TempChar based on the user's selection of bandwidth.
-'   - The subroutine populates a randomized array with the sound order based on TempChar.
-'   - It plays a series of sounds and allows the user to adjust the volume using the dial control.
-'   - The subroutine checks if the user can hear the sound and determines if it is softer than their tinnitus.
-'   - It handles scenarios where the user continuously tries to turn the volume up or cannot hear the sound.
-'   - The subroutine updates the PA5 value and keeps track of the maxed out counter.
-'   - It repeats the process for all 22 sounds in the sound order.
 Private Sub Step6_LoudnessMatching()
     Dim intfilenumber, c1, WavNum, PA5Results(11, 2) As Integer
     Dim SoundOrder(1 To 22) As String
@@ -4572,6 +4812,7 @@ Private Sub Step6_LoudnessMatching()
     Dim temp As Integer
     Dim MaxedOutCounter As Integer 'this is used to prevent the user from going into an infinate loop of 'yes, no' maxed out scenario
     
+    
     If vRes = 1024 Then '
         lblNextSound.Top = 780
         lblNextSound.Alignment = 2 'center for a better look when the text is below the dial
@@ -4579,16 +4820,36 @@ Private Sub Step6_LoudnessMatching()
         lblNextSound.Top = 440
         lblNextSound.Alignment = 0 'Left justify for better look when the text is above the dial
     End If
-
     'first we will show an intro screen that will describe the loudness mathcing task:
-    lblTitle.Caption = "Loudness Matching"
-    lblMainInstructions.Caption = "We are now going to measure the LOUDNESS of your tinnitus by presenting several sounds."
-    lblInstruct2.Caption = "Using the dial, you will increase the LOUDNESS of each sound until it matches your tinnitus."
-    lblInstruct3.Caption = "When ready, press the dial to hear the first sound."
-    lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
-    lblInstruct3.Top = 376
-    lblTitle.visible = True
+    If English Then
+        lblTitle.Caption = "Loudness Matching"
+        lblMainInstructions.Caption = "We are now going to measure the LOUDNESS of your tinnitus by presenting several sounds."
+        lblInstruct2.Caption = "Using the dial, you will increase the LOUDNESS of each sound until it matches your tinnitus."
+        lblInstruct3.Caption = "When ready, press the dial to hear the first sound."
+        lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
+        lblInstruct3.Top = 376
+    Else
+        lblTitle.Caption = "Volume Correspondant"
+        lblSon.Caption = "(son aigu-son grave)"
+        'lblTitle.FontSize = 36
+        'lblTitle.FontBold = True
+        
+        'lblMainInstructions.Caption = "Nous allons mesurer le niveau de votre acouph�ne en utilisant plusieurs sons."
+        lblMainInstructions.Caption = "Nous allons mesurer le niveau de votre acouph�ne. Une s�rie de sons diff�rents vont vous �tre pr�sent�s."
+        lblInstruct2.Caption = "En utilisant la commande rotative vous pouvez augmenter le volume de chaque son pour qu'il corresponde � votre acouph�ne."
+        lblInstruct3.Caption = "Lorsque vous �tes pr�t, appuyez sur la commande rotative pour entendre le premier son."
+        'lblTitle.Height = 182
+        lblMainInstructions.Top = 215
+        lblSon.Top = lblTitle.Top + 100
+        lblSon.Left = lblTitle.Left
+        lblInstruct2.Top = lblMainInstructions.Top + 105 'these need to be bumped down a bit due to two lines in maininstruct
+        lblInstruct3.Top = lblInstruct2.Top + 105
+    End If
 
+    
+    lblTitle.visible = True
+    If Not English Then lblSon.visible = True
+    
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     lblInstruct3.visible = True
@@ -4598,12 +4859,23 @@ Private Sub Step6_LoudnessMatching()
     Loop
     lblInstruct2.visible = False
     lblInstruct3.visible = False
-    lblInstruct2.Top = 208  'reset positions for 2nd and 3rd line of instructions
-    lblInstruct3.Top = 328
+    If English Then
+        lblInstruct2.Top = 208  'reset positions for 2nd and 3rd line of instructions
+        lblInstruct3.Top = 328
+    Else
+        lblInstruct2.Top = lblMainInstructions.Top + 105  'reset positions for 2nd and 3rd line of instructions
+        lblInstruct3.Top = lblMainInstructions.Top + 150
+    End If
 
     'now we will start the actual loudness matching procedure:
-    lblMainInstructions.Caption = "Using the dial, increase the LOUDNESS of this sound until it is the same LOUDNESS as your tinnitus (not softer or louder, but the same loudness as your tinnitus).  "
-    lblInstruct3.Caption = "When it matches the LOUDNESS of your tinnitus, push the dial to move on."
+    If English Then
+        lblMainInstructions.Caption = "Using the dial, increase the LOUDNESS of this sound until it is the same LOUDNESS as your tinnitus (not softer or louder, but the same loudness as your tinnitus).  "
+        lblInstruct3.Caption = "When it matches the LOUDNESS of your tinnitus, push the dial to move on."
+    Else
+        lblMainInstructions.Caption = "Utiliser la commande rotative afin d'augmenter le volume de ce son jusqu'� ce qu'il soit au m�me volume que votre acouph�ne (ni plus faible ni plus fort, mais le m�me volume que votre acouph�ne). "
+        lblInstruct3.Caption = "Lorsque le volume correspond � celui de votre acouph�ne, pressez la commande rotative pour continuer."
+        lblNextSound.Top = 490
+    End If
     lblMainInstructions.visible = True
     lblInstruct3.visible = True
     Form1.SetFocus
@@ -4655,7 +4927,12 @@ Private Sub Step6_LoudnessMatching()
     Next c1
 
     txtValue.Text = 0
-    lblNextSound.Caption = "Starting first sound - begin turning dial"
+    If English Then
+        lblNextSound.Caption = "Starting first sound - begin turning dial"
+    Else
+        lblNextSound.Caption = "Premier son - commencez � tourner la commande rotative"
+    End If
+    
     ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
     '
     ' This code block is part of the TinTest.frm file and contains a subroutine called "Step6".
@@ -4664,6 +4941,8 @@ Private Sub Step6_LoudnessMatching()
     ' The code block includes various conditional statements and control structures to handle different scenarios.
     ' It utilizes several variables and objects such as c1, dialcontrol1, txtValue, PA5x1, SoundOrder, MaxedOutFlag, chkClick, lblNextSound, txtTimer, sndPlaySound, and more.
     ' The code block is part of a larger program designed for tinnitus testing.
+    ' Note: Some parts of the code are commented out and may not be active.
+    '
     c1 = 1
     dialcontrol1.Show_Arrows
     dialcontrol1.visible = True
@@ -4676,6 +4955,9 @@ Private Sub Step6_LoudnessMatching()
         dialcontrol1.Show_Arrows
         'set inital PA5 value to 90 here (pa5value = 120 - cint(txtvalue.text))
         PA5x1.SetAtten (120 - CInt(txtValue.Text))
+        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+        End If
         'the following if statements pull out the file number.  This will be used to store the values in an array
         'and calculate a final average
         If Len(SoundOrder(c1)) = 29 Then 'string is 29 character long, and thus a single digit extnsion
@@ -4698,6 +4980,9 @@ Private Sub Step6_LoudnessMatching()
                     If chkChange.Value = 1 Then 'user has made an adjustment
                         txtValue.Text = dialcontrol1.getvolume
                         PA5x1.SetAtten (120 - CInt(txtValue.Text))
+                        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+                        End If
                         If CInt(txtValue.Text) = 999 Then 'user has continually tried to turn the volume up (5 times) past it's loudest level
                             Call hide_all
                             intMaxVolume = 0
@@ -4712,6 +4997,9 @@ Private Sub Step6_LoudnessMatching()
                                 If MaxedOutCounter = 2 Then 'user has done this twice already for this sound, so mark it as full volume and go onto next sound
                                     txtTimer.Text = 40  'force timer to max to end loop
                                     PA5x1.SetAtten (120) 'set PA5 to 120 as a saftey precaution as it is now playing full volume
+                                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                                        PA5x2.SetAtten (120)
+                                    End If
                                     chkClick.Value = 1 'exit from loop
                                     txtValue.Text = 120 'ensure a value of 0 is recorded
                                 End If
@@ -4719,16 +5007,23 @@ Private Sub Step6_LoudnessMatching()
                                 MaxedOutFlag(WavNum) = 1 'set flag appropriatly
                                 txtTimer.Text = 40  'force timer to max to end loop
                                 PA5x1.SetAtten (120) 'set PA5 to 120 as a saftey precaution as it is now playing full volume
+                                If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                                    PA5x2.SetAtten (120)
+                                End If
                                 chkClick.Value = 1 'exit from loop
                             ElseIf temp = 2 Then 'user CAN hear the sound, but it is quiter than their tinnitus
                                 MaxedOutFlag(WavNum) = 2 'set flag appropriatly
                                 txtTimer.Text = 40 'force timer to max to end loop
                                 chkClick.Value = 1 'exit from loop
                             End If
-                            
                             dialcontrol1.visible = True
-                            lblMainInstructions.Caption = "Using the dial, increase the loudness of this sound until it is the same LOUDNESS as your tinnitus (not softer or louder, but the same loudness as your tinnitus).  "
-                            lblInstruct3.Caption = "When it matches the loudness of your tinnitus, push the dial to move on."
+                            If English Then
+                                lblMainInstructions.Caption = "Using the dial, increase the loudness of this sound until it is the same LOUDNESS as your tinnitus (not softer or louder, but the same loudness as your tinnitus).  "
+                                lblInstruct3.Caption = "When it matches the loudness of your tinnitus, push the dial to move on."
+                            Else
+                                lblMainInstructions.Caption = "Utiliser la commande rotative permet d'augmenter le volume de ce son jusqu'� ce qu'il soit au m�me volume que votre acouph�ne (pas plus doux ou plus fort, mais le m�me volume que votre acouph�ne). "
+                                lblInstruct3.Caption = "Lorsque le volume correspond assez bien � celui de votre acouph�ne, pressez la commande rotative pour passer."
+                            End If
                             lblMainInstructions.visible = True
                             lblInstruct3.visible = True
                             dialcontrol1.SetFocus
@@ -4745,7 +5040,9 @@ Private Sub Step6_LoudnessMatching()
             'TimerStep6.Enabled = False
         ElseIf MaxedOutFlag(WavNum) = 1 Then 'it has already been determined that the subject can't hear this sound
             'do not play sound again if they can't hear it
+        'ElseIf MaxedOutFlag(WavNum) = 2 Then 'user can hear sound, but it is softer than their tinnitus
         End If
+        'Call Command4_Click
 
         ' This code block adjusts and stores the results of sound loudness testing.
         ' It uses the sndPlaySound function to play a silence.wav file and stop any currently playing sound.
@@ -4792,10 +5089,13 @@ Private Sub Step6_LoudnessMatching()
         End If
         c1 = c1 + 1
         VolAdj = True
-        lblNextSound.Caption = "Starting next sound - begin turning dial"
+        If English Then
+            lblNextSound.Caption = "Starting next sound - begin turning dial"
+        Else
+            lblNextSound.Caption = "� partir de son prochain - Commencez � tourner"
+        End If
     Loop
     Timer1.Enabled = False
-   
     'output info
     sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT
     VolAdj = False
@@ -4806,7 +5106,6 @@ Private Sub Step6_LoudnessMatching()
     lblTitle.FontBold = False
     lblTitle.Height = 97
     lblNextSound.Top = 440
-
     intfilenumber = FreeFile ' This is safer than assigning a number
     Open (WorkingDir & WorkingFile) For Append As #intfilenumber
         Write #intfilenumber, "PA5ValueTrial1", "PA5ValueTrial2", "PA5ValueAVG", "File"
@@ -4816,21 +5115,7 @@ Private Sub Step6_LoudnessMatching()
     Close #intfilenumber
 End Sub
 
-'' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
-''
-'' Subroutine: Step7_PitchMatching
-'   Description: This subroutine is responsible for rating the pitch of tinnitus.
-'           It displays instructions and a scale for the user to rate the pitch.
-'           The user can adjust the rating using a knob and press a button to record the rating.
-'           The subroutine also saves the rating to a file.
-'   Parameters: None
-'   Returns: None
-'   Remarks: - The subroutine checks the language setting (English or non-English) to display the appropriate labels and instructions.
-'            - The subroutine adjusts the position and visibility of various controls on the form.
-'            - The user can adjust the rating by turning the knob and press the button to record the rating.
-'            - The subroutine changes the color of certain controls temporarily when the button is pressed.
-'            - The subroutine saves the rating to a file.
-'   Example: Call Step7_PitchMatching
+
 Private Sub Step7_PitchMatching()
     Dim intfilenumber, c1, WavNum, SliderResults(11, 3) As Integer
     Dim SoundOrder(1 To 33), TSoundOrder(1 To 11), TempChar As String
@@ -4839,14 +5124,36 @@ Private Sub Step7_PitchMatching()
     lblNextSound.Top = 440
     lblNextSound.Alignment = 0 'Left justify for better look when the text is above the dial
     'first we will show an intro screen that will describe the pitch mathcing task:
-    lblTitle.Caption = "Pitch Matching"
-    lblMainInstructions.Caption = "We are now going to present several sounds differing in PITCH."
-    lblInstruct2.Caption = "Using the dial, rate the similarity of each PITCH to your tinnitus by adjusting the slider."
-    lblInstruct3.Caption = "When ready, press the dial to hear the first sound."
-    lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
-    lblInstruct3.Top = 376
+    If English Then
+        lblTitle.Caption = "Pitch Matching"
+        lblMainInstructions.Caption = "We are now going to present several sounds differing in PITCH."
+        lblInstruct2.Caption = "Using the dial, rate the similarity of each PITCH to your tinnitus by adjusting the slider."
+        lblInstruct3.Caption = "When ready, press the dial to hear the first sound."
+        lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
+        lblInstruct3.Top = 376
+    Else
+        lblTitle.Caption = "Correspondance de Tonalit�"
+        lblSon.Caption = "(son aigu-son grave)"
+        'lblTitle.FontSize = 34
+        'lblTitle.FontBold = True
+        'lblMainInstructions.Caption = "Nous allons maintenant vous pr�senter plusieurs sons de diff�rentes hauteurs."
+        lblMainInstructions.Caption = "Une s�rie de sons diff�rents vont vous �tre pr�sent�s."
+        lblInstruct2.Caption = "En utilisant la commande rotative, �valuez la similitude de chaque hauteur avec celle de votre acouph�ne et ajuster le curseur."
+        lblInstruct3.Caption = "Lorsque vous �tes pr�t, appuyez sur la commande rotative pour entendre le premier son."
+        'lblTitle.Height = 182
+        lblMainInstructions.Top = 215
+        lblSon.Top = lblTitle.Top + 100
+        lblSon.Left = lblTitle.Left
+        lblInstruct2.Top = lblMainInstructions.Top + 55 'these need to be bumped down a bit due to two lines in maininstruct
+        lblInstruct3.Top = lblInstruct2.Top + 105
+        'lblMainInstructions.Top = 176
+        lblMainInstructions.Left = lblInstruct2.Left
+        'lblInstruct2.Top = 256 'these need to be bumped down a bit due to two lines in maininstruct
+        'lblInstruct3.Top = 376
+    End If
     
     lblTitle.visible = True
+    If Not English Then lblSon.visible = True
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     lblInstruct3.visible = True
@@ -4856,35 +5163,42 @@ Private Sub Step7_PitchMatching()
     Loop
     lblInstruct2.visible = False
     lblInstruct3.visible = False
+    If English Then
         lblInstruct2.Top = 208
         lblInstruct3.Top = 328
     Else
     End If
-
-    lblMainInstructions.Caption = "You should now hear a sound playing. How similar is the PITCH of the sound to your tinnitus? Rate PITCH similarity by turning the dial, then press to record your rating."
-
+    
+    If English Then
+        lblMainInstructions.Caption = "You should now hear a sound playing. How similar is the PITCH of the sound to your tinnitus? Rate PITCH similarity by turning the dial, then press to record your rating."
+    Else
+       lblMainInstructions.Caption = "Vous devriez maintenant entendre un son. La hauteur du son est-elle similaire � celle de votre acouph�ne ? �valuez la similitude de hauteur en tournant la commande rotative, puis pressez la pour enregistrer votre estimation."
+    End If
     lblMainInstructions.visible = True
     PA5x1.SetAtten (CInt(txtIntensity.Text))
+    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+        PA5x2.SetAtten (CInt(txtIntensity.Text))
+    End If
     Form1.SetFocus
     Timer1.Interval = 100
-    'first we need to populate a randomized array with the sound order.  2 passes are used of all 11 stim.  Stim are
-    'based on selection in step 3 (bandwidth)
-    Select Case CInt(txtBandwidth.Text)
-        Case Is = 1  'user selected "Hissing" in previous step
-            TempChar = "w"
-        Case Is = 2 'user selected "Ringing" in previous step
-            TempChar = "r"
-        Case Is = 3 'user selected "Tonal" in previous step
-            TempChar = "s"
-    End Select
+        'first we need to populate a randomized array with the sound order.  2 passes are used of all 11 stim.  Stim are
+        'based on selection in step 3 (bandwidth)
+        Select Case CInt(txtBandwidth.Text)
+            Case Is = 1  'user selected "Hissing" in previous step
+                TempChar = "w"
+            Case Is = 2 'user selected "Ringing" in previous step
+                TempChar = "r"
+            Case Is = 3 'user selected "Tonal" in previous step
+                TempChar = "s"
+        End Select
     '&&&&&&&&&&&&&&&& POPULATE ARRAYS &&&&&&&&&&&&&&&&&&&&&
-    ' This section of code populates the SoundOrder array with file paths to sound files.
-    ' It uses the TSoundOrder array to generate the file paths based on the value of TempChar.
-    ' The file paths are in the format "C:\TinData\tintest_wav\[TempChar][c1].wav", where [TempChar] is the value of TempChar and [c1] is a number from 1 to 11.
-    ' The TSoundOrder array is then randomized using the RandomizeArray function.
-    ' The randomized TSoundOrder array is then copied to the SoundOrder array.
-    ' This process is repeated three times, with the SoundOrder array being populated with a total of 33 file paths.
-    '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+        ' This section of code populates the SoundOrder array with file paths to sound files.
+        ' It uses the TSoundOrder array to generate the file paths based on the value of TempChar.
+        ' The file paths are in the format "C:\TinData\tintest_wav\[TempChar][c1].wav", where [TempChar] is the value of TempChar and [c1] is a number from 1 to 11.
+        ' The TSoundOrder array is then randomized using the RandomizeArray function.
+        ' The randomized TSoundOrder array is then copied to the SoundOrder array.
+        ' This process is repeated three times, with the SoundOrder array being populated with a total of 33 file paths.
+        '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     '&&&&&&&&&&&&&&&& POPULATE ARRAYS &&&&&&&&&&&&&&&&&&&&&
     For c1 = 1 To 11
         TSoundOrder(c1) = ("C:\TinData\tintest_wav\" & TempChar & CStr(c1) & ".wav")
@@ -4910,14 +5224,23 @@ Private Sub Step7_PitchMatching()
         SoundOrder(22 + c1) = TSoundOrder(c1)
     Next c1
     '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-    lbl5.Caption = "Not At All"
-    lbl30.Caption = "Not very Similar"
-    lbl50.Caption = "Somewhat Similar"
-    lbl70.Caption = "Very Similar"
-    lbl95.Caption = "Identical"
-    lblNextSound.Caption = "Starting First Sound..."
-    framLoudness.Caption = "Pitch Rating"
+    If English Then
+        lbl5.Caption = "Not At All"
+        lbl30.Caption = "Not very Similar"
+        lbl50.Caption = "Somewhat Similar"
+        lbl70.Caption = "Very Similar"
+        lbl95.Caption = "Identical"
+        lblNextSound.Caption = "Starting First Sound..."
+        framLoudness.Caption = "Pitch Rating"
+    Else
+        lbl5.Caption = "Pas de Tout"
+        lbl30.Caption = "Pas tr�s similaires"
+        lbl50.Caption = "similaires"
+        lbl70.Caption = "tr�s similaires"
+        lbl95.Caption = "Identiques"
+        lblNextSound.Caption = "� partir de son premier..."
+        framLoudness.Caption = "Correspondance de hauteur"
+    End If
     txtValue.Text = 0
 
     ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
@@ -4955,11 +5278,20 @@ Private Sub Step7_PitchMatching()
             ' Set the volume to the proper PA5 level
             If txtLoudnessT2(WavNum - 1).Text = -102 Then 'user maxed out sound but can still hear it
                 PA5x1.SetAtten (0)
+                If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                    PA5x2.SetAtten (0)
+                End If
             Else
                 If CInt(txtLoudnessT1(WavNum - 1).Text) < CInt(txtLoudnessT2(WavNum - 1).Text) Then 'first trial was louder, use that value
                     PA5x1.SetAtten (CInt(txtLoudnessT1(WavNum - 1).Text))
+                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                        PA5x2.SetAtten (CInt(txtLoudnessT1(WavNum - 1).Text))
+                    End If
                 Else '2nd trial was louder...user that instead
                     PA5x1.SetAtten (CInt(txtLoudnessT2(WavNum - 1).Text))
+                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                        PA5x2.SetAtten (CInt(txtLoudnessT2(WavNum - 1).Text))
+                    End If
                 End If
             End If
             
@@ -5022,7 +5354,11 @@ Private Sub Step7_PitchMatching()
             bClick = False
             sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop sound from playing
             
-            lblNextSound.Caption = "Starting Next Sound"
+            If English Then
+                lblNextSound.Caption = "Starting Next Sound"
+            Else
+                lblNextSound.Caption = "À partir de son prochain"
+            End If
             
             If c1 <= 11 Then  'store the results in an array
                 SliderResults(WavNum, 1) = CInt(txtValue.Text)
@@ -5096,27 +5432,82 @@ Private Sub Step8_Threshold()
     For c1 = 0 To 10
         TempString = TempString & " " & CInt((CInt(txtPitchMatchT1(c1).Text) + CInt(txtPitchMatchT2(c1).Text) + CInt(txtPitchMatchT3(c1).Text)) / 3)
     Next c1
-   'we must generate a custom masker:
+'    'we must generate a custom masker:
     txtTimer.Text = 0
     Timer1.Interval = 100
-
+'    Select Case CInt(txtBandwidth.Text)
+'    Case Is = 1 'hissing
+'        MCustString = "mcustom.exe 1" & TempString
+'    Case Is = 2 'ringing
+'        MCustString = "mcustom.exe -1" & TempString
+'    Case Is = 3 ' tonal
+'        MCustString = "mcustom.exe 0" & TempString
+'    End Select
+'    ShellResults = 0
+'    ChDir ("C:\TinData\tintest_wav")
+'    ShellResults = Shell(MCustString, vbNormalNoFocus)
+'    MsgBox (CustomMaskerPath())
+'    Timer1.Enabled = True
+'    Do While CInt(txtTimer.Text) < 20  'loop for 2 seconds to give custom masker call a chance to run
+'        DoEvents
+'    Loop
+'    Timer1.Enabled = False
+    'FileCopy "C:\TinData\tintest_wav\wcm.wav", (WorkingDir & "\wcm.wav")
+    'FileCopy "C:\TinData\tintest_wav\wcm_2s.wav", (WorkingDir & "\wcm_2s.wav")
+    
     CM = CustomMaskerPath() 'returns the file to use for custom masker
     'first we determine the order of the maskers
     SoundOrder(1) = 2
     SoundOrder(2) = 2
     SoundOrder(3) = 2
     SoundOrder(4) = 2
-
+'    RandomizeArray SoundOrder
+ '   c1 = 1
+ '   Do While (c1 <= 4)
+ '       Select Case SoundOrder(c1)
+ '           Case Is = 1
+ '               SoundOrderFile(c1) = "C:\TinData\tintest_wav\w1.wav"
+ '               PA5Level(c1) = CInt(txtIntensity.Text) 'set inital sound intensity to the 500Hz comfortable level
+ '           Case Is = 2
+ '               SoundOrderFile(c1) = "C:\TinData\tintest_wav\w6.wav"
+ '               PA5Level(c1) = CInt(txtIntensity2.Text) 'set inital sound intensity to the 5000Hz comfortable level
+ '           Case Is = 3
+ '               SoundOrderFile(c1) = "C:\TinData\tintest_wav\wn_2s.wav"
+ '               PA5Level(c1) = CInt(txtIntensity.Text) 'set inital sound intensity to the 500Hz comfortable level
+ '           Case Is = 4
+ '               SoundOrderFile(c1) = ("C:\TinData\CMBank\CM" & CM & "_2s.wav") 'CUSTOM MASKER
+ '               PA5Level(c1) = CInt(txtIntensity.Text) 'set inital sound intensity to the 500Hz comfortable level
+ '               'MsgBox SoundOrderFile(c1)
+ '       End Select
+ '       c1 = c1 + 1
+ '   Loop
+    
     SoundOrderFile(1) = "C:\TinData\tintest_wav\w6.wav"
     PA5Level(1) = CInt(txtIntensity2.Text) 'set inital sound intensity to the 5000Hz comfortable level
+    
+    
+    'MsgBox ("Soundorder #1: " & SoundOrder(1) & " " & SoundOrderFile(1))
+    'MsgBox ("Soundorder #2: " & SoundOrder(2) & " " & SoundOrderFile(2))
+    'MsgBox ("Soundorder #3: " & SoundOrder(3) & " " & SoundOrderFile(3))
+    'MsgBox ("Soundorder #4: " & SoundOrder(4) & " " & SoundOrderFile(4))
+    
+    If English Then
+        lblTitle.Caption = "Threshold Measurement"
+        lblMainInstructions.Caption = "Pitch matching is now complete."
+        lblInstruct2.Caption = "In the next step, we are going to measure how your tinnitus is affected by masking sounds."
+        lblInstruct3.Caption = "When ready, press the dial to begin."
+        lblSoft.Caption = "Softer"
+        lblLoud.Caption = "Louder"
 
-    lblTitle.Caption = "Threshold Measurement"
-    lblMainInstructions.Caption = "Pitch matching is now complete."
-    lblInstruct2.Caption = "In the next step, we are going to measure how your tinnitus is affected by masking sounds."
-    lblInstruct3.Caption = "When ready, press the dial to begin."
-    lblSoft.Caption = "Softer"
-    lblLoud.Caption = "Louder"
+    Else
+        lblTitle.Caption = "Mesure du Seuil"
+        lblMainInstructions.Caption = "Le test de correspondance de hauteur est maintenent termin�."
+        lblInstruct2.Caption = "Dans la prochaine �tape, nous allons mesurer comment votre acouph�ne est affect� par l'utilisation de sons masquants."
+        lblInstruct3.Caption = "Lorsque vous �tes pr�t, appuyez sur la commande rotative pour commencer."
+        lblSoft.Caption = "Faible"
+        lblLoud.Caption = "Fort"
 
+    End If
     lblMainInstructions.visible = True
     lblInstruct2.visible = True
     lblInstruct3.visible = True
@@ -5145,9 +5536,16 @@ Private Sub Step8_Threshold()
         ' It also sets the initial value of txtValue to 0 and adjusts the attenuation level of PA5x1 and PA5x2 accordingly.
         ' Finally, it sets the volume of dialcontrol1 to 0.
         If c1 = 0 Then
-            lblMainInstructions.Caption = "Turn the dial clockwise until you can hear a sound and stop turning it as soon as you hear it.  Then press to move on to the next step."
+            If English Then
+                lblMainInstructions.Caption = "Turn the dial clockwise until you can hear a sound and stop turning it as soon as you hear it.  Then press to move on to the next step."
+            Else
+                lblMainInstructions.Caption = "Tournez la commande rotative dans le sens des aiguilles d'une montre jusqu'� ce que vous puissiez entendre un son, et arr�tez de tourner d�s que vous l'entendez. Puis pressez la commande rotative pour passer � l'�tape suivante"
+            End If
             txtValue.Text = 0 ' set PA5 to 120
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
+            If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                PA5x2.SetAtten (120 - CInt(txtValue.Text))
+            End If
             dialcontrol1.setvolume (0)
         ' This code block is part of a conditional statement that executes when the value of c1 is equal to 1.
         ' It sets the caption of the lblMainInstructions label based on the value of the English variable.
@@ -5155,21 +5553,41 @@ Private Sub Step8_Threshold()
         ' Additionally, it sets the attenuation level of the PA5x1 and PA5x2 objects based on the txtValue.
         ' Finally, it sets the volume of the dialcontrol1 object based on the txtValue.
         ElseIf c1 = 1 Then
-            lblMainInstructions.Caption = "You should now hear the sound playing softly.  Turn the dial counter-clockwise until the sound just disappears, then click to move on."
+            If English Then
+                lblMainInstructions.Caption = "You should now hear the sound playing softly.  Turn the dial counter-clockwise until the sound just disappears, then click to move on."
+            Else
+                lblMainInstructions.Caption = "Vous devriez maintenant entendre le son jou� doucement. Tournez la commande rotative dans le sens contraire des aiguilles d'une montre jusqu'� ce que le son disparaisse tout juste, puis cliquez pour passer."
+            End If
             txtValue.Text = 120 - (CInt(txtSoundThreshold(0)) - 10) 'set PA5 to last threshold, plus 10dB
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
+            If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                PA5x2.SetAtten (120 - CInt(txtValue.Text))
+            End If
             dialcontrol1.setvolume (CInt(txtValue.Text))
         ElseIf c1 = 2 Then
-            lblMainInstructions.Caption = "Once again, please turn the dial clockwise until you can just barely hear a sound.  Then press to move on to the next step."
+            If English Then
+                lblMainInstructions.Caption = "Once again, please turn the dial clockwise until you can just barely hear a sound.  Then press to move on to the next step."
+            Else
+                lblMainInstructions.Caption = "De nouveau, tournez svp la commande rotative dans le sens des aiguilles d'une montre jusqu'� ce que vous puissiez � peine entendre un son. Puis pressez pour passer � la prochaine �tape."
+            End If
             
             txtValue.Text = 0
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
+            If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                PA5x2.SetAtten (120 - CInt(txtValue.Text))
+            End If
             dialcontrol1.setvolume (0)
         Else 'c1 = 3
+            If English Then
                 lblMainInstructions.Caption = "Now turn the dial counter-clockwise until the sound just disappears.  Press to move on."
-
+            Else
+                lblMainInstructions.Caption = "Tournez la commande rotative dans le sens contraire des aiguilles d'une montre jusqu'� ce que le son disparaisse tout juste, puis cliquez pour passer."
+            End If
             txtValue.Text = 120 - (CInt(txtSoundThreshold(2)) - 10) 'set PA5 to last threshold, plus 10dB
             PA5x1.SetAtten (120 - CInt(txtValue.Text))
+            If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                PA5x2.SetAtten (120 - CInt(txtValue.Text))
+            End If
             dialcontrol1.setvolume (CInt(txtValue.Text))
         End If
         lblMainInstructions.visible = True
@@ -5177,7 +5595,6 @@ Private Sub Step8_Threshold()
         dialcontrol1.visible = True
         dialcontrol1.SetFocus
         chkClick.Value = 0
- 
         'play 1khz tone to find users threshold.
         ' Plays a sound file and waits for user interaction.
         ' The sound file path is "C:\TinData\tintest_wav\s2.wav".
@@ -5214,9 +5631,16 @@ Private Sub Step8_Threshold()
     '**********************************************
     lblSoft.visible = False
     lblLoud.visible = False
+    If English Then
         lblTitle.Caption = "Loudness Matching"
         lblMainInstructions.Caption = "Turn the dial slowly until the second sound is the same loudness as the first.  When you are satisfied they are the SAME LOUDNESS, press the dial to move on."
         lblNextSound.Caption = "Presenting two sounds"
+    Else
+        lblTitle.Caption = "Correspondance de Volume"
+        lblTitle.FontSize = 48
+        lblMainInstructions.Caption = "Tournez la commande rotative doucement jusqu'� ce que le deuxi�me son soit au m�me volume que le premier. Quand vous �tes satisfait: ils ont le M�ME VOLUME, pressez la commande rotative pour passer."
+        lblNextSound.Caption = "Pr�sentation des deux premiers sons"
+    End If
     lblNextSound.visible = True
     If CInt(txtPA5ThreshValue.Text) > 65 Then
         PA5ValuePure = CInt(txtPA5ThreshValue.Text) - 65
@@ -5260,6 +5684,9 @@ Private Sub Step8_Threshold()
                 'set PA5 to apprpriate level
                 'pa5.level = pa5valuehiss
                 PA5x1.SetAtten (PA5ValuePure)
+                If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                    PA5x2.SetAtten (PA5ValuePure)
+                End If
                 sndPlaySound "C:\TinData\tintest_wav\s2.wav", SND_ASYNC Or SND_NODEFAULT
                 
                 Do While (CInt(txtTimer.Text) < 30) 'loop for 3000ms - 2000ms for sound 1000ms off
@@ -5276,8 +5703,14 @@ Private Sub Step8_Threshold()
                 txtValue.Text = dialcontrol1.getvolume
                 If CInt(txtValue.Text) <> 999 Then
                     PA5x1.SetAtten (120 - CInt(txtValue.Text))
+                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                        PA5x2.SetAtten (120 - CInt(txtValue.Text))
+                    End If
                 Else
                     PA5x1.SetAtten (0)
+                    If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                        PA5x2.SetAtten (0)
+                    End If
                 End If
                 If CInt(txtTimer.Text) <= 60 Then
                     sndPlaySound SoundOrderFile(c1), SND_ASYNC Or SND_NODEFAULT
@@ -5287,8 +5720,14 @@ Private Sub Step8_Threshold()
                             chkChange.Value = 0 'reset change flag
                             If CInt(txtValue.Text) <> 999 Then
                                 PA5x1.SetAtten (120 - CInt(txtValue.Text))
+                                If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                                    PA5x2.SetAtten (120 - CInt(txtValue.Text))
+                                End If
                             Else
                                 PA5x1.SetAtten (0)
+                                If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                                    PA5x2.SetAtten (0)
+                                End If
                             End If
                             'PA5 value = 120-cint(txtValue.text)
                         End If
@@ -5308,7 +5747,11 @@ Private Sub Step8_Threshold()
         Loop
         chkClick.Value = 0
         Timer1.Enabled = False
+        If English Then
             lblNextSound.Caption = "Presenting two more sounds"
+        Else
+            lblNextSound.Caption = "Pr�sentation de deux bruits suppl�mentaires"
+        End If
         If CInt(txtValue.Text) <> 999 Then
             'txtSoundLevelMatch(SoundOrder(c1) - 1) = 120 - CInt(txtValue.Text)
             'UofM only:
@@ -5330,99 +5773,104 @@ Private Sub Step8_Threshold()
     Loop
     
     ' This code block stops the sound from playing, disables Timer1, hides dialcontrol1 and lblNextSound,
-    ' sets the font size of lblTitle to 60, and appends information to a file.
-    ' The information includes the sound thresholds, PA5 value for 1 kHz threshold,
-    ' and PA5 values for file w6 and custom masker.
-    sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop sound from playing
-    Timer1.Enabled = False
-    VolAdj = False
-    dialcontrol1.visible = False
-    lblNextSound.visible = False
-    lblTitle.FontSize = 60
-    'output info
-    intfilenumber = FreeFile ' This is safer than assigning a number
-    Open (WorkingDir & WorkingFile) For Append As #intfilenumber
-        Write #intfilenumber, (CInt(txtSoundThreshold(0).Text)), "PA5 Threshold # 1"
-        Write #intfilenumber, (CInt(txtSoundThreshold(1).Text)), "PA5 Threshold # 2"
-        Write #intfilenumber, (CInt(txtSoundThreshold(2).Text)), "PA5 Threshold # 3"
-        Write #intfilenumber, (CInt(txtSoundThreshold(3).Text)), "PA5 Threshold # 4"
-        Write #intfilenumber, (CInt(txtPA5ThreshValue.Text)), "PA5Value used for 1 kHz Threshold"
-        Write #intfilenumber, (CInt(txtSoundLevelMatch(1).Text)), "PA5Value for file w6"
-    Close #intfilenumber
+        ' sets the font size of lblTitle to 60, and appends information to a file.
+        ' The information includes the sound thresholds, PA5 value for 1 kHz threshold,
+        ' and PA5 values for file w6 and custom masker.
+        sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop sound from playing
+        Timer1.Enabled = False
+        VolAdj = False
+        dialcontrol1.visible = False
+        lblNextSound.visible = False
+        lblTitle.FontSize = 60
+        'output info
+        intfilenumber = FreeFile ' This is safer than assigning a number
+        Open (WorkingDir & WorkingFile) For Append As #intfilenumber
+            Write #intfilenumber, (CInt(txtSoundThreshold(0).Text)), "PA5 Threshold # 1"
+            Write #intfilenumber, (CInt(txtSoundThreshold(1).Text)), "PA5 Threshold # 2"
+            Write #intfilenumber, (CInt(txtSoundThreshold(2).Text)), "PA5 Threshold # 3"
+            Write #intfilenumber, (CInt(txtSoundThreshold(3).Text)), "PA5 Threshold # 4"
+            Write #intfilenumber, (CInt(txtPA5ThreshValue.Text)), "PA5Value used for 1 kHz Threshold"
+            'Write #intfilenumber, (CInt(txtSoundLevelMatch(0).Text)), "PA5Value for file w1"
+            Write #intfilenumber, (CInt(txtSoundLevelMatch(1).Text)), "PA5Value for file w6"
+            'Write #intfilenumber, (CInt(txtSoundLevelMatch(2).Text)), "PA5Value for file wn"
+            'Write #intfilenumber, (CInt(txtSoundLevelMatch(3).Text)), ("PA5Value for Custom Masker: " & CM)
+        Close #intfilenumber
 
 End Sub
 
 Private Sub Step9_ResidualInhibition()
+    
     Dim intfilenumber, c1 As Integer
     Dim SoundOrder(1 To 8) As String
     Dim OutputBox(1 To 8) As Integer 'this keeps track of what txt box the data is written to
     Dim SO(1 To 4) As Integer
     Dim CM As String
     CM = CustomMaskerPath()
+    
+    'First we 'll randomize the Custom Masker sound order
     SO(1) = 1
     SO(2) = 2
     SO(3) = 3
     SO(4) = 4
     
-    lblMuchLouder(0).Caption = "TINNITUS MUCH LOUDER"
-    lblMuchLouder(1).Caption = "TINNITUS MUCH LOUDER"
-    lblLouder(0).Caption = "LOUDER"
-    lblLouder(1).Caption = "LOUDER"
-    lblNoChange(0).Caption = "NO CHANGE"
-    lblNoChange(1).Caption = "NO CHANGE"
-    lblSofter(0).Caption = "SOFTER"
-    lblSofter(1).Caption = "SOFTER"
-    lblGone(0).Caption = "TINNITUS GONE"
-    lblGone(1).Caption = "TINNITUS GONE"
-
-    'fixed order.  Only 1 sound:
-    SoundOrder(1) = "C:\TinData\tintest_wav\w6_30s.wav"
-    OutputBox(1) = 0
-    SoundOrder(2) = "C:\TinData\tintest_wav\w6_30s.wav"
-    OutputBox(2) = 1
+    If English Then
+        lblMuchLouder(0).Caption = "TINNITUS MUCH LOUDER"
+        lblMuchLouder(1).Caption = "TINNITUS MUCH LOUDER"
+        lblLouder(0).Caption = "LOUDER"
+        lblLouder(1).Caption = "LOUDER"
+        lblNoChange(0).Caption = "NO CHANGE"
+        lblNoChange(1).Caption = "NO CHANGE"
+        lblSofter(0).Caption = "SOFTER"
+        lblSofter(1).Caption = "SOFTER"
+        lblGone(0).Caption = "TINNITUS GONE"
+        lblGone(1).Caption = "TINNITUS GONE"
+    Else
+        lblMuchLouder(0).Caption = "BEAUCOUP PLUS FORT"
+        lblMuchLouder(1).Caption = "BEAUCOUP PLUS FORT"
+        lblLouder(0).Caption = "PLUS FORT"
+        lblLouder(1).Caption = "PLUS FORT"
+        lblNoChange(0).Caption = "PAS DE CHANGEMENT"
+        lblNoChange(1).Caption = "PAS DE CHANGEMENT"
+        lblSofter(0).Caption = "PLUS DOUCE"
+        lblSofter(1).Caption = "PLUS DOUCE"
+        lblGone(0).Caption = "ABSENCE D' ACOUPH�NES"
+        lblGone(1).Caption = "ABSENCE D' ACOUPH�NES"
+    End If
     
-    ' Set the interval of Timer1 to 1000 milliseconds (1 second)
-    Timer1.Interval = 1000
-
-    ' Set the caption of lblMainInstructions to display a message to the user
-    lblMainInstructions.Caption = "Please sit back and relax. An instruction will appear on the screen in 90 seconds and you will then proceed to the last part of the test."
-
-    ' Make lblMainInstructions visible to the user
-    lblMainInstructions.Visible = True
-
-    ' Set the text of txtTimer to 0
-    txtTimer.Text = 0
-
-    ' Enable Timer1
-    Timer1.Enabled = True
-
-    ' Set the initial value and maximum value of ProgressBar1
-    ProgressBar1.Value = 0
-    ProgressBar1.Max = 90
-
-    ' Make ProgressBar1 visible to the user
-    ProgressBar1.Visible = True
-
-    ' Loop for 90 seconds
-    Do While (CInt(txtTimer.Text) < 90)
-        ' Update the value of ProgressBar1 to match the current value of txtTimer
-        ProgressBar1.Value = CInt(txtTimer.Text)
-        
-        ' Allow other events to be processed
-        DoEvents
-    Loop
-
-    ' Hide ProgressBar1
-    ProgressBar1.Visible = False
-
-    ' Update the caption of lblMainInstructions to prompt the user to press the dial
-    lblMainInstructions.Caption = "Please press the dial to proceed to the last part of the test."
-    lblMainInstructions.visible = True
-    chkClick.Value = 0
-    Do While chkClick.Value = 0  'wait until the user clicks the knob
-        DoEvents
-    Loop
-    ProgressBar1.visible = False
+    'fixed order.  Only 1 sound:
+        SoundOrder(1) = "C:\TinData\tintest_wav\w6_30s.wav"
+        OutputBox(1) = 0
+        SoundOrder(2) = "C:\TinData\tintest_wav\w6_30s.wav"
+        OutputBox(2) = 1
+     
+        Timer1.Interval = 1000
+        If English Then
+            lblMainInstructions.Caption = "Please sit back and relax. An instruction will appear on the screen in 90 seconds and you will then proceed to the last part of the test."
+        Else
+            lblMainInstructions.Caption = "S'il vous plait, reposez-vous et d�tendez-vous. Une instruction va appara�tre sur l'�cran dans 90 secondes et vous pourrez effectuer la derni�re partie du test."
+        End If
+        lblMainInstructions.visible = True
+        txtTimer.Text = 0
+        Timer1.Enabled = True
+        ProgressBar1.Value = 0
+        ProgressBar1.Max = 90
+        ProgressBar1.visible = True
+        Do While (CInt(txtTimer.Text) < 90) 'loop for 90s
+            ProgressBar1.Value = CInt(txtTimer.Text)
+            DoEvents
+        Loop
+        ProgressBar1.visible = False
+        If English Then
+            lblMainInstructions.Caption = "Please press the dial to proceed to the last part of the test."
+        Else
+            lblMainInstructions.Caption = "Appuyez sur la commande rotative pour passer � la derni�re partie de l'essai."
+        End If
+        lblMainInstructions.visible = True
+        chkClick.Value = 0
+        Do While chkClick.Value = 0  'wait until the user clicks the knob
+            DoEvents
+        Loop
+        ProgressBar1.visible = False
 
     ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
 
@@ -5444,9 +5892,11 @@ Private Sub Step9_ResidualInhibition()
     c1 = 1
     Do While c1 <= 2
         Timer1.Enabled = False
-
-        lblMainInstructions.Caption = "Please listen to your tinnitus now.  We will soon present a sound.  When the sound ends, we will ask you to rate how your tinnitus has changed."
-
+        If English Then
+            lblMainInstructions.Caption = "Please listen to your tinnitus now.  We will soon present a sound.  When the sound ends, we will ask you to rate how your tinnitus has changed."
+        Else
+            lblMainInstructions.Caption = "Maintenant, veuillez �couter attentivement votre acouph�ne. Nous allons bient�t vous pr�senter un son. Quand le son sera fini, vous devrez �valuer de combien votre acouph�ne � chang�."
+        End If
         txtTimer.Text = 0
         ProgressBar1.Value = 0
         ProgressBar1.Max = 30
@@ -5458,10 +5908,24 @@ Private Sub Step9_ResidualInhibition()
         Loop
         Timer1.Enabled = False
         ProgressBar1.visible = False
-        lblMainInstructions.Caption = "Listen carefully to this sound"
-
-        PA5x1.SetAtten (CInt(txtSoundLevelMatch(1).Text))  'used for UofM only.
-
+        If English Then
+            lblMainInstructions.Caption = "Listen carefully to this sound"
+        Else
+            lblMainInstructions.Caption = "�coutez attentivement ce son."
+        End If
+        'set PA5 to txtSoundLevelMatch(#)
+'        If c1 <= 4 Then
+            'PA5x1.SetAtten (CInt(txtSoundLevelMatch(OutputBox(c1)).Text))
+            PA5x1.SetAtten (CInt(txtSoundLevelMatch(1).Text))  'used for UofM only.
+            If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+                'PA5x2.SetAtten (CInt(txtSoundLevelMatch(OutputBox(c1)).Text))
+                PA5x2.SetAtten (CInt(txtSoundLevelMatch(1).Text)) 'used for UofM only.
+            End If
+'        Else
+'            PA5x1.SetAtten (CInt(txtSoundLevelMatch(OutputBox(c1)).Text))
+'            PA5x2.SetAtten (CInt(txtSoundLevelMatch(OutputBox(c1)).Text))
+'        End If
+        'MsgBox ("About to play sound " & SoundOrder(c1) & " and store results in box # " & OutputBox(c1))
         txtTimer.Text = 0
         Timer1.Enabled = True
         sndPlaySound SoundOrder(c1), SND_ASYNC Or SND_NODEFAULT
@@ -5469,33 +5933,27 @@ Private Sub Step9_ResidualInhibition()
             DoEvents
         Loop
         sndPlaySound "C:\TinData\tintest_wav\silence.wav", SND_ASYNC Or SND_NODEFAULT 'stop sound from playing
-        
         Form1.SetFocus
         txtTimer.Enabled = False
-        
-        ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest_back.frm
-
-        ' This code block handles the adjustment of tinnitus rating in a monaural scenario.
-        ' It checks the value of txtLocalize.Text to determine if tinnitus is in the left ear (1) or right ear (3).
-        ' The lblMainInstructions.Caption is updated accordingly.
-        ' The caption and text color of frmMono(0) frame is changed based on the ear localization.
-        ' The position of frmMono(0) frame is adjusted based on the value of vRes.
-        ' The VScroll1(0) value and txtValue.Text are set to 51.
-        ' The visibility of frmMono(0) and frmMono(1) frames are set to False.
-        ' The user is prompted to click the knob by checking the value of chkClick.
-        ' If the user makes an adjustment, the value of VScroll1(0) and txtValue.Text are updated accordingly.
-        ' The loop continues until the user clicks the knob.
-        ' After the loop, the visibility of frmMono(0) and frmMono(1) frames are set to False.
-        ' Depending on the value of c1, the tinnitus rating values are filled in the appropriate text boxes.
         If (CInt(txtLocalize.Text) = 1) Or (CInt(txtLocalize.Text) = 3) Then   ' tinnitus is monaural
-
-            lblMainInstructions.Caption = "Adjust the dial to rate how your tinnitus has changed, and press to move on."
-
+            If English Then
+                lblMainInstructions.Caption = "Adjust the dial to rate how your tinnitus has changed, and press to move on."
+            Else
+                lblMainInstructions.Caption = "Ajustez la commande rotative pour �valuer de combien votre acouph�ne � chang�, puis pressez la pour passer."
+            End If
             If (CInt(txtLocalize.Text) = 1) Then 'tinnitus is in left ear, change caption on frame
-                frmMono(0).Caption = "Left Ear"
+                If English Then
+                    frmMono(0).Caption = "Left Ear"
+                Else
+                    frmMono(0).Caption = "Oreille gauche"
+                End If
                 frmMono(0).ForeColor = &HC00000 'chage text to blue
             Else 'tinnitus is in right ear, change caption on frame
-                frmMono(0).Caption = "Right Ear"
+                If English Then
+                    frmMono(0).Caption = "Right Ear"
+                Else
+                    frmMono(0).Caption = "Oreille droite"
+                End If
                 frmMono(0).ForeColor = &HFF& 'change text to red
             End If
             If vRes = 1024 Then 'everything needs to be moved up to fit in the slider
@@ -5504,6 +5962,8 @@ Private Sub Step9_ResidualInhibition()
             Else
                 frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
                 frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 200 'put it lower than center so it doesn't cover up text
+        '        frmMono(0).Left = 392
+        '        frmMono(0).Top = 352
             End If
             
             VScroll1(0).Value = 51
@@ -5546,18 +6006,16 @@ Private Sub Step9_ResidualInhibition()
                     txtRIRightT2(OutputBox(c1)).Text = txtValue.Text
                 End If
             End If
-
-        ' This code block adjusts the user interface based on the value entered in the txtLocalize textbox.
-        ' If the value is 2, indicating bilateral tinnitus, the code sets up the UI for the user to enter information for both ears.
-        ' It updates the captions, colors, positions, and visibility of various form controls.
-        ' The code also handles user interactions with the scroll bars and updates the corresponding textboxes with the selected values.
-        ' The loop continues until the variable c1 reaches a certain value.
-        ' Finally, the Timer1 control is disabled.
         ElseIf (CInt(txtLocalize.Text) = 2) Then  'tinnitus is bilateral...user must enter info on two frames
-
-            lblMainInstructions.Caption = "Adjust the dial to rate how your tinnitus has changed, first in your left ear, then right ear, and press to move on."
-            frmMono(0).Caption = "Left Ear"
-            frmMono(1).Caption = "Right Ear"
+            If English Then
+                lblMainInstructions.Caption = "Adjust the dial to rate how your tinnitus has changed, first in your left ear, then right ear, and press to move on."
+                frmMono(0).Caption = "Left Ear"
+                frmMono(1).Caption = "Right Ear"
+            Else
+                lblMainInstructions.Caption = "Ajustez la commande rotative pour �valuer de combien votre acouph�ne � chang�, puis pressez la pour passer."
+                frmMono(0).Caption = "Oreille gauche"
+                frmMono(1).Caption = "Oreille droite"
+            End If
             frmMono(0).ForeColor = &HC00000 'chage text to blue
             frmMono(1).ForeColor = &HFF& 'change text to red
             If vRes = 1024 Then 'everything needs to be moved up to fit in the slider
@@ -5569,6 +6027,8 @@ Private Sub Step9_ResidualInhibition()
                 lblEar.Left = 160
                 lblEar.Top = 200
             Else
+                'frmMono(0).Left = (Form1.ScaleWidth / 2) - (frmMono(0).Width / 2)
+                'frmMono(0).Top = (Form1.ScaleHeight / 2) - (frmMono(0).Height / 2) + 200 'put it lower than center so it doesn't cover up text
                 frmMono(0).Left = 112
                 frmMono(0).Top = 352
                 frmMono(1).Left = 664
@@ -5588,7 +6048,11 @@ Private Sub Step9_ResidualInhibition()
             txtValue.Text = 51
 
             lblEar.ForeColor = &HC00000 'chage text to blue
+            If English Then
                 lblEar.Caption = "Adjust Left Ear First..."
+            Else
+                lblEar.Caption = "Ajustez l'oreille gauche en premier"
+            End If
             lblEar.visible = True
             chkClick.Value = 0 'do left ear first
             Form1.SetFocus
@@ -5625,9 +6089,11 @@ Private Sub Step9_ResidualInhibition()
                 lblEar.Top = 300
             End If
             lblEar.ForeColor = &HFF& 'change text to red
-
-            lblEar.Caption = "...Now Adjust Right Ear"
-
+            If English Then
+                lblEar.Caption = "...Now Adjust Right Ear"
+            Else
+                lblEar.Caption = "...Ajustez maintenant l'oreille droite"
+            End If
             lblEar.visible = True
             chkClick.Value = 0
             Form1.SetFocus
@@ -5661,14 +6127,12 @@ Private Sub Step9_ResidualInhibition()
         c1 = c1 + 1
     Loop
     Timer1.Enabled = False
-
     'output info
     intfilenumber = FreeFile ' This is safer than assigning a number
     Open (WorkingDir & WorkingFile) For Append As #intfilenumber
         Write #intfilenumber, ((txtRILeftT1(0) - 50 - 1) / 10), ((txtRIRightT1(0) - 50 - 1) / 10), "Trial1:5000Hz NBN"
         Write #intfilenumber, ((txtRILeftT1(1) - 50 - 1) / 10), ((txtRIRightT1(1) - 50 - 1) / 10), "Trial2:5000Hz NBN"
     Close #intfilenumber
-    
     If CInt(txtLocalize.Text) = 2 Then   'tinnitus is in both ears
         RI5k = (((txtRILeftT1(0) - 50 - 1) / 10) + ((txtRIRightT1(0) - 50 - 1) / 10) + ((txtRILeftT1(1) - 50 - 1) / 10) + ((txtRIRightT1(1) - 50 - 1) / 10)) / 4
     ElseIf CInt(txtLocalize.Text) = 3 Then 'tinnitus is in right ear only
@@ -5679,16 +6143,19 @@ Private Sub Step9_ResidualInhibition()
 
 End Sub
 
-Private Sub Command4_Click()
-    Dim c9 As Integer
-    For c9 = 0 To 7 Step 1
-        lineClick(c9).visible = True
-        lineClick(c9).ZOrder 0 'bring to front
-    Next c9
 
-    'MoveClick 632, 536
-    timerClick.Enabled = True
+Private Sub Command4_Click()
+Dim c9 As Integer
+        For c9 = 0 To 7 Step 1
+            lineClick(c9).visible = True
+            lineClick(c9).ZOrder 0 'bring to front
+        Next c9
+
+ 'MoveClick 632, 536
+ timerClick.Enabled = True
 End Sub
+
+
 
 Private Sub Command5_Click()
 'Call WriteReport
@@ -5983,45 +6450,46 @@ End Sub
 '   - If the space bar (KeyCode = 32) is pressed and boolDblClick is False, the chkClick CheckBox is marked,
 '     boolDblClick is set to True, and the timerDblClick Timer is enabled.
 '   - If the 'c' key (KeyCode = 67 or 99) is pressed, the TinTrainComplete flag is set to True.
+'
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    If KeyCode = 37 Then 'user hit left arrow
-        If CInt(txtValue.Text) > 1 Then
-            txtValue.Text = CInt(txtValue.Text) - 1
-            chkChange.Value = 1 'mark that an event has occured
-            'If VolAdj Then Call VolumeDown 'show volume up symbol
-        End If
-    ElseIf KeyCode = 39 Then 'user hit right arrow
-        If CInt(txtValue.Text) < 120 Then
-            txtValue.Text = CInt(txtValue.Text) + 1
-            chkChange.Value = 1 'mark that an event has occured
-            'If VolAdj Then Call VolumeUp 'show volume down symbol
-        ElseIf CInt(txtValue.Text) >= 120 Then 'user has reached the max output volume
-            If VolAdj Then 'call is being made from a volume adjusting step
-                intMaxVolume = intMaxVolume + 1
+        If KeyCode = 37 Then 'user hit left arrow
+            If CInt(txtValue.Text) > 1 Then
+                txtValue.Text = CInt(txtValue.Text) - 1
                 chkChange.Value = 1 'mark that an event has occured
+                'If VolAdj Then Call VolumeDown 'show volume up symbol
             End If
+        ElseIf KeyCode = 39 Then 'user hit right arrow
+            If CInt(txtValue.Text) < 120 Then
+                txtValue.Text = CInt(txtValue.Text) + 1
+                chkChange.Value = 1 'mark that an event has occured
+                'If VolAdj Then Call VolumeUp 'show volume down symbol
+            ElseIf CInt(txtValue.Text) >= 120 Then 'user has reached the max output volume
+                If VolAdj Then 'call is being made from a volume adjusting step
+                    intMaxVolume = intMaxVolume + 1
+                    chkChange.Value = 1 'mark that an event has occured
+                End If
+            End If
+        ElseIf KeyCode = 32 Then  'space bar
+            If boolDblClick = False Then 'ok to accept click
+                chkClick.Value = 1
+                'imgCheck.visible = True
+                'timerCheck.Enabled = True
+                'Do While (timerCheck.Enabled = True)
+                '    DoEvents
+                'Loop
+                boolDblClick = True
+                timerDblClick.Enabled = True
+            End If
+        ElseIf KeyCode = 67 Or KeyCode = 99 Then 'user hit 'c to continue at the end of the tinnitus trainer
+            TinTrainComplete = True
         End If
-    ElseIf KeyCode = 32 Then  'space bar
-        If boolDblClick = False Then 'ok to accept click
-            chkClick.Value = 1
-            'imgCheck.visible = True
-            'timerCheck.Enabled = True
-            'Do While (timerCheck.Enabled = True)
-            '    DoEvents
-            'Loop
-            boolDblClick = True
-            timerDblClick.Enabled = True
-        End If
-    ElseIf KeyCode = 67 Or KeyCode = 99 Then 'user hit 'c to continue at the end of the tinnitus trainer
-        TinTrainComplete = True
-    End If
 End Sub
 
-' This event is triggered when the form is loaded.
-' It initializes the form and sets the initial visibility of other forms.
-' If an error occurs during the initialization process, an error message is displayed.
 Private Sub Form_Load()
- 
+    ' This event is triggered when the form is loaded.
+    ' It initializes the form and sets the initial visibility of other forms.
+    ' If an error occurs during the initialization process, an error message is displayed.
+    
     VolAdj = False
     Form1.Hide
     FormReg.Hide
@@ -6032,16 +6500,17 @@ Private Sub Form_Load()
     
     Exit Sub
     
-    ErrHandler:
-        MsgBox "ActiveLock Error: " & Err.Description
-        FormReg.Show
-        Form1.Hide
-        formUserID.Hide
-        Form2.Hide
-        FormReg.SetFocus
+ErrHandler:
+    MsgBox "ActiveLock Error: " & Err.Description
+    FormReg.Show
+    Form1.Hide
+    formUserID.Hide
+    Form2.Hide
+    FormReg.SetFocus
 End Sub
 
 ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+
 ' This event handler is triggered when the form is resized.
 ' It adjusts the position of various controls on the form to keep them centered.
 Private Sub Form_Resize()
@@ -6118,26 +6587,19 @@ End Sub
 
 End Sub
 
-' This subroutine is triggered when the "optNew" option button is clicked.
-' It hides the "dirResume" control, the "cboResume" control, and enables the "txtInitials" control.
-' It also clears the text in the "txtInitials" control and disables the "cmdNext" button.
+
+
+
 Private Sub optNew_Click()
-    dirResume.Visible = False
-    cboResume.Visible = False
+    dirResume.visible = False
+    cboResume.visible = False
     txtInitials.Enabled = True
     txtInitials.Text = ""
     cmdNext.Enabled = False
 End Sub
 
-' This subroutine is triggered when the "optResume" option button is clicked.
-' It performs the following actions:
-' - Makes the "dirResume" control visible.
-' - Disables the "txtInitials" textbox.
-' - Sets the path of the "dirResume" control to "C:\TinData".
-' - Disables the "cmdNext" command button.
-' - Sets the text of the "cboResume" combobox to "Resume From...".
-' - Makes the "cboResume" combobox visible.
 Private Sub optResume_Click()
+
     dirResume.visible = True
     txtInitials.Enabled = False
     dirResume.Path = "C:\TinData"
@@ -6156,6 +6618,8 @@ End Sub
 ' This subroutine is triggered by the timerCheck timer event.
 ' It disables the timerCheck and hides the imgCheck control.
 Private Sub timerCheck_Timer()
+    'this was used to show checkmark after clicking space bar, but that was abandoned for colour change, now controled
+    'by timerclick
     'imgCheck.visible = False
     timerCheck.Enabled = False
 End Sub
@@ -6192,11 +6656,9 @@ Private Sub timerClick_Timer()
     timerClick.Enabled = False
 End Sub
 
-' This subroutine is triggered when the timerDblClick interval elapses.
-' It sets the boolDblClick variable to False and disables the timerDblClick.
 Private Sub timerDblClick_Timer()
-    boolDblClick = False
-    timerDblClick.Enabled = False
+boolDblClick = False
+timerDblClick.Enabled = False
 End Sub
 
 ' TimerStep1_Timer event is triggered when the TimerStep1 control fires.
@@ -6228,8 +6690,11 @@ Private Sub TimerStep2_Timer()
     txtValue.Text = dialcontrol1.getvolume
     If CInt((txtValue.Text) >= 0) And CInt((txtValue.Text) <= 120) Then
         PA5x1.SetAtten (120 - CInt(txtValue.Text))
+        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+        End If
     ElseIf CInt(txtValue.Text) = 999 Then 'user can't hear sound?
-'       MsgBox "Can you hear me now"
+'        MsgBox "Can you hear me now"
         txtValue.Text = 0
     End If
 End Sub
@@ -6242,35 +6707,38 @@ Private Sub TimerStep6_Timer()
     txtValue.Text = dialcontrol1.getvolume
     If CInt((txtValue.Text) >= 0) And CInt((txtValue.Text) <= 120) Then
         PA5x1.SetAtten (120 - CInt(txtValue.Text))
+        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+        End If
     ElseIf CInt(txtValue.Text) = 999 Then 'user can't hear sound?
         MsgBox "Can you hear me now"
         txtValue.Text = 0
     End If
 End Sub
 
-' This subroutine is triggered by the TimerStep8 timer event.
-' It updates the value of the txtValue textbox with the current volume from the dialcontrol1.
-' If the value is between 0 and 120 (inclusive), it sets the attenuation level of the PA5x1 and PA5x2 accordingly.
-' If usePA52 is True, it also sets the attenuation level of the PA5x2.
 Private Sub TimerStep8_Timer()
-
+    ' This subroutine is triggered by the TimerStep8 timer event.
+    ' It updates the value of the txtValue textbox with the current volume from the dialcontrol1.
+    ' If the value is between 0 and 120 (inclusive), it sets the attenuation level of the PA5x1 and PA5x2 accordingly.
+    ' If usePA52 is True, it also sets the attenuation level of the PA5x2.
+    
     txtValue.Text = dialcontrol1.getvolume
     
     If CInt((txtValue.Text) >= 0) And CInt((txtValue.Text) <= 120) Then
         PA5x1.SetAtten (120 - CInt(txtValue.Text))
+        
+        If usePA52 Then 'user is using 2 pa5s so set level for 2nd pa5
+            PA5x2.SetAtten (120 - CInt(txtValue.Text))
+        End If
     End If
 End Sub
 
-' This subroutine is triggered by the TimerVolume timer event.
-' It hides the imgVolume(0) and imgVolume(1) controls and disables the TimerVolume.
 Private Sub TimerVolume_Timer()
-    imgVolume(0).Visible = False
-    imgVolume(1).Visible = False
+    imgVolume(0).visible = False
+    imgVolume(1).visible = False
     TimerVolume.Enabled = False
 End Sub
 
-' This event handler is triggered when the text in the txtInitials textbox is changed.
-' It checks if the textbox is empty and enables or disables the cmdNext button accordingly.
 Private Sub txtInitials_Change()
     If txtInitials.Text = "" Then
         cmdNext.Enabled = False
@@ -6294,6 +6762,7 @@ End Sub
 '   After the execution of the subroutine, the elements in myArray will be randomly shuffled.
 '
 Private Sub RandomizeArray(ArrayIn As Variant)
+
    Dim c As Long
    Dim RandomIndex As Long
    Dim tmp As Variant
@@ -6317,10 +6786,14 @@ Private Sub RandomizeArray(ArrayIn As Variant)
          ArrayIn(c) = tmp
          
       Next
+      
    Else
+   
      'The passed argument was not an
      'array; error handler goes here
+      
    End If
+
 End Sub
 
 ' This subroutine increases the volume by making the volume up button visible and starting the volume timer.
@@ -6333,9 +6806,9 @@ End Sub
 ' This subroutine decreases the volume by hiding the first volume image and showing the second volume image.
 ' It also enables the TimerVolume to start decreasing the volume gradually.
 Private Sub VolumeDown()
-    imgVolume(0).visible = False
-    imgVolume(1).visible = True
-    TimerVolume.Enabled = True
+imgVolume(0).visible = False
+imgVolume(1).visible = True
+TimerVolume.Enabled = True
 End Sub
 
 '*******************************************************************************
@@ -6355,6 +6828,7 @@ End Sub
 '
 '*******************************************************************************
 Private Function CanYouHearThis(SoundToPlay As String) As Integer
+'this sub function is called when a user reaches the maximum output for volume
     VolAdj = False
     lblMainInstructions.Caption = "Can you hear a sound playing right now?"
     lblMainInstructions.visible = True
@@ -6439,6 +6913,8 @@ Private Function CanYouHearThis(SoundToPlay As String) As Integer
     VolAdj = True
 End Function
 
+
+Private Function CustomMaskerPath() As String
 '*********************************************************************************
 'This function will return a custom masker sound based on the likeness ratings in
 'step 7 of the tinnitus tester.  It is only called in step 8 and 9.  It chooses a
@@ -6462,24 +6938,23 @@ End Function
 'tinnitus, proram will select next best value as 500hz and 5000Hz hiss are already
 'pressented.
 '*********************************************************************************
-Private Function CustomMaskerPath() As String
-    Dim MCustString As String 'string to hold custom masker name
-    Dim LikenessRating(2, 11) As Integer
-    Dim c1 As Integer
-    Dim MostLike As Integer
-    Dim cValue As Integer
+Dim MCustString As String 'string to hold custom masker name
+Dim LikenessRating(2, 11) As Integer
+Dim c1 As Integer
+Dim MostLike As Integer
+Dim cValue As Integer
 
-    'First we have to choose the prefix - This is based on the tinnitus type selected:
-        Select Case CInt(txtBandwidth.Text)
-            Case Is = 1 'hissing
-                MCustString = "W"
-            Case Is = 2 'ringing
-                MCustString = "R"
-            Case Is = 3 ' tonal
-                MCustString = "S"
-        End Select
+'First we have to choose the prefix - This is based on the tinnitus type selected:
+    Select Case CInt(txtBandwidth.Text)
+    Case Is = 1 'hissing
+        MCustString = "W"
+    Case Is = 2 'ringing
+        MCustString = "R"
+    Case Is = 3 ' tonal
+        MCustString = "S"
+    End Select
 
-    'Second, we must determine which sound the user selected as being most like their tinnitus
+'Second, we must determine which sound the user selected as being most like their tinnitus
     For c1 = 0 To 10 'populate array with average values from Likeness Rating
         'first we'll check to see if they've rated any of the sounds as being quiter than their tinnitus
         If (CInt(txtLoudnessT1(c1).Text) = -102) Or (CInt(txtLoudnessT2(c1).Text) = -102) Then
@@ -6560,6 +7035,7 @@ End Function
 ' ***********************************************
 '               Multidimensional Array sorted on a single dimensions
 ' ***********************************************
+
 ' Name: MyQuickSort_Single
 ' Description: Sorts a multidimensional array based on a single dimension using the QuickSort algorithm.
 ' Parameters:
@@ -6571,49 +7047,52 @@ End Function
 ' Returns: None
 Private Sub MyQuickSort_Single(ByRef SortArray As Variant, ByVal First As Long, ByVal Last As Long, _
                                                             ByVal PrimeSort As Integer, ByVal Ascending As Boolean)
-    Dim Low As Long, High As Long
-    Dim temp As Variant, List_Separator As Variant
-    Dim TempArray() As Variant
-    ReDim TempArray(UBound(SortArray, 1))
-    Low = First
-    High = Last
-    List_Separator1 = SortArray(PrimeSort, (First + Last) / 2)
-    Do
-        If Ascending = True Then
-            Do While (SortArray(PrimeSort, Low) < List_Separator1)
-                Low = Low + 1
-            Loop
-            Do While (SortArray(PrimeSort, High) > List_Separator1)
-                High = High - 1
-            Loop
-        Else
-            Do While (SortArray(PrimeSort, Low) > List_Separator1)
-                Low = Low + 1
-            Loop
-            Do While (SortArray(PrimeSort, High) < List_Separator1)
-                High = High - 1
-            Loop
-        End If
-        If (Low <= High) Then
-            For i = LBound(SortArray, 1) To UBound(SortArray, 1)
-                TempArray(i) = SortArray(i, Low)
-            Next
-            For i = LBound(SortArray, 1) To UBound(SortArray, 1)
-                SortArray(i, Low) = SortArray(i, High)
-            Next
-            For i = LBound(SortArray, 1) To UBound(SortArray, 1)
-                SortArray(i, High) = TempArray(i)
-            Next
+Dim Low As Long, High As Long
+Dim temp As Variant, List_Separator As Variant
+Dim TempArray() As Variant
+ReDim TempArray(UBound(SortArray, 1))
+Low = First
+High = Last
+List_Separator1 = SortArray(PrimeSort, (First + Last) / 2)
+Do
+    If Ascending = True Then
+        Do While (SortArray(PrimeSort, Low) < List_Separator1)
             Low = Low + 1
+        Loop
+        Do While (SortArray(PrimeSort, High) > List_Separator1)
             High = High - 1
-        End If
-    Loop While (Low <= High)
-    If (First < High) Then MyQuickSort_Single SortArray, First, High, PrimeSort, Ascending
-    If (Low < Last) Then MyQuickSort_Single SortArray, Low, Last, PrimeSort, Ascending
+        Loop
+    Else
+        Do While (SortArray(PrimeSort, Low) > List_Separator1)
+            Low = Low + 1
+        Loop
+        Do While (SortArray(PrimeSort, High) < List_Separator1)
+            High = High - 1
+        Loop
+    End If
+    If (Low <= High) Then
+        For i = LBound(SortArray, 1) To UBound(SortArray, 1)
+            TempArray(i) = SortArray(i, Low)
+        Next
+        For i = LBound(SortArray, 1) To UBound(SortArray, 1)
+            SortArray(i, Low) = SortArray(i, High)
+        Next
+        For i = LBound(SortArray, 1) To UBound(SortArray, 1)
+            SortArray(i, High) = TempArray(i)
+        Next
+        Low = Low + 1
+        High = High - 1
+    End If
+Loop While (Low <= High)
+If (First < High) Then MyQuickSort_Single SortArray, First, High, PrimeSort, Ascending
+If (Low < Last) Then MyQuickSort_Single SortArray, Low, Last, PrimeSort, Ascending
 End Sub
 
+
 Private Sub MoveClick(xc As Integer, yc As Integer)
-    Dim c5 As Integer
+Dim c5 As Integer
+
+
     lineClick(0).x1 = xc - 21
     lineClick(0).X2 = xc - 5
     lineClick(0).Y1 = yc - 8
@@ -6681,15 +7160,16 @@ End Sub
 '---------------------------------------------------------------------------
 Private Sub BubbleSortArray(ByRef NumericArray As Variant)
 'http://www.freevbcode.com/ShowCode.Asp?ID=580
-    Dim vAns As Variant
-    Dim vTemp As Variant
-    Dim bSorted As Boolean
-    Dim lCtr As Long
-    Dim lCount As Long
-    Dim lStart As Long
+Dim vAns As Variant
+Dim vTemp As Variant
+Dim bSorted As Boolean
+Dim lCtr As Long
+Dim lCount As Long
+Dim lStart As Long
 
-    lStart = LBound(NumericArray)
-    lCount = UBound(NumericArray)
+
+lStart = LBound(NumericArray)
+lCount = UBound(NumericArray)
 
     bSorted = False
    
@@ -6717,10 +7197,12 @@ Exit Sub
 End Sub
 
 
-' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
-' This code block defines variables and assigns values to an array of strings.
-' It also contains paragraphs of text stored in the array for generating a report.
+
 Sub OutputReport1(TL As Integer, LM1 As Integer, RI5 As Single)
+    ' FILEPATH: /C:/codedev/auricle/TinnTester/TinTest -UofM/TinTest.frm
+
+    ' This code block defines variables and assigns values to an array of strings.
+    ' It also contains paragraphs of text stored in the array for generating a report.
 
     Dim oExcel As Excel.Application
     Dim oWB As Excel.Workbook
@@ -6829,6 +7311,7 @@ Sub OutputReport1(TL As Integer, LM1 As Integer, RI5 As Single)
     Set oWS = oWB.Worksheets("Sheet1")
     Set oRng1 = oWS.Range("A1")
     Set oRng2 = oWS.Range("B2:E5")
+
 
     oExcel.visible = False ' <-- *** Optional *** 'true = show actions. False = don't show actions
     'Set up header info:
@@ -7131,7 +7614,9 @@ Sub OutputReport1(TL As Integer, LM1 As Integer, RI5 As Single)
     
     oWS.Range("A150").Value = text1(42)
     oWS.Range("A151").Value = text1(43)
-     
+    
+
+    
     'Plot RI Data
     ActiveSheet.Shapes.AddChart.Select
     ActiveChart.SetSourceData Source:=Range("Sheet1!$A$154:$K$154")
@@ -7211,6 +7696,7 @@ Cleanup:
     Set oExcel = Nothing
 End Sub
 
+
 Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     Dim oExcel As Excel.Application
     Dim oWB As Excel.Workbook
@@ -7228,6 +7714,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     'TL = tinitus loudness rating
     'LM1 = loudness match at 1000Hz
     TL1 = (TL / 10) + 0.5 ' convert TL, which is entered on a scale of 0 to 100 to fit plot, 0 to 10
+    
     
     '---SECTION 0------
     '---paragraph 1----
@@ -7360,6 +7847,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     Set oRng1 = oWS.Range("A1")
     Set oRng2 = oWS.Range("B2:E5")
 
+
     oExcel.visible = False ' <-- *** Optional *** 'true = show actions. False = don't show actions
     'Set up header info:
     '-----------------------------------------'
@@ -7444,6 +7932,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     End With
     
     'insert text into body of excel file:
+
     oWS.Range("A12").Value = text1(1)
     oWS.Range("A13").Value = text1(2)
     oWS.Range("A14").Value = text1(3)
@@ -7484,7 +7973,8 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     oWS.Range("A45").Value = text1(26)
     oWS.Range("A46").Value = text1(27)
     
-    'plot Loudness Rating:
+   
+'plot Loudness Rating:
     ActiveSheet.Shapes.AddChart.Select
     ActiveChart.Location Where:=xlLocationAsObject, Name:="Sheet1"
     ActiveChart.ChartType = xlColumnClustered
@@ -7507,6 +7997,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     ActiveChart.PlotArea.Select
     Selection.Height = 142
 
+    
     'add textbox with labels                                        '(orient, left, top, width, height)
     ActiveChart.ChartArea.Select
     'insert access number labels
@@ -7661,10 +8152,64 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
         .Top = Range("B48").Top
         .Left = Range("B48").Left
     End With
+    'insert pic
+'    oWS.Range("B62").Select
+'    ActiveSheet.Pictures.Insert("C:\TinData\axis1.JPG").Select
+'    With Selection.ShapeRange
+'       .Top = Range("B60").Top + 2
+'       .Left = Range("B60").Left + 34
+'       .Height = Application.InchesToPoints(0.36)
+'       .Width = Application.InchesToPoints(2.97)
+'    End With
     oWS.Range("E63").Value = "Figure 1"
     oWS.Range("E63").Select
     Selection.Font.Italic = True
     Selection.Font.SIZE = 10
+'plot Loudness Match - old plot not used:
+'    oWS.Range("A72:J73").Select
+'    ActiveSheet.Shapes.AddChart.Select
+'    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$73:$J$73")
+'    ActiveChart.ChartType = xlColumnClustered
+'    ActiveChart.Axes(xlValue).MajorGridlines.Select
+'    ActiveSheet.ChartObjects("Chart 3").Activate
+    
+'    ActiveChart.SeriesCollection(1).Values = "={4.1,1.4,9.5,24.3,24.3,13.5,13.5,4.1,2.7,2.7}"
+'    ActiveChart.SeriesCollection(1).Name = "=""Avg Loudness"""
+    'ActiveChart.SeriesCollection(1).XValues = "={1,2,3,4,5,6,7,8,9,10}"
+'    ActiveChart.SeriesCollection(1).XValues = "={""-29 to -20"",""-19 to -10"",""-9 to 0"",""1 to 10"",""11 to 20"",""21 to 30"",""31 to 40"",""41 to 50"",""51 to 60"",""61 to 70""}"
+'    ActiveChart.HasTitle = True
+'    ActiveChart.ChartTitle.Text = "Tinnitus Loudness Match"
+    
+'    ActiveChart.SeriesCollection.NewSeries
+'    ActiveChart.SeriesCollection(2).Name = "=""Your Loudness"""
+'    ActiveChart.SeriesCollection(2).Values = "={17.5}"
+'    ActiveChart.SeriesCollection(2).ChartType = xlXYScatter
+'    ActiveChart.SeriesCollection(2).XValues = LM1
+    'ActiveSheet.Shapes("Chart 1").IncrementLeft -58.5
+'    With ActiveChart.Parent
+'        .Top = Range("B71").Top
+'        .Left = Range("B71").Left
+'    End With
+'    With ActiveChart
+'        .Axes(xlCategory, xlPrimary).HasTitle = True
+'        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Loudness in dB SPL"
+'        .Axes(xlValue, xlPrimary).HasTitle = True
+'        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Percentage of Patients"
+'    End With
+    'insert pic
+    'oWS.Range("B62").Select
+    'ActiveSheet.Pictures.Insert("C:\TinData\axis1.JPG").Select
+    'With Selection.ShapeRange
+    '   .Top = Range("B60").Top + 2
+    '   .Left = Range("B60").Left + 34
+    '   .Height = Application.InchesToPoints(0.36)
+    '   .Width = Application.InchesToPoints(2.97)
+    'End With
+'    oWS.Range("E86").Value = "Figure 2"
+'    oWS.Range("E86").Select
+'    Selection.Font.Italic = True
+'    Selection.Font.Size = 10
+
 
 'plot Loudness Match - New Plot - based on 1khz level match (created Jan 2011):
 'enter text:
@@ -7734,6 +8279,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     Selection.Font.Italic = True
     Selection.Font.SIZE = 10
 
+
     'SECTION 2
     oWS.Range("A94").Value = "(2)  YOUR TINNITUS SPECTRUM"
     oWS.Range("A94").Select
@@ -7790,7 +8336,7 @@ Sub OutputReport(TL As Integer, LM1 As Integer, RI5 As Single)
     'PLOT LIKENESS
     
     
-    'RI data
+'RI data
     oWS.Range("A121").Value = "(3) RESIDUAL INHIBITION"
     oWS.Range("A121").Select
     Selection.Font.Bold = True
@@ -7929,7 +8475,811 @@ Cleanup:
     Set oExcel = Nothing
 End Sub
 
+Sub OutputReport_F(TL As Integer, LM1 As Integer, RI5 As Single)
+    Dim oExcel As Excel.Application
+    Dim oWB As Excel.Workbook
+    Dim oWS As Excel.Worksheet
+    Dim oRng1 As Excel.Range
+    Dim oRng2 As Excel.Range
+    Dim ThisLine As Excel.Shape
+    Dim text1(1 To 100) As String
+    Dim TL1 As Single
+    Dim x11 As Integer 'counter
+    Dim LMP As Integer ' holds where to plot loudness match data
+    Dim TnSp(1 To 11) As Single 'holds the calculated tinnitus spectrum values
+    Dim i As Integer
+    Dim w As Integer
+    'TL = tinitus loudness rating
+    'LM1 = loudness match at 1000Hz
+    TL1 = (TL / 10) + 0.5 ' convert TL, which is entered on a scale of 0 to 100 to fit plot, 0 to 10
+    
+    
+    '---SECTION 0------
+    '---paragraph 1----
+    text1(1) = "Ce rapport d�crit votre acouph�ne en se basant sur une �valuation conduite dans la Clinique de "
+    text1(2) = "l'Acouph�ne de Montr�al.  Vos r�sultats sont �galement compar�s avec ceux d'un large �chantillon"
+    text1(3) = "de patients acouph�niques �valu�s par le laboratoire de Plasticit� Neurale Humaine de "
+    text1(4) = "l'Universit� McMaster � Hamilton, Ontario, Canada."
+
+
+    '---paragraph 1----
+    
+    '---paragraph 2----
+    text1(5) = "Deux caract�ristiques importantes de tous les sons (y compris les sons des acouph�nes) sont "
+    text1(6) = "(1) L'intensit�, et (2) la fr�quence ou la hauteur du son. Nous avons mesur� ces deux "
+    text1(7) = "caract�ristiques de votre acouph�ne."
+    '---paragraph 2----
+    
+    '---paragraph 3----
+    text1(8) = "L'intensit� est mesur� dans une unit� appel�e d�cibel (dB), et la hauteur ou la fr�quence par "
+    text1(9) = "une unit� appel�e Hertz (Hz). Un son de 60 dB correspond approximativement au volume "
+    text1(10) = "de la parole normale. Le Do ou  'C' moyen sur un piano correspond � une hauteur ou une fr�quence "
+    text1(11) = "de 256 Hz.  Les fr�quences contenues dans le discours et dans l'environnement normal varient "
+    text1(12) = "g�n�ralement entre 100 et 3000 Hz. L'oreille humaine peut entendre des fr�quences allant jusqu'� "
+    text1(13) = "20.000 Hz, mais tout le monde ne peux pas entendre des fr�quences aussi aigu�s."
+    '---paragraph 3----
+    
+    '---paragraph 4----
+    text1(14) = "Nous avons �galement mesur� un attribut de votre acouph�ne appel� Inhibition R�siduelle ou IR."
+    text1(15) = "L'IR est une suppression temporaire de l'acouph�ne qui peut parfois �tre ressentie apr�s avoir "
+    text1(16) = "entendu un son de masquage. Ces trois attributs de votre acouph�ne (le volume, la hauteur,"
+    text1(17) = "et l' IR l'acouph�ne) sont indiqu�s ci-dessous."
+    
+    '---paragraph 4----
+    '---SECTION 1------
+    '---paragraph 1----
+    text1(18) = "Nous avons mesur� l'intensit� de votre acouph�ne avec deux m�thodes ind�pendantes. Les "
+    text1(19) = "graphiques ci-dessous montrent vos r�sultats avec les deux m�thodes en comparaison"
+    text1(20) = " � 74 patients atteints d'acouph�nes chroniques stables mesur�s � l'Universit� McMaster. "
+    text1(21) = "Nous appelons cet �chantillon de 74 patients notre groupe de r�f�rence."
+    '---paragraph 1----
+    
+    '---paragraph 2----
+    text1(22) = "Avec la premi�re m�thode, vous avez �valu� le volume de votre acouph�ne sur une �chelle de"
+    text1(23) = "Borg CR100 qui est utilis�e dans les recherches sur l'audition. Les scores sur cette �chelle de "
+    text1(24) = "mesure vont de 0 (volume de l'acouph�ne �valu� extr�mement faible) � 100 (volume de "
+    text1(25) = "acouph�ne �valu� extr�mement fort). L'�chantillon de r�f�rence fait �tat d'une note moyenne "
+    text1(26) = "de 43.9, ce qui est � mi-chemin entre un acouph�ne mod�r� � fort sur l'�chelle de Borg CR100."
+    
+    '---paragraph 2----
+    '---paragraph 3----
+
+    text1(27) = "Le volume de votre acouph�ne, �valu� sur l' �chelle de Borg CR100, �tait de _" & TL & "_ sur un maximum"
+    text1(28) = "de 100.  La Figure 1, ci-dessous, compare votre score de volume de Borg CR100 � celle de "
+    text1(29) = "l'�chantillon de r�f�rence."
+
+    '---paragraph 3----
+    '---paragraph 4----
+    text1(30) = "Avec la deuxi�me m�thode, vous avez ajust� les volumes de plusieurs sons, mesur�s en dB, "
+    text1(31) = "pour qu'ils �quivalent  � l'intensit� de vos acouph�nes. Le  'volume sonore �quivalent' que vous "
+    text1(32) = "avez indiqu� pour un son de 1000 Hz (d'un son aigu) �tait de _" & LM1 & "_ dB. La Figure 2 ci-dessous montre"
+    text1(33) = " comment ce 'volume sonore �quivalent'  en dB se situe par rapport � l'�chantillon de r�f�rence. "
+    text1(34) = "N'oubliez pas qu'un son de 60 dB correspond  approximativement � l'intensit� de la parole normale."
+    '---paragraph 4----
+    
+    '---SECTION 2------
+    '---paragraph 1----
+    text1(35) = "Une autre �tape dans notre mesure des acouph�nes nous a permis d'�valuer la similarit� entre "
+    text1(36) = "des sons  de diff�rentes hauteurs et la hauteur de votre propre acouph�ne.  Bas� sur nos "
+    text1(37) = "recherches, nous consid�rons que toute les notes sup�rieures de cette valeur correspondent au "
+    text1(38) = "'spectre de votre acouph�ne'. Pour la plupart des patients, le spectre de  l'acouph�ne contient des"
+    text1(39) = "fr�quences qui couvrent une gamme 3000 � 10.000 Hz."
+    text1(40) = ""
+    '---paragraph 1----
+    '---paragraph 2----
+    text1(41) = "Vos r�sultats sont indiqu�s ci-dessous dans la figure 3 et sont compar�s � un groupe de r�f�rence "
+    text1(42) = "qui contient des sujets acouph�niques mesur�s � l'Universit� McMaster."
+    '---paragraph 2----
+    
+    '---SECTION 3------
+    '---paragraph 1----
+    text1(43) = "Certains patients rapportent que des sons de l'environnement peuvent parfois  �masquer� leur "
+    text1(44) = "acouph�ne. Cela signifie que lorsque ce son est pr�sent, ils n'entendent plus leur acouph�ne."
+    text1(45) = "Des exemples de sons pouvant masquer un acouph�ne sont: une radio mal r�gl�e et bruyante , "
+    text1(46) = " le bruit de l'eau qui coule, ou des sons de la nature tels que des grillons ou des oiseaux."
+
+
+    '---paragraph 1----
+    
+    '---paragraph 2----
+    text1(47) = "Lorsque les sons de masquage sont pr�sent�s dans le laboratoire puis soudainement interrompus,"
+    text1(48) = "l'acouph�ne peut �tre r�duit ou m�me �limin� pendant une courte p�riode de temps. Ce "
+    text1(49) = "ph�nom�ne est appel� inhibition r�siduelle ou IR. L'IR dure g�n�ralement entre 30 secondes et"
+    text1(50) = "1 minute, mais elle peut parfois durer plus longtemps."
+    '---paragraph 2----
+    
+    '---paragraph 3----
+text1(51) = "Nous avons mesur� votre IR en vous pr�sentant un son semblable � un bruit de masquage avec une "
+text1(52) = "fr�quence centrale de 5000 Hz. Lorsque le masque a �t� interrompu, nous vous avons demand� "
+text1(53) = "d'�valuer la fa�on dont votre acouph�ne avait chang�. Le son masquant que nous utilisons contient"
+text1(54) = "les fr�quences qui sont habituellement report�es comme �tant dans le spectre des l'acouph�nes,"
+text1(55) = "il est donc plus efficace que la plupart des autres masques pour induire une IR. L'IR a �t� mesur�e "
+text1(56) = "sur une �chelle allant de 0 (signifiant que l'acouph�ne n'a pas chang� apr�s avoir �cout� le "
+text1(57) = "masque) � moins 5 (signifiant que l'acouph�ne a disparu lorsque le son a �t� interrompu). Dans"
+text1(58) = "certains cas, les acouph�nes peuvent devenir plus fort (un score de 5 signifie beaucoup plus fort)"
+text1(59) = "ce qui signifie qu'aucune IR a �t� ressentie. Notez que l'IR  (suppression acouph�nique) ne pourra"
+text1(60) = "pas �tre ressentie par tout le monde avec le masque que nous avons utilis�, mais beaucoup de "
+text1(61) = "personnes le ressentent."
+    '---paragraph 3----
+    
+    '---paragraph 4----
+    text1(62) = "Votre score IR mesur� avec ce masque a �t� _" & RI5 & "_. Le graphique ci-dessous montre comment "
+    text1(63) = "votre score se situe par rapport � celui des 47 personnes avec acouph�nes mesur�es � l'Universit� "
+    text1(64) = "McMaster."
+    '---paragraph 4----
+    
+    '---SECTION 4------
+    '---paragraph 1----
+    text1(65) = "Les mesures indiqu�es ci-dessus sont destin�es � vous aider � mieux comprendre votre acouph�ne"
+    text1(66) = "et � le comparer aux acouph�nes v�cus par d'autres personnes. Souvent, il peut �tre rassurant de "
+    text1(67) = "voir que, m�me s'il est irritant, le son des acouph�nes n'est pas un myst�re."
+    
+    '---paragraph 1----
+    
+    '---paragraph 2----
+    text1(68) = "Dans la derni�re d�cennie, nous avons beaucoup appris sur la fa�on dont les acouph�nes sont"
+    text1(69) = "g�n�r�s par le cerveau. La plupart des cas sont associ�s � une perte auditive des fr�quences"
+    text1(70) = "aigues au cours du vieillissement normal. Notez que la perte auditive peut �tre induite ou acc�l�r�e "
+    text1(71) = "par l'exposition � des sons de volume tr�s forts (par exemple des concerts de rock, des moteurs"
+    text1(72) = "de moto, ou des p�tards) ainsi ce type de sons devraient �tre �vit�s car ils peuvent endommager vos "
+    text1(73) = "oreilles. En revanche, le son acouph�nique en lui-m�me ne nuit pas � vos oreilles. Au fil du temps, la "
+    text1(74) = "plupart des personnes qui ont un acouph�ne trouvent que leur acouph�ne devient moins perturbant"
+    text1(75) = "ou intrusif."
+    text1(76) = "� L. Roberts and D. Bosnyak, 2011"
+    '---paragraph 2----
+    
+    Set oExcel = New Excel.Application
+    Set oWB = oExcel.Workbooks.Add
+    Set oWS = oWB.Worksheets("Sheet1")
+    Set oRng1 = oWS.Range("A1")
+    Set oRng2 = oWS.Range("B2:E5")
+
+
+    oExcel.visible = False ' <-- *** Optional *** 'true = show actions. False = don't show actions
+    'Set up header info:
+    '-----------------------------------------'
+    oWS.Range("A1").Value = "Rapport d'�valuation de l'Acouph�ne"
+    oWS.Range("A1:I1").Select
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.Merge
+    With Selection.Font
+        .Name = "Calibri"
+        .SIZE = 18
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .ThemeColor = xlThemeColorLight1
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    Selection.Font.Bold = True
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorDark2
+        .TintAndShade = -9.99786370433668E-02
+        .PatternTintAndShade = 0
+    End With
+    '-----------------------------------------'
+    
+    'Next, set up username/info/Data:
+    '-----------------------------------------'
+    oWS.Range("A3").Value = "Nom:"
+    oWS.Range("B3").Value = UserName
+    oWS.Range("A4").Value = "Date:"
+    oWS.Range("B4").Value = Format(Now(), "MMM-dd-yy")
+    oWS.Range("F3").Value = "Ville:"
+    oWS.Range("G3").Value = UserCity
+    oWS.Range("F4").Value = "Prov:"
+    oWS.Range("G4").Value = UserProv
+    oWS.Range("F5").Value = "Pays:"
+    oWS.Range("G5").Value = UserCountry
+    
+    oWS.Range("A7").Value = "Information auto-d�clar�e:"
+    oWS.Range("A8").Value = "Acouph�nes Lieu:"
+    oWS.Range("C8").Value = UserTL
+    oWS.Range("A9").Value = "Continu or Pulsatif:"
+    oWS.Range("C9").Value = UserSorP
+    oWS.Range("A10").Value = "Type de son:"
+    oWS.Range("C10").Value = UserBW
+    
+    oWS.Range("F8").Value = "�ge:"
+    oWS.Range("G8").Value = UserAge
+    oWS.Range("F9").Value = "Sexe:"
+    oWS.Range("G9").Value = UserSex
+    oWS.Range("F10").Value = "D�but:"
+    oWS.Range("G10").Value = UserOnset
+    '-----------------------------------------'
+    'format user data:
+    oWS.Range("G8:G10").Select
+    With Selection
+        .HorizontalAlignment = xlRight
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    'insert text into body of excel file:
+
+    oWS.Range("A12").Value = text1(1)
+    oWS.Range("A13").Value = text1(2)
+    oWS.Range("A14").Value = text1(3)
+    oWS.Range("A15").Value = text1(4)
+    
+    oWS.Range("A17").Value = text1(5)
+    oWS.Range("A18").Value = text1(6)
+    oWS.Range("A19").Value = text1(7)
+    
+    oWS.Range("A21").Value = text1(8)
+    oWS.Range("A22").Value = text1(9)
+    oWS.Range("A23").Value = text1(10)
+    oWS.Range("A24").Value = text1(11)
+    oWS.Range("A25").Value = text1(12)
+    oWS.Range("A26").Value = text1(13)
+        
+    oWS.Range("A28").Value = text1(14)
+    oWS.Range("A29").Value = text1(15)
+    oWS.Range("A30").Value = text1(16)
+    oWS.Range("A31").Value = text1(17)
+    
+    oWS.Range("A33").Value = "(1) L'INTENSIT� DE VOTRE ACOUPH�NE"
+    oWS.Range("A33").Select
+    Selection.Font.Bold = True
+    Selection.Font.SIZE = 12
+    Selection.Font.Underline = xlUnderlineStyleSingle
+    
+    oWS.Range("A35").Value = text1(18)
+    oWS.Range("A36").Value = text1(19)
+    oWS.Range("A37").Value = text1(20)
+    oWS.Range("A38").Value = text1(21)
+    
+    oWS.Range("A40").Value = text1(22)
+    oWS.Range("A41").Value = text1(23)
+    oWS.Range("A42").Value = text1(24)
+    oWS.Range("A43").Value = text1(25)
+    oWS.Range("A44").Value = text1(26)
+    
+    oWS.Range("A47").Value = text1(27)
+    oWS.Range("A48").Value = text1(28)
+    oWS.Range("A49").Value = text1(29)
+   
+'plot Loudness Rating:
+    ActiveSheet.Shapes.AddChart.Select
+    ActiveChart.Location Where:=xlLocationAsObject, Name:="Sheet1"
+    ActiveChart.ChartType = xlColumnClustered
+    ActiveChart.HasTitle = True
+    ActiveChart.ChartTitle.Text = "Intensit� de l'Acouph�nes"
+    ActiveChart.SeriesCollection(1).Name = "=""Groupe de R�f�rence"""
+    ActiveChart.SeriesCollection(1).XValues = "={5,15,25,35,45,55,65,75,85,95}"
+    'ActiveChart.SeriesCollection(1).XValues = "={""Extremely Weak"","""","""",""Moderate"","""",""Strong"","""",""Very Strong"","""",""Extremely Strong""}"
+    'ActiveChart.SeriesCollection(1).XValues = "= {""Extremely Weak"","""",""Moderate"","""",""Strong"","""",""Very Strong"","""","""",""Extremely Strong""}"
+    ActiveChart.SeriesCollection(1).Values = "={0,0.02,0.12,0.28,0.19,0.17,0.04,0.11,0.04,0}"
+    ActiveChart.Axes(xlCategory).Select
+    Selection.TickLabelPosition = xlNone
+    ActiveChart.SeriesCollection.NewSeries
+    'ActiveChart.SeriesCollection(2).Name = "=""Votre Acouph�ne Intensit�"""
+    ActiveChart.SeriesCollection(2).Name = "=""L'Intensit� de Votre Acouph�ne"""
+    'ActiveChart.SeriesCollection(2).FontSize = 9
+    ActiveChart.SeriesCollection(2).Values = "={0.225}"
+    ActiveChart.SeriesCollection(2).ChartType = xlXYScatter
+    'ActiveChart.SeriesCollection(2).XValues = "=Sheet1!$C$53"
+    ActiveChart.SeriesCollection(2).XValues = TL1
+    ActiveChart.PlotArea.Select
+    Selection.Height = 142
+
+    
+    'add textbox with labels                                        '(orient, left, top, width, height)
+    ActiveChart.ChartArea.Select
+    'insert access number labels
+    i = 30
+    w = 19
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "0"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w - 2
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "10"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "20"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w + 1
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "30"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "40"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w + 1
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "50"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w + 1
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "60"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "70"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w + 1
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "80"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 25, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "90"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+        i = i + w - 1
+        Set ThisLine = ActiveChart.Shapes.AddTextbox(1, i, 175, 30, 15) 'msoTextOrientationHorizontal = 1,
+        ThisLine.DrawingObject.Text = "100"
+        ThisLine.Select
+        With Selection
+            .Font.SIZE = 9
+            .HorizontalAlignment = xlLeft
+            .VerticalAlignment = xlTop
+        End With
+    
+    'add "Extremely weak" text box
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 25, 185, 50, 25) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Extr�mement Faible"
+    ThisLine.Select
+    With Selection
+        .Font.SIZE = 8
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlTop
+    End With
+    'add "moderate" text box
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 72, 185, 50, 25) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Mod�r�e"
+    ThisLine.Select
+    With Selection
+        .Font.SIZE = 8
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlTop
+    End With
+    'add "strong" text box
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 110, 185, 50, 25) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Forte"
+    ThisLine.Select
+    With Selection
+        .Font.SIZE = 8
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlTop
+    End With
+    'add "Verystrong" text box
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 147, 185, 50, 25) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Tr�s Forte"
+    ThisLine.Select
+    With Selection
+        .Font.SIZE = 8
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlTop
+    End With
+    'add "Verystrong" text box
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 195, 185, 50, 25) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Extr�mement forte"
+    ThisLine.Select
+    With Selection
+        .Font.SIZE = 8
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlTop
+    End With
+    
+    With ActiveChart.Parent
+        .Top = Range("B51").Top
+        .Left = Range("B51").Left
+    End With
+    
+    'insert pic
+'    oWS.Range("B62").Select
+'    ActiveSheet.Pictures.Insert("C:\TinData\axis1.JPG").Select
+'    With Selection.ShapeRange
+'       .Top = Range("B60").Top + 2
+'       .Left = Range("B60").Left + 34
+'       .Height = Application.InchesToPoints(0.36)
+'       .Width = Application.InchesToPoints(2.97)
+'    End With
+    oWS.Range("E66").Value = "Figure 1"
+    oWS.Range("E66").Select
+    Selection.Font.Italic = True
+    Selection.Font.SIZE = 10
+'plot Loudness Match - old plot not used:
+'    oWS.Range("A72:J73").Select
+'    ActiveSheet.Shapes.AddChart.Select
+'    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$73:$J$73")
+'    ActiveChart.ChartType = xlColumnClustered
+'    ActiveChart.Axes(xlValue).MajorGridlines.Select
+'    ActiveSheet.ChartObjects("Chart 3").Activate
+    
+'    ActiveChart.SeriesCollection(1).Values = "={4.1,1.4,9.5,24.3,24.3,13.5,13.5,4.1,2.7,2.7}"
+'    ActiveChart.SeriesCollection(1).Name = "=""Avg Loudness"""
+    'ActiveChart.SeriesCollection(1).XValues = "={1,2,3,4,5,6,7,8,9,10}"
+'    ActiveChart.SeriesCollection(1).XValues = "={""-29 to -20"",""-19 to -10"",""-9 to 0"",""1 to 10"",""11 to 20"",""21 to 30"",""31 to 40"",""41 to 50"",""51 to 60"",""61 to 70""}"
+'    ActiveChart.HasTitle = True
+'    ActiveChart.ChartTitle.Text = "Tinnitus Loudness Match"
+    
+'    ActiveChart.SeriesCollection.NewSeries
+'    ActiveChart.SeriesCollection(2).Name = "=""Your Loudness"""
+'    ActiveChart.SeriesCollection(2).Values = "={17.5}"
+'    ActiveChart.SeriesCollection(2).ChartType = xlXYScatter
+'    ActiveChart.SeriesCollection(2).XValues = LM1
+    'ActiveSheet.Shapes("Chart 1").IncrementLeft -58.5
+'    With ActiveChart.Parent
+'        .Top = Range("B71").Top
+'        .Left = Range("B71").Left
+'    End With
+'    With ActiveChart
+'        .Axes(xlCategory, xlPrimary).HasTitle = True
+'        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Loudness in dB SPL"
+'        .Axes(xlValue, xlPrimary).HasTitle = True
+'        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Percentage of Patients"
+'    End With
+    'insert pic
+    'oWS.Range("B62").Select
+    'ActiveSheet.Pictures.Insert("C:\TinData\axis1.JPG").Select
+    'With Selection.ShapeRange
+    '   .Top = Range("B60").Top + 2
+    '   .Left = Range("B60").Left + 34
+    '   .Height = Application.InchesToPoints(0.36)
+    '   .Width = Application.InchesToPoints(2.97)
+    'End With
+'    oWS.Range("E86").Value = "Figure 2"
+'    oWS.Range("E86").Select
+'    Selection.Font.Italic = True
+'    Selection.Font.Size = 10
+
+
+'plot Loudness Match - New Plot - based on 1khz level match (created Jan 2011):
+'enter text:
+
+    oWS.Range("A68").Value = text1(30)
+    oWS.Range("A69").Value = text1(31)
+    oWS.Range("A70").Value = text1(32)
+    oWS.Range("A71").Value = text1(33)
+    oWS.Range("A72").Value = text1(34)
+    'first, we have have to calculate where to put users' loudness in the plot:
+    Select Case LM1
+        Case Is < 10
+            LMP = 1
+        Case Is <= 20
+            LMP = 2
+        Case Is <= 30
+            LMP = 3
+        Case Is <= 40
+            LMP = 4
+        Case Is <= 50
+            LMP = 5
+        Case Is <= 60
+            LMP = 6
+        Case Is > 60
+            LMP = 7
+    End Select
+    oWS.Range("A73:G73").Select
+    ActiveSheet.Shapes.AddChart.Select
+    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$73:$G$73")
+    ActiveChart.ChartType = xlColumnClustered
+    'ActiveChart.Axes(xlValue).MajorGridlines.Select
+    'ActiveSheet.ChartObjects("Chart 3").Activate
+    
+    ActiveChart.SeriesCollection(1).Values = "={0.152777778,0.236111111,0.236111111,0.180555556,0.111111111,0.041666667,0.041666667}"
+    ActiveChart.SeriesCollection(1).Name = "=""Groupe de R�f�rence"""
+    'ActiveChart.SeriesCollection(1).XValues = "={1,2,3,4,5,6,7,8,9,10}"
+    ActiveChart.SeriesCollection(1).XValues = "={""<10"",""11-20"",""21-30"",""31-40"",""41-50"",""51-60"","">60""}"
+    ActiveChart.HasTitle = True
+    ActiveChart.ChartTitle.Text = "Le Volume correspondant � Votre Acouph�ne"
+    ActiveChart.ChartTitle.Font.SIZE = 14
+    
+    ActiveChart.SeriesCollection.NewSeries
+    ActiveChart.SeriesCollection(2).Name = "=""Votre Volume"""
+    ActiveChart.SeriesCollection(2).Values = "={.17}"
+    ActiveChart.SeriesCollection(2).ChartType = xlXYScatter
+    ActiveChart.SeriesCollection(2).XValues = LMP
+    'ActiveSheet.Shapes("Chart 1").IncrementLeft -58.5
+    With ActiveChart.Parent
+        .Top = Range("B75").Top
+        .Left = Range("B75").Left
+    End With
+    With ActiveChart
+        .Axes(xlCategory, xlPrimary).HasTitle = True
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Volume en dB SL"
+        .Axes(xlValue, xlPrimary).HasTitle = True
+        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Pourcentage de patients"
+    End With
+    'insert pic
+    'oWS.Range("B62").Select
+    'ActiveSheet.Pictures.Insert("C:\TinData\axis1.JPG").Select
+    'With Selection.ShapeRange
+    '   .Top = Range("B60").Top + 2
+    '   .Left = Range("B60").Left + 34
+    '   .Height = Application.InchesToPoints(0.36)
+    '   .Width = Application.InchesToPoints(2.97)
+    'End With
+    oWS.Range("E90").Value = "Figure 2"
+    oWS.Range("E90").Select
+    Selection.Font.Italic = True
+    Selection.Font.SIZE = 10
+
+
+    'SECTION 2
+    oWS.Range("A94").Value = "(2) LE SPECTRE DE VOTRE ACOUPH�NE"
+    oWS.Range("A94").Select
+    Selection.Font.Bold = True
+    Selection.Font.SIZE = 12
+    Selection.Font.Underline = xlUnderlineStyleSingle
+    oWS.Range("A96").Value = text1(35)
+    oWS.Range("A97").Value = text1(36)
+    oWS.Range("A98").Value = text1(37)
+    oWS.Range("A99").Value = text1(38)
+    oWS.Range("A100").Value = text1(39)
+    'oWS.Range("A101").Value = text1(40)
+    
+    oWS.Range("A102").Value = text1(41)
+    oWS.Range("A103").Value = text1(42)
+    
+    'PLOT LIKENESS
+    'first, calculate users avg likeness values:
+    For x11 = 1 To 11 Step 1
+        TnSp(x11) = (CInt(txtPitchMatchT1(x11 - 1).Text) + CInt(txtPitchMatchT2(x11 - 1).Text) + CInt(txtPitchMatchT3(x11 - 1).Text)) / 3
+        If TnSp(x11) < 0 Then TnSp(x11) = 0 'just in case there are some -101 codes
+    Next x11
+    ActiveSheet.Shapes.AddChart.Select
+    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$105:$K$105")
+    ActiveChart.ChartType = xlColumnClustered
+    ActiveChart.SeriesCollection(1).Values = "={15,21.8,31.9,42.5,45.7,56.5,58.4,54.5,54,54.3,29.8}"
+    ActiveChart.SeriesCollection(1).XValues = "={.5,1,2,3,4,5,6,7,8,10,12}"
+    ActiveChart.SeriesCollection(1).Name = "=""Grp de R�f�rence"""
+    ActiveChart.SeriesCollection(1).ChartType = xlXYScatterLines
+    ActiveChart.HasTitle = True
+    ActiveChart.ChartTitle.Text = "Le Spectre de l'Acouph�ne"
+    With ActiveChart
+        .Axes(xlCategory, xlPrimary).HasTitle = True
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Fr�quence (kHz)"
+        .Axes(xlValue, xlPrimary).HasTitle = True
+        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Ressemblance acouph�nes"
+    End With
+    ActiveChart.SeriesCollection.NewSeries
+    ActiveChart.SeriesCollection(2).Name = "=""Votre Spectre"""
+    'ActiveChart.SeriesCollection(2).Values = "={5,   10,  40,  48,  65,  85,  90,  95,  70,  42,  12}"
+    ActiveChart.SeriesCollection(2).Values = TnSp
+    ActiveChart.SeriesCollection(2).ChartType = xlXYScatterLines
+    ActiveChart.SeriesCollection(2).XValues = "={.5,1,2,3,4,5,6,7,8,10,12}"
+    ActiveChart.Axes(xlCategory).MaximumScale = 13
+    ActiveChart.Axes(xlCategory).MinimumScale = 0
+    ActiveChart.Axes(xlCategory).MajorUnit = 1
+    With ActiveChart.Parent
+        .Top = Range("B107").Top
+        .Left = Range("B107").Left
+    End With
+    oWS.Range("E122").Value = "Figure 3"
+    oWS.Range("E122").Select
+    Selection.Font.Italic = True
+    Selection.Font.SIZE = 10
+    'PLOT LIKENESS
+    
+    
+'RI data
+    oWS.Range("A124").Value = "(3) L'INHIBITION R�SIDUELLE"
+    oWS.Range("A124").Select
+    Selection.Font.Bold = True
+    Selection.Font.SIZE = 12
+    Selection.Font.Underline = xlUnderlineStyleSingle
+    
+    
+    'INSERT TEXT HERE
+    oWS.Range("A126").Value = text1(43)
+    oWS.Range("A127").Value = text1(44)
+    oWS.Range("A128").Value = text1(45)
+    oWS.Range("A129").Value = text1(46)
+    
+    oWS.Range("A131").Value = text1(47)
+    oWS.Range("A132").Value = text1(48)
+    oWS.Range("A133").Value = text1(49)
+    oWS.Range("A134").Value = text1(50)
+    
+    oWS.Range("A140").Value = text1(51)
+    oWS.Range("A141").Value = text1(52)
+    oWS.Range("A142").Value = text1(53)
+    oWS.Range("A143").Value = text1(54)
+    oWS.Range("A144").Value = text1(55)
+    oWS.Range("A145").Value = text1(56)
+    oWS.Range("A146").Value = text1(57)
+    oWS.Range("A147").Value = text1(58)
+    oWS.Range("A148").Value = text1(59)
+    oWS.Range("A149").Value = text1(60)
+    oWS.Range("A150").Value = text1(61)
+    oWS.Range("A151").Value = text1(62)
+    oWS.Range("A152").Value = text1(63)
+    oWS.Range("A153").Value = text1(64)
+
+    
+    'Plot RI Data
+    ActiveSheet.Shapes.AddChart.Select
+    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$154:$K$154")
+    ActiveChart.ChartType = xlColumnClustered
+    ActiveChart.SeriesCollection(1).Values = "={0, 0.021276596, 0,0.063829787,0.085106383,0.085106383,0.276595745,0.14893617,0.063829787,0.170212766,0.085106383}"
+    'ActiveChart.SeriesCollection(1).XValues = "={1,2,3,4,5,6,7,8,9,10,11}"
+    ActiveChart.SeriesCollection(1).XValues = "={""5"",""4"",""3"",""2"",""1"",""0"",""-1"",""-2"",""-3"",""-4"",""-5""}"
+    ActiveChart.SeriesCollection(1).Name = "=""Grp de R�f."""
+    ActiveChart.SeriesCollection(1).ChartType = xlColumnClustered
+    ActiveChart.HasTitle = True
+    ActiveChart.ChartTitle.Text = "L'Inhibition R�siduelle"
+    With ActiveChart
+        .Axes(xlCategory, xlPrimary).HasTitle = True
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "L'Inhibition R�siduelle"
+        .Axes(xlValue, xlPrimary).HasTitle = True
+        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Pourcentage de patients"
+    End With
+    ActiveChart.SeriesCollection.NewSeries
+    ActiveChart.SeriesCollection(2).Name = "=""Votre IR"""
+    ActiveChart.SeriesCollection(2).Values = "{.215}"
+    ActiveChart.SeriesCollection(2).ChartType = xlXYScatter
+    ActiveChart.SeriesCollection(2).XValues = (6 - RI5) 'user input
+    'ActiveSheet.Shapes("Chart 1").IncrementLeft -58.5
+    With ActiveChart.Parent
+        .Top = Range("B155").Top
+        .Left = Range("B155").Left
+    End With
+    Set ThisLine = ActiveChart.Shapes.AddLine(165, 25, 165, 38) 'expression.AddLine(BeginX, BeginY, EndX, EndY)
+    With ThisLine.Line
+        .BackColor.RGB = 0
+        .ForeColor.RGB = 0
+        .Weight = 2
+    End With
+    
+    Set ThisLine = ActiveChart.Shapes.AddLine(80, 30, 55, 30) 'expression.AddLine(BeginX, BeginY, EndX, EndY)
+    With ThisLine.Line
+        .BeginArrowheadStyle = 1 'none
+        .EndArrowheadStyle = 2 'triangle
+
+        .BackColor.RGB = 0
+        .ForeColor.RGB = 0
+        .Weight = 1
+    End With
+    Set ThisLine = ActiveChart.Shapes.AddLine(260, 30, 285, 30) 'expression.AddLine(BeginX, BeginY, EndX, EndY)
+    With ThisLine.Line
+        .BeginArrowheadStyle = 1
+        .EndArrowheadStyle = 2 'msoArrowheadTriangle
+
+        .BackColor.RGB = 0
+        .ForeColor.RGB = 0
+        .Weight = 1
+    End With
+
+    With ActiveChart
+        .Axes(xlCategory, xlPrimary).HasTitle = True
+        .Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "Changement dans les acouph�nes"
+        .Axes(xlValue, xlPrimary).HasTitle = True
+        .Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Pourcentage de patients"
+    End With
+    'add textbox with caption "Louder"
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 78, 20, 100, 10) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Acouph�nes Plus Fort"
+    ThisLine.Select
+        With Selection
+            .Font.SIZE = 8
+        End With
+    Set ThisLine = ActiveChart.Shapes.AddTextbox(1, 165, 20, 100, 10) 'msoTextOrientationHorizontal = 1
+    ThisLine.DrawingObject.Text = "Acouph�nes Plus Doux"
+    ThisLine.Select
+        With Selection
+            .Font.SIZE = 8
+        End With
+    
+    oWS.Range("E170").Value = "Figure 4"
+    oWS.Range("E170").Select
+    Selection.Font.Italic = True
+    Selection.Font.SIZE = 10
+    
+'Final Comment
+    oWS.Range("A172").Value = "(4) UN DERNIER COMMENTAIRE"
+    oWS.Range("A172").Select
+    Selection.Font.Bold = True
+    Selection.Font.SIZE = 12
+    Selection.Font.Underline = xlUnderlineStyleSingle
+    
+    'INSERT TEXT HERE
+    oWS.Range("A173").Value = text1(65)
+    oWS.Range("A174").Value = text1(66)
+    oWS.Range("A176").Value = text1(67)
+    
+    oWS.Range("A177").Value = text1(68)
+    oWS.Range("A178").Value = text1(69)
+    oWS.Range("A179").Value = text1(70)
+    oWS.Range("A180").Value = text1(71)
+    oWS.Range("A181").Value = text1(72)
+    oWS.Range("A182").Value = text1(73)
+    oWS.Range("A183").Value = text1(74)
+    oWS.Range("A184").Value = text1(75)
+    
+    oWS.Range("A185") = text1(76)
+    oWS.Range("A185").Select
+    Selection.Font.Italic = True
+    Selection.Font.SIZE = 8
+    
+Cleanup:
+    ActiveWorkbook.SaveAs FileName:=(WorkingDir & "\TinnitusReport_F.xlsx"), FileFormat:= _
+        xlOpenXMLWorkbook, CreateBackup:=False
+    Set oWS = Nothing
+    If Not oWB Is Nothing Then oWB.Close
+    Set oWB = Nothing
+    
+    oExcel.Quit
+    Set oExcel = Nothing
+End Sub
+
+
 Private Sub CheckLicense()
+
 End Sub
 
 ' Clears old data from the form controls.
